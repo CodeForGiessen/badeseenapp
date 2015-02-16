@@ -59,3 +59,14 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.propertie
+
+.sass-cache
+node_modules/**
+plugins/**
+.DS_Store
+build/**
+dist/**
+test/coverage/**
+**.swp
+npm-debug.log
+.tern-project
