@@ -1,12 +1,13 @@
 /* Empty. Add your own CSS if you like */
-.km-position {
-position: absolute;
-top: 10%;
-margin-bottom: 50px;
-left: 15px;
+.info-position {
+	position: absolute;
+	top: 35%;
+	right: 15px;
 };
 .temp-position {
-	position: absolute;
+	position: inherit;
 	top: 10%;
-	left: 35px;
+	left: 15%;
+	/*font-family: fantasy;*/
+	color: #009900;
 };
