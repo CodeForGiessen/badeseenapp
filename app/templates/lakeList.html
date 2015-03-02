@@ -3,7 +3,7 @@
 <ion-content class="has-header">
 
 <ion-list can-swipe=true>
-	<ion-item>
+	<!--<ion-item>
 		<span class="temp-position">7 Km 26°C</span>
 		<p class="h3 dark">Dutenhofener See</p>	
 		<i class="badge badge-assertive">2</i>
@@ -11,9 +11,14 @@
 	<ion-item>
 		<span class="temp-position">8 Km 26°C</span>		
 		<p class="h3 dark">Heuchelheimer See</p>
-		<!-- <a class="icon-right">
+		<a class="icon-right">
 		<i class="icon ion-happy"></i>
-		</a> -->
+		</a>
+	</ion-item>-->
+	<ion-item ng-repeat='lake in lakes' ng-click=openModal(lake)>
+		<span class="temp-position">7 Km {{lake.measurements[0].waterTemperature}}°C</span>
+		<p class="h3 dark">{{lake.name}}</p>
+		<i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>
 	</ion-item>
 </ion-list>
 </ion-content>

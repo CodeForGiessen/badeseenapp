@@ -35,7 +35,7 @@ angular.module('badeseenApp', ['ionic'])
     views: {
       'list-tab': {
         templateUrl: 'templates/lakeList.html',
-        //controller: 'LakeListController as llCtrl'
+        controller: 'LakeListController as llCtrl'
       }
     }
   })
