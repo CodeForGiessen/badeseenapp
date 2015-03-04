@@ -39,10 +39,9 @@
 				</div>
     		</div>
 		</ion-content>
-		<div class="bar bar-footer bar-balanced">
-			<div>
-				Jahr:{{lake.yearratings[0].year}}
-				Rating:{{lake.yearratings[0].rating}}
+		<div class="bar bar-footer">
+			<div class="button-bar">
+				<a class="button button-balanced" ng-repeat='yearrating in lake.yearratings'>{{yearrating.year}}</a>
 			</div>
 		</div>
 	</ion-modal-view>
