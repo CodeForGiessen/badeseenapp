@@ -1,9 +1,9 @@
 <ion-view title="BadeseeApp">
 <ion-content class="has-header">
 
-<div class="list card" ng-repeat="lake in lakes">
+<div class="list card" ng-repeat="lake in favorites">
   <div class="item item-avatar item-positive" style="background-color: gray">
-    <img src="images/csm_Heuchelheimer_See_2_04_580514afdf.jpg">
+    <img src="{{lake.images[0].src}}">
     <h2>{{lake.name}}</h2>
     <p style="color: #96561E">Badesaison: {{lake.openFrom}} - {{lake.openTo}}</p>
   </div>
@@ -14,11 +14,10 @@
     </p>
     <p>
       <a href="#" class="subdued">1 Like</a>
-      <a href="#" class="subdued">5 Comments</a>
     </p>
   </div>
  </div>
- <div class="card" ng-hide="dbCtrl.lakes.length">
+ <div class="card" ng-hide="favorites.length">
             <div class="item item-text-wrap">
                 <p>Keine Favoriten vorhanden</p>
                 <button class="button button-block ion-plus button-light"
