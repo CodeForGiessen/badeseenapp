@@ -1,13 +1,13 @@
 /* Empty. Add your own CSS if you like */
-.info-position {
+.badge .info-position {
 	position: absolute;
-	top: 35%;
+	top: 85%;
 	right: 15px;
 };
 .temp-position {
 	position: inherit;
 	top: 10%;
 	left: 15%;
-	/*font-family: fantasy;*/
-	color: #009900;
+	font-family: fantasy;
+	font-color: green;
 };

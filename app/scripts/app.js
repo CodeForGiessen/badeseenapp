@@ -39,6 +39,38 @@ angular.module('badeseenApp', ['ionic'])
       }
     }
   })
+  /*.state ('menu', {
+    url: '/menu',
+    abstract: true,
+    templateUrl: 'templates/menu.html'
+  })
+  .state('menu.dash', {
+    url: 'dash',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/dashboard.html',
+        controller: 'DashboardController as dbCtrl'
+      }
+    }
+  })
+  .state('menu.map', {
+    url: 'menu.map',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/lakeMap.html',
+        controller: 'LakeMapController as lmCtrl'
+      }
+    }
+  })
+  .state('menu.list', {
+    url: 'menu.list',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/lakeList.html',
+        controller: 'LakeListController as llCtrl'
+      }
+    }
+  })*/
   $urlRouterProvider.otherwise("/tab/dashboard");
   $ionicConfigProvider.tabs.position('top');
 })
