@@ -46,7 +46,7 @@
 			<div class="button-bar">
 				<a class="button button-outline" 
 				ng-repeat='yearrating in lake.yearratings'
-				ng-class="{'button-balanced':yearrating.rating==1,'button-energized':yearrating.rating==2,'button-assertive':yearrating.rating==3}">{{yearrating.year}}</a>
+				ng-class="{'button-balanced':yearrating.rating==1||yearrating.rating==2,'button-energized':yearrating.rating==3||yearrating.rating==4,'button-assertive':yearrating.rating==5||yearrating.rating==6}">{{yearrating.year}}</a>
 			</div>
 		</div>
 	</ion-modal-view>

@@ -1,7 +1,17 @@
 <ion-view title="BadeseeApp">
 <ion-content class="has-header">
-<div class="card">
-        <!--<leaflet center="center" defaults="defaults" markers="markers" event-broadcast="events"></leaflet>-->
-</div>
+<!--
+        <leaflet center="center" defaults="defaults" markers="markers" event-broadcast="events"></leaflet>
+
+        <div class="card">
+		<img src={{map}}>
+	</div>
+-->
+<div></div>
+<script>
+L.mapbox.accessToken = 'pk.eyJ1IjoianNtdCIsImEiOiJaLW5zeG1RIn0.q9e1XGqv4JrtSCnz-fJBAg';
+       	var map = L.mapbox.map('map','jsmt.lcdcnbf3');
+</script>
+
 </ion-content>
 </ion-view>
