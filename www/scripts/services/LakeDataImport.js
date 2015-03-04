@@ -4,9 +4,6 @@ Factory LakeDataImport pulls the required data for every lake from the backend a
 'use strict';
 angular.module('badeseenApp').factory('LakeDataImport',
 	function () {
-<<<<<<< HEAD
-
-=======
 		var service = {
 			getData: function () {
 				var lakes = [{
@@ -166,5 +163,4 @@ angular.module('badeseenApp').factory('LakeDataImport',
 		};
 
 		return service;
->>>>>>> b4c0e12fa6c6090a5d46273ddbaa359d88b5327a
 	})

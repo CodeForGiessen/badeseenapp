@@ -5,8 +5,6 @@ Factory LakeData pulls the data for every lake from the localStorage, parses it 
 angular.module('badeseenApp').factory('LakeData', 
 	function () {
 	
-<<<<<<< HEAD
-=======
 	var service = {
 		getAll: function () {
 			var lakes = [];
@@ -23,5 +21,4 @@ angular.module('badeseenApp').factory('LakeData',
 	};
 
 	return service;
->>>>>>> b4c0e12fa6c6090a5d46273ddbaa359d88b5327a
 })

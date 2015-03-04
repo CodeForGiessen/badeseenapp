@@ -1,13 +1,15 @@
 /* Empty. Add your own CSS if you like */
-.badge .info-position {
-	position: absolute;
-	top: 85%;
-	right: 15px;
-};
-.temp-position {
+.info {
 	position: inherit;
 	top: 10%;
-	left: 15%;
-	font-family: fantasy;
-	font-color: green;
+	/*left: 15%;*/
+	font-family: Hawaii 5-0, sans-serif;
+	color: #96561E;
+};
+.list .card .fav {
+	background-color: red;
+};
+.fontColor {
+	font-family: Hawaii 5-0, sans-serif;
+	color: #96561E;
 };

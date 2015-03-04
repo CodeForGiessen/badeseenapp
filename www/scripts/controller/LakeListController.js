@@ -1,9 +1,5 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-<<<<<<< HEAD
-	function () {
-		
-=======
 	function ($scope, $ionicModal, LakeDataImport, LakeData) {
 		LakeDataImport.getData();
 		$scope.lakes = LakeData.getAll();
@@ -17,5 +13,4 @@ angular.module('badeseenApp').controller('LakeListController',
 			$scope.modal.show();
 			$scope.lake = lake;
 		}
->>>>>>> b4c0e12fa6c6090a5d46273ddbaa359d88b5327a
 	})
