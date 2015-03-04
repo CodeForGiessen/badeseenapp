@@ -17,7 +17,7 @@ angular.module('badeseenApp', ['ionic'])
     views: {
       'dash-tab': {
         templateUrl: 'templates/dashboard.html',
-        //controller: 'DashboardController as dbCtrl'
+        controller: 'DashboardController as dbCtrl'
       }
     }
   })
@@ -26,7 +26,7 @@ angular.module('badeseenApp', ['ionic'])
     views: {
       'map-tab': {
         templateUrl: 'templates/lakeMap.html',
-        //controller: 'LakeMapController as lmCtrl'
+        controller: 'LakeMapController as lmCtrl'
       }
     }
   })
