@@ -39,7 +39,7 @@ angular.module('badeseenApp').factory('LakeDataImport',
             					},
             					{
                 				"year": "2012",
-                				"rating": 1
+                				"rating": 3
             					},
             					{
                					"year": "2013",
