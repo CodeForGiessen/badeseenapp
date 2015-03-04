@@ -1,10 +1,6 @@
 "use strict";
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, LakeData, LakeDataImport) {
-		LakeDataImport.getData();
-		$scope.lakes = LakeData.getAll();
-
-		/*addFavorite= function(){
-
-		};*/
+	function ($scope, LakeDataFavorite, FavData) {
+		LakeDataFavorite.getData();
+    	$scope.favorites = FavData.getAll();  
 	});
