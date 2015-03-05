@@ -1,4 +1,4 @@
-// Generated on 2015-02-16 using generator-ionic 0.7.0
+// Generated on 2015-03-05 using generator-ionic 0.7.0
 'use strict';
 
 var _ = require('lodash');
@@ -71,9 +71,9 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js'],
         tasks: ['newer:copy:app', 'newer:jshint:all']
       },
-      styles: {
-        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.css'],
-        tasks: ['newer:copy:styles', 'autoprefixer', 'newer:copy:tmp']
+      compass: {
+        files: ['<%= yeoman.app %>/<%= yeoman.styles %>/**/*.{scss,sass}'],
+        tasks: ['compass:server', 'autoprefixer', 'newer:copy:tmp']
       },
       gruntfile: {
         files: ['Gruntfile.js'],
@@ -154,9 +154,42 @@ module.exports = function (grunt) {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//
+      },
+      sass: {
+        src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        ignorePath: /(\.\.\/){1,2}lib\//
       }
     },
 
+    
+    // Compiles Sass to CSS and generates necessary files if requested
+    compass: {
+      options: {
+        sassDir: '<%= yeoman.app %>/<%= yeoman.styles %>',
+        cssDir: '.temp/<%= yeoman.styles %>',
+        generatedImagesDir: '.temp/<%= yeoman.images %>/generated',
+        imagesDir: '<%= yeoman.app %>/<%= yeoman.images %>',
+        javascriptsDir: '<%= yeoman.app %>/<%= yeoman.scripts %>',
+        fontsDir: '<%= yeoman.app %>/<%= yeoman.styles %>/fonts',
+        importPath: '<%= yeoman.app %>/bower_components',
+        httpImagesPath: '/<%= yeoman.images %>',
+        httpGeneratedImagesPath: '/<%= yeoman.images %>/generated',
+        httpFontsPath: '/<%= yeoman.styles %>/fonts',
+        relativeAssets: false,
+        assetCacheBuster: false,
+        raw: 'Sass::Script::Number.precision = 10\n'
+      },
+      dist: {
+        options: {
+          generatedImagesDir: '<%= yeoman.dist %>/<%= yeoman.images %>/generated'
+        }
+      },
+      server: {
+        options: {
+          debugInfo: true
+        }
+      }
+    },
     
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
@@ -276,16 +309,19 @@ module.exports = function (grunt) {
         }
       },
       server: [
+        'compass:server',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
       ],
       test: [
+        'compass',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
       ],
       dist: [
+        'compass:dist',
         'copy:styles',
         'copy:vendor',
         'copy:fonts'
@@ -318,50 +354,6 @@ module.exports = function (grunt) {
     //   dist: {}
     // },
 
-    // Test settings
-    // These will override any config options in karma.conf.js if you create it.
-    karma: {
-      options: {
-        basePath: '',
-        frameworks: ['mocha', 'chai'],
-        files: [
-          '<%= yeoman.app %>/bower_components/angular/angular.js',
-          '<%= yeoman.app %>/bower_components/angular-mocks/angular-mocks.js',
-          '<%= yeoman.app %>/bower_components/angular-animate/angular-animate.js',
-          '<%= yeoman.app %>/bower_components/angular-sanitize/angular-sanitize.js',
-          '<%= yeoman.app %>/bower_components/angular-ui-router/release/angular-ui-router.js',
-          '<%= yeoman.app %>/bower_components/ionic/release/js/ionic.js',
-          '<%= yeoman.app %>/bower_components/ionic/release/js/ionic-angular.js',
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js',
-          '<%= yeoman.test %>/mock/**/*.js',
-          '<%= yeoman.test %>/spec/**/*.js'
-        ],
-        autoWatch: false,
-        reporters: ['dots', 'coverage'],
-        port: 8080,
-        singleRun: false,
-        preprocessors: {
-          // Update this if you change the yeoman config path
-          '<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js': ['coverage']
-        },
-        coverageReporter: {
-          reporters: [
-            { type: 'html', dir: 'coverage/' },
-            { type: 'text-summary' }
-          ]
-        }
-      },
-      unit: {
-        // Change this to 'Chrome', 'Firefox', etc. Note that you will need
-        // to install a karma launcher plugin for browsers other than Chrome.
-        browsers: ['PhantomJS'],
-        background: true
-      },
-      continuous: {
-        browsers: ['PhantomJS'],
-        singleRun: true,
-      }
-    },
 
     // ngAnnotate tries to make the code safe for minification automatically by
     // using the Angular long form for dependency injection.
@@ -434,17 +426,6 @@ module.exports = function (grunt) {
     return grunt.task.run(['watch']);
   });
 
-  // Dynamically configure `karma` target of `watch` task so that
-  // we don't have to run the karma test server as part of `grunt serve`
-  grunt.registerTask('watch:karma', function () {
-    var karma = {
-      files: ['<%= yeoman.app %>/<%= yeoman.scripts %>/**/*.js', '<%= yeoman.test %>/spec/**/*.js'],
-      tasks: ['newer:jshint:test', 'karma:unit:run']
-    };
-    grunt.config.set('watch', karma);
-    return grunt.task.run(['watch']);
-  });
-
   // Wrap ionic-cli commands
   grunt.registerTask('ionic', function() {
     var done = this.async();
@@ -461,9 +442,7 @@ module.exports = function (grunt) {
     'wiredep',
     'clean',
     'concurrent:test',
-    'autoprefixer',
-    'karma:unit:start',
-    'watch:karma'
+    'autoprefixer'
   ]);
 
   grunt.registerTask('serve', function (target) {
@@ -513,15 +492,9 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
-  grunt.registerTask('coverage', 
-    ['karma:continuous',
-    'connect:coverage:keepalive'
-  ]);
-
   grunt.registerTask('default', [
     'wiredep',
     'newer:jshint',
-    'karma:continuous',
     'compress'
   ]);
 };

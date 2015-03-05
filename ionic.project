@@ -1,12 +1,4 @@
 {
-  "name": "badeseenapp",
-  "app_id": "",
-  "gulpStartupTasks": [
-    "sass",
-    "watch"
-  ],
-  "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
-  ]
+  "name": "badeseenapp_new",
+  "app_id": ""
 }

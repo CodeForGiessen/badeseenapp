@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+    <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
@@ -8,9 +8,12 @@
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css" />
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <link href="styles/style.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="styles/ionic.app.css" rel="stylesheet">
@@ -26,6 +29,9 @@
     <script src="bower_components/ionic/release/js/ionic.js"></script>
     <script src="bower_components/ionic/release/js/ionic-angular.js"></script>
     <script src="bower_components/ngCordova/dist/ng-cordova.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -36,8 +42,7 @@
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/configuration.js"></script>
-
-    <!-- Controller -->
+     <!-- Controller -->
     <script src="scripts/controller/DashboardController.js"></script>
     <script src="scripts/controller/LakeMapController.js"></script>
     <script src="scripts/controller/LakeListController.js"></script>  
@@ -48,12 +53,11 @@
 
     <script src="scripts/services/FavData.js"></script>
     <script src="scripts/services/LakeDataFavorite.js"></script>
-
     <!-- endbuild -->
   </head>
   <body ng-app="badeseenApp">
-  <ion-nav-bar class="bar-positive">
-  </ion-nav-bar>
-  <ion-nav-view animation="slide-left-right"></ion-nav-view>
+    <ion-nav-bar class="bar-positive">
+    </ion-nav-bar>
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
   </body>
 </html>

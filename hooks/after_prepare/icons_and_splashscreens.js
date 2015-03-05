@@ -20,7 +20,7 @@ var Orchestrator = require('orchestrator');
 
 var BASES = {
   android: 'res',
-  ios: 'Badeseenapp/Resources'
+  ios: 'BadeseenappNew/Resources'
 };
 var RESOURCE_DIR = 'resources';
 

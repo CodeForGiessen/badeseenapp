@@ -3,16 +3,18 @@ Factory LakeData pulls the data for every lake from the localStorage, parses it 
 */
 'use strict';
 angular.module('badeseenApp').factory('LakeData', 
-	function () {
+	function ($q) {
 	
 	var service = {
 		getAll: function () {
+			var deferred = $q.defer();
 			var lakes = [];
 			lakes = localStorage.getItem('lakes');
 			if(lakes){
 				lakes = JSON.parse(lakes);
 			}
-			return lakes;
+			deferred.resolve(lakes);
+			return deferred.promise;
 		},
 		getById: function (id) {
 
@@ -21,4 +23,4 @@ angular.module('badeseenApp').factory('LakeData',
 	};
 
 	return service;
-})
+});
