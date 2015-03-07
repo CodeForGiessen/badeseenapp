@@ -11,5 +11,12 @@ angular.module('badeseenApp').controller('DashboardController',
         })
         .catch(function(){
             //TODO handle
-        });  
+        }); 
+        $scope.addFavorite = function (lakeID) {
+
+        };
+
+        $scope.removeFavorite = function (lakeID) {
+
+        }; 
 	});
