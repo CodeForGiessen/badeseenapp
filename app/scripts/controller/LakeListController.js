@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeDataImport, LakeData) {
+	function ($scope, $ionicModal, LakeDataImport, LakeData, LakeModal) {
 		LakeDataImport.getData();
 		$scope.lakes = [];
 		LakeData.getAll()
@@ -8,19 +8,10 @@ angular.module('badeseenApp').controller('LakeListController',
 			$scope.lakes = lakes;
 		})
 		.catch(function(){
-			//handle error
+			//TODO handle
 		});
 
-		$ionicModal.fromTemplateUrl('templates/lakeModal.html', {
-			scope: $scope,
-			animation: 'slide-in-up'
-		})
-		.then(function (modal) {
-			$scope.modal = modal;
-		});
-
-		$scope.openModal = function (lake) {
-			$scope.modal.show();
-			$scope.lake = lake;
+		$scope.openModal = function (id) {
+			LakeModal.openModal(id);
 		};
 	});
