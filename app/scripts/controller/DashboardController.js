@@ -16,4 +16,12 @@ angular.module('badeseenApp').controller('DashboardController',
 			$scope.modal.show();
 			$scope.lake = lake;
 		};
+
+		$scope.addFavorite = function (lakeID) {
+
+		};
+
+		$scope.removeFavorite = function (lakeID) {
+
+		};
 	});
