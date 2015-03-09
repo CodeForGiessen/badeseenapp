@@ -40,14 +40,24 @@
     		</div>
 		</ion-content>
 		<div class="bar bar-footer bar-stable">
-			<div>
-			Einstufung der EU
+			<div class="rating">
+			Wasserqualität
 			</div>
-			<div class="button-bar">
-				<a class="button button-outline" 
-				ng-repeat='yearrating in lake.yearratings'
-				ng-class="{'button-balanced':yearrating.rating==1||yearrating.rating==2,'button-energized':yearrating.rating==3||yearrating.rating==4,'button-assertive':yearrating.rating==5||yearrating.rating==6}">{{yearrating.year}}</a>
-			</div>
+				<div class="animate-switch-container" ng-switch on="ratingClicked0">
+
+					<a class="button button-outline  animate-switch" ng-class="{'button-balanced':lake.yearratings[0].rating==1||lake.yearratings[0].rating==2,'button-energized':lake.yearratings[0].rating==3||lake.yearratings[0].rating==4,'button-assertive':lake.yearratings[0].rating==5||lake.yearratings[0].rating==6}" ng-switch-default ng-click="switchRating(0)">{{lake.yearratings[0].year}}</a>
+
+					<a class="button button-outline animate-switch" ng-class="{'button-balanced':rating[0]=='Ausgezeichnet'||rating[0]=='Gut','button-energized':rating[0]=='Ausreichend'||rating[0]=='Mangelhaft','button-assertive':rating[0]=='Baden verboten'||rating[0]=='Baden abgeraten'}" ng-switch-when="true"  ng-click="switchRating(0)">{{rating[0]}}</a>
+				</div>
+				<div class="animate-switch-container" ng-switch on="ratingClicked1">
+					<a class="button button-outline animate-switch" ng-switch-default ng-class="{'button-balanced':lake.yearratings[1].rating==1||lake.yearratings[1].rating==2,'button-energized':lake.yearratings[1].rating==3||lake.yearratings[1].rating==4,'button-assertive':lake.yearratings[1].rating==5||lake.yearratings[1].rating==6}"  ng-click="switchRating(1)">{{lake.yearratings[1].year}}</a>
+					<a class="button button-outline animate-switch" ng-class="{'button-balanced':rating[1]=='Ausgezeichnet'||rating[1]=='Gut','button-energized':rating[1]=='Ausreichend'||rating[1]=='Mangelhaft','button-assertive':rating[1]=='Baden verboten'||rating[1]=='Baden abgeraten'}" ng-switch-when="true"  ng-click="switchRating(1)">{{rating[1]}}</a>
+
+				</div>
+				<div class="animate-switch-container" ng-switch on="ratingClicked2">
+					<a class="button button-outline animate-switch" ng-switch-default ng-class="{'button-balanced':lake.yearratings[2].rating==1||lake.yearratings[2].rating==2,'button-energized':lake.yearratings[2].rating==3||lake.yearratings[2].rating==4,'button-assertive':lake.yearratings[2].rating==5||lake.yearratings[2].rating==6}"  ng-click="switchRating(2)">{{lake.yearratings[2].year}}</a>
+					<a class="button button-outline animate-switch" ng-class="{'button-balanced':rating[2]=='Ausgezeichnet'||rating[2]=='Gut','button-energized':rating[2]=='Ausreichend'||rating[2]=='Mangelhaft','button-assertive':rating[2]=='Baden verboten'||rating[2]=='Baden abgeraten'}" ng-switch-when="true"  ng-click="switchRating(2)">{{rating[2]}}</a>
+				</div>
 		</div>
 	</ion-modal-view>
 </body>
