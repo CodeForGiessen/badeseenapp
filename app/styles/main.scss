@@ -10,6 +10,50 @@
     font-family: Hawaii 5-0, sans-serif;
     color: #96561E;
 };
+.rating {
+    font-family: Hawaii 5-0, sans-serif;
+    color: #707070;
+    //margin-right: 3px;
+    width:100%;
+};
+
+/**
+ * For switch animation
+ */
+
+.animate-switch-container {
+  position:relative;
+//  background:white;
+//  border:1px solid black;
+  height:40px;
+  width:100%;
+  overflow:hidden;
+}
+
+.animate-switch {
+  //padding:10px;
+  width:100%;
+}
+
+.animate-switch.ng-animate {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.animate-switch.ng-leave.ng-leave-active,
+.animate-switch.ng-enter {
+  top:-50px;
+}
+.animate-switch.ng-leave,
+.animate-switch.ng-enter.ng-enter-active {
+  top:0;
+}
 
 /**
  * lakeMap.html
