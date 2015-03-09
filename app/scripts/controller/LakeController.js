@@ -1,6 +1,7 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData) {
+	function ($scope, $stateParams, LakeData, $ionicHistory) {
+        console.log($ionicHistory.viewHistory());
 		var id = $stateParams.id;
 		$scope.lake = {};
 		$scope.center ={

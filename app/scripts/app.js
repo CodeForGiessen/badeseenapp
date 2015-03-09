@@ -3,10 +3,9 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive'])
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider){
     $stateProvider
     .state('intro', {
-        url: '/',
+        url: '/intro',
         controller: 'IntroController as iCtrl'
     })
-
     .state('tabs', {
         url: '/tab',
         abstract: true,
@@ -49,7 +48,7 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive'])
         templateUrl: 'templates/lake.html',
         controller: 'LakeController as lCtrl'
     }); 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/intro');
     $ionicConfigProvider.tabs.position('top');
     })
     .run(function($ionicPlatform) {
