@@ -49,7 +49,7 @@ angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http',
 
 		var _rebuildCache = function(){
 			var deferred = $q.defer();
-			$http.get(lakesUrl)
+			$http.get(lakesUrl + '/all')
 			.then(function(response){
 				var lakes = response.data.lakes;
 				var allLakes ={};
