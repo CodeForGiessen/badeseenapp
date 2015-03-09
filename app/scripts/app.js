@@ -1,7 +1,11 @@
 'use strict';
-angular.module('badeseenApp', ['ionic', 'leaflet-directive'])
+angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'angular-data.DSCacheFactory'])
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider){
     $stateProvider
+    .state('intro', {
+        url: '/',
+        controller: 'IntroController as iCtrl'
+    })
     .state('tabs', {
         url: '/tab',
         abstract: true,
@@ -68,16 +72,16 @@ angular.module('badeseenApp', ['ionic', 'leaflet-directive'])
     //         }
     //     }
     // });
-$urlRouterProvider.otherwise('/tab/dashboard');
-$ionicConfigProvider.tabs.position('top');
-})
-.run(function($ionicPlatform) {
-    $ionicPlatform.ready(function() {
-        if(window.cordova && window.cordova.plugins.Keyboard) {
-            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        }
-        if(window.StatusBar) {
-            StatusBar.styleDefault();
-        }
-    });
+    $urlRouterProvider.otherwise('/');
+    $ionicConfigProvider.tabs.position('top');
+    })
+    .run(function($ionicPlatform) {
+        $ionicPlatform.ready(function() {
+            if(window.cordova && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if(window.StatusBar) {
+                StatusBar.styleDefault();
+            }
+        });
 });

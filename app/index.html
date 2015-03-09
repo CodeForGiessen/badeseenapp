@@ -32,6 +32,9 @@
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="bower_components/angular-cache/dist/angular-cache.js"></script>
+    <script src="bower_components/js-data/dist/js-data.js"></script>
+    <script src="bower_components/angular-data/dist/js-data-angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -42,17 +45,17 @@
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/configuration.js"></script>
-     <!-- Controller -->
+    <!-- Controller -->
+    <script src="scripts/controller/IntroController.js"></script>
     <script src="scripts/controller/DashboardController.js"></script>
     <script src="scripts/controller/LakeMapController.js"></script>
     <script src="scripts/controller/LakeListController.js"></script>  
     <!-- Services -->  
     <script src="scripts/services/LakeData.js"></script>
     <script src="scripts/services/LakeDataImport.js"></script>
-    <script src="scripts/services/model/Lake.js"></script>
+    <script src="scripts/services/modal/Lake.js"></script>
 
     <script src="scripts/services/FavData.js"></script>
-    <script src="scripts/services/LakeDataFavorite.js"></script>
     <!-- endbuild -->
   </head>
   <body ng-app="badeseenApp">

@@ -1,4 +1,7 @@
 <ion-view title="BadeseeApp">
+<ion-nav-buttons side="right">
+<button class="button button-icon icon ion-ios7-plus-outline" ng-click="dbCtrl.addFavorite()"></button>
+</ion-nav-buttons>
 <ion-content class="has-header">
 
 <div class="list card" ng-repeat="lake in favorites">
@@ -13,9 +16,14 @@
       {{lake.introtext}}
     </p>
     <p>
-      <a href="#" class="subdued">1 Like</a>
+      <a href="#" class="subdued">{{lake.measurements[0].waterTemperature}} Like(s)</a>
     </p>
   </div>
+  <ion-footer-bar class="bar-stable">
+        <div class="button-bar">
+            <button class="button button-clear" ng-click="openModal(lake)">Mehr Informationen</button>
+        </div>
+    </ion-footer-bar>
  </div>
  <div class="card" ng-hide="favorites.length">
             <div class="item item-text-wrap">
