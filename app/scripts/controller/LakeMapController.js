@@ -10,7 +10,7 @@ angular.module('badeseenApp').controller('LakeMapController',
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileLayerOptions: {
-                attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_blank\');return false;">OpenStreetMap</a>',
                 detectRetina: true,
                 reuseTiles: true,
             }
@@ -41,6 +41,10 @@ angular.module('badeseenApp').controller('LakeMapController',
                 markers[item._id] = marker;
             });
             $scope.markers=markers;
+            leafletData.getMap()
+            .then(function(map){
+                map.invalidateSize(false);
+            });
         })
         .catch(function(err){
             //TODO Handle

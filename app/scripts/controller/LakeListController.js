@@ -1,7 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeDataImport, LakeData, LakeModal) {
-		LakeDataImport.getData();
+	function ($scope, $ionicModal, LakeData, LakeModal) {
 		$scope.lakes = [];
 		LakeData.getAll()
 		.then(function(lakes){

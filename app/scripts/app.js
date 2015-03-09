@@ -1,11 +1,12 @@
 'use strict';
-angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'angular-data.DSCacheFactory'])
+angular.module('badeseenApp', ['ionic','config', 'leaflet-directive'])
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider){
     $stateProvider
     .state('intro', {
         url: '/',
         controller: 'IntroController as iCtrl'
     })
+
     .state('tabs', {
         url: '/tab',
         abstract: true,
@@ -37,41 +38,17 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'angular-d
                 controller: 'LakeListController as llCtrl'
             }
         }
-    });
-
-    //
-    // .state ('menu', {
-    //     url: '/menu',
-    //     abstract: true,
-    //     templateUrl: 'templates/menu.html'
-    // })
-    // .state('menu.dash', {
-    //     url: 'dash',
-    //     views: {
-    //         'menuContent': {
-    //             templateUrl: 'templates/dashboard.html',
-    //             controller: 'DashboardController as dbCtrl'
-    //         }
-    //     }
-    // })
-    // .state('menu.map', {
-    //     url: 'menu.map',
-    //     views: {
-    //         'menuContent': {
-    //             templateUrl: 'templates/lakeMap.html',
-    //             controller: 'LakeMapController as lmCtrl'
-    //         }
-    //     }
-    // })
-    // .state('menu.list', {
-    //     url: 'menu.list',
-    //     views: {
-    //         'menuContent': {
-    //             templateUrl: 'templates/lakeList.html',
-    //             controller: 'LakeListController as llCtrl'
-    //         }
-    //     }
-    // });
+    })
+    .state('lakes', {
+        url: '/lakes',
+        abstract: true,
+        templateUrl: 'templates/lakemenu.html'
+    })    
+    .state('lakes.single', {
+        url: '/:id',
+        templateUrl: 'templates/lake.html',
+        controller: 'LakeController as lCtrl'
+    }); 
     $urlRouterProvider.otherwise('/');
     $ionicConfigProvider.tabs.position('top');
     })
