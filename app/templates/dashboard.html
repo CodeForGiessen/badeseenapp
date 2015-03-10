@@ -1,4 +1,4 @@
-<ion-view title="BadeseeApp">
+<ion-view title="Favoriten">
 <ion-nav-buttons side="right">
 <button class="button button-icon icon ion-ios7-plus-outline" ng-click="dbCtrl.addFavorite()"></button>
 </ion-nav-buttons>
@@ -6,7 +6,7 @@
 
 <div class="list card" ng-repeat="lake in favorites">
   <div class="item item-avatar item-positive" style="background-color: gray">
-    <img src="{{lake.images[0].src}}">
+    <img ng-src="{{lake.images[0].src}}">
     <h2>{{lake.name}}</h2>
     <p style="color: #96561E">Badesaison: {{lake.openFrom}} - {{lake.openTo}}</p>
   </div>

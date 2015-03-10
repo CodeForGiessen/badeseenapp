@@ -1,6 +1,6 @@
-<ion-view title="BadeseeApp">
+<ion-view title="Liste">
 <ion-content class="has-header">
-<ion-list can-swipe=true>
+<ion-list>
 	<!--<ion-item>
 		<span class="temp-position">7 Km 26°C</span>
 		<p class="h3 dark">Dutenhofener See</p>	
@@ -13,7 +13,8 @@
 		<i class="icon ion-happy"></i>
 		</a>
 	</ion-item>-->
-	<ion-item ng-repeat='lake in lakes' ng-click=openModal(lake)>
+	<!-- <ion-item ng-repeat='lake in lakes' ng-click=openModal(lake._id)> -->
+	<ion-item ng-repeat='lake in lakes' ng-href="#/lakes/{{lake._id}}">
 		<span class="info">7 Km {{lake.measurements[0].waterTemperature}}°C</span>
 		<p class="h3 dark">{{lake.name}}</p>
 		<i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>

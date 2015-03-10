@@ -10,106 +10,176 @@
     font-family: Hawaii 5-0, sans-serif;
     color: #96561E;
 };
-
-/**
- * For map
- */
-.scroll, .angular-leaflet-map {
-    height: 100%;
+.rating {
+    font-family: Hawaii 5-0, sans-serif;
+    color: #707070;
+    //margin-right: 3px;
+    width:100%;
 };
 
+/**
+ * For switch animation
+ */
+
+.animate-switch-container {
+  position:relative;
+//  background:white;
+//  border:1px solid black;
+  height:40px;
+  width:100%;
+  overflow:hidden;
+}
+
+.animate-switch {
+  //padding:10px;
+  width:100%;
+}
+
+.animate-switch.ng-animate {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.animate-switch.ng-leave.ng-leave-active,
+.animate-switch.ng-enter {
+  top:-50px;
+}
+.animate-switch.ng-leave,
+.animate-switch.ng-enter.ng-enter-active {
+  top:0;
+}
+
+/**
+ * lakeMap.html
+ */
+.lakemap{
+    .scroll, .angular-leaflet-map {
+        height: 100%;
+    }
+    height: 100%;      
+}
+
+
+
 //tabslides.css
-.tabbed-slidebox .slider {
-    height: 100%;
-}
-.tabbed-slidebox.btm .slider {
-    margin-bottom: -50px;
-}
-.tabbed-slidebox .slider-slides {
+// .tabbed-slidebox .slider {
+//     height: 100%;
+// }
+// .tabbed-slidebox.btm .slider {
+//     margin-bottom: -50px;
+// }
+// .tabbed-slidebox .slider-slides {
+//     width: 100%;
+// }
+
+// .tabbed-slidebox .slider-slide {
+//     padding-top: 0px;
+//     color: #000;
+//     background-color: #fff;
+//     text-align: center;
+//     font-weight: 300;
+//     background-color: #0398dc;
+// }
+
+// .tabbed-slidebox .tsb-icons {
+//     text-align: center;
+//     margin: 10px 0;
+//     position: relative;
+//     background-color:#fff;
+// }
+
+// .tabbed-slidebox .tsb-ic-wrp {
+//     display: flex;
+//     position: relative;
+//     -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
+//     -webkit-transform:translate3d(0,0,0);
+// }
+
+// .tabbed-slidebox .tsb-icons a {
+//     display: inline-block;
+//     width: 54px;
+//     font-size: 2.5em;
+//     color: rgba(0, 0, 0, 0.3);
+//     -webkit-transform:translate3d(0,8px,0);
+// }
+
+// .tabbed-slidebox .tsb-icons a.active {
+//     color: rgba(0, 0, 0, 1);
+//     font-size: 3.5em;
+//     -webkit-transform:translate3d(0,0,0);
+// }
+
+// .tabbed-slidebox .tabbed-slidebox {
+//     position: relative;
+//     height: 100%;
+//     overflow: hidden;
+// }
+
+// .tabbed-slidebox .tsb-icons:after {
+//     width: 0;
+//     height: 0;
+//     border-style: solid;
+//     border-width: 0 1.4em 1.4em 1.4em;
+//     border-color: transparent transparent #0398dc transparent;
+//     position: absolute;
+//     content: "";
+//     display: block;
+//     bottom: -12px;
+//     left: 50%;
+//     margin-left: -14px;
+// }
+// .tsb-hscroll.scroll-view{
+//     white-space: nowrap;
+//     margin:0 auto;
+// }
+// .tsb-hscroll.scroll-view .scroll-bar{
+//     visibility:hidden;
+// }
+// .tsb-hscroll.scroll-view .scroll.onscroll{
+//     -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
+// }
+
+// .tabbed-slidebox .tsb-icons .scroll a{
+//     width:auto;
+//     font-size: 1.5em;
+//     line-height: 1.5em;
+//     text-decoration: none;
+//     margin: 0 15px;
+//     border-bottom: 3px solid transparent;
+// }
+// .tabbed-slidebox .tsb-icons .scroll a.active {
+//     font-size: 1.8em;
+//     border-bottom: 3px solid #ccc;
+// }
+
+
+/**
+ * lake.html
+ */
+
+
+
+.slider-parent{
     width: 100%;
-}
-
-.tabbed-slidebox .slider-slide {
-    padding-top: 0px;
-    color: #000;
-    background-color: #fff;
-    text-align: center;
-    font-weight: 300;
-    background-color: #0398dc;
-}
-
-.tabbed-slidebox .tsb-icons {
-    text-align: center;
-    margin: 10px 0;
+    padding-bottom: 56%;
     position: relative;
-    background-color:#fff;
-}
+    .slider-child {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 100%;
+        .angular-leaflet-map {
+                height: 100%;
+        }
+    }
 
-.tabbed-slidebox .tsb-ic-wrp {
-    display: flex;
-    position: relative;
-    -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
-    -webkit-transform:translate3d(0,0,0);
 }
-
-.tabbed-slidebox .tsb-icons a {
-    display: inline-block;
-    width: 54px;
-    font-size: 2.5em;
-    color: rgba(0, 0, 0, 0.3);
-    -webkit-transform:translate3d(0,8px,0);
-}
-
-.tabbed-slidebox .tsb-icons a.active {
-    color: rgba(0, 0, 0, 1);
-    font-size: 3.5em;
-    -webkit-transform:translate3d(0,0,0);
-}
-
-.tabbed-slidebox .tabbed-slidebox {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-}
-
-.tabbed-slidebox .tsb-icons:after {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 1.4em 1.4em 1.4em;
-    border-color: transparent transparent #0398dc transparent;
-    position: absolute;
-    content: "";
-    display: block;
-    bottom: -12px;
-    left: 50%;
-    margin-left: -14px;
-}
-.tsb-hscroll.scroll-view{
-    white-space: nowrap;
-    margin:0 auto;
-}
-.tsb-hscroll.scroll-view .scroll-bar{
-    visibility:hidden;
-}
-.tsb-hscroll.scroll-view .scroll.onscroll{
-    -webkit-transition: -webkit-transform 0.3s; /* For Safari 3.1 to 6.0 */
-}
-
-.tabbed-slidebox .tsb-icons .scroll a{
-    width:auto;
-    font-size: 1.5em;
-    line-height: 1.5em;
-    text-decoration: none;
-    margin: 0 15px;
-    border-bottom: 3px solid transparent;
-}
-.tabbed-slidebox .tsb-icons .scroll a.active {
-    font-size: 1.8em;
-    border-bottom: 3px solid #ccc;
-}
-
-
-
 
 

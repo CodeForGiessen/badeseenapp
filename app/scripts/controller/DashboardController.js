@@ -1,27 +1,22 @@
-"use strict";
+'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, LakeDataFavorite, FavData, $ionicModal) {
-		LakeDataFavorite.getData();
-    	$scope.favorites = FavData.getAll();  
+	function ($scope, FavData, LakeData,$q) {
+    	$scope.favorites = [];
+        var lakeIds = FavData.getAll();
+        $q.all(lakeIds.map(function(id){
+            return LakeData.getById(id);
+        }))
+        .then(function(lakes){
+            $scope.favorites = lakes;
+        })
+        .catch(function(){
+            //TODO handle
+        }); 
+        $scope.addFavorite = function (lakeID) {
 
-    	$ionicModal.fromTemplateUrl('templates/lakeModal.html', {
-			scope: $scope,
-			animation: 'slide-in-up'
-		})
-		.then(function (modal) {
-			$scope.modal = modal;
-		});
+        };
 
-		$scope.openModal = function (lake) {
-			$scope.modal.show();
-			$scope.lake = lake;
-		};
+        $scope.removeFavorite = function (lakeID) {
 
-		$scope.addFavorite = function (lakeID) {
-
-		};
-
-		$scope.removeFavorite = function (lakeID) {
-
-		};
+        }; 
 	});

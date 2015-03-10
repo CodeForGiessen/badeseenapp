@@ -1,5 +1,5 @@
 {
-  "name": "BadeseenappNew",
+  "name": "Badeseenapp",
   "version": "0.0.0",
   "private": true,
   "dependencies": {},
@@ -52,7 +52,6 @@
     "com.ionic.keyboard",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
-    "org.apache.cordova.console",
-    "com.ionic.keyboard"
+    "org.apache.cordova.console"
   ]
 }
