@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData) {
 		$scope.lakes = [];
 		LakeData.getAll()
 		.then(function(lakes){
@@ -45,5 +45,9 @@ angular.module('badeseenApp').controller('LakeListController',
 					}
 					break;
 			}
+		}
+
+		$scope.addFavorite = function (id) {
+			FavData.add(id);
 		}
 	});

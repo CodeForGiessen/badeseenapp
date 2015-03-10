@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, FavData, LakeData,$q) {
+	function ($scope, FavData, LakeData, $q, $state) {
     	$scope.favorites = [];
         var lakeIds = FavData.getAll();
         $q.all(lakeIds.map(function(id){
@@ -12,8 +12,8 @@ angular.module('badeseenApp').controller('DashboardController',
         .catch(function(){
             //TODO handle
         }); 
-        $scope.addFavorite = function (lakeID) {
-
+        $scope.goToLakeList = function () {
+            $state.go ('tabs.lakeList')
         };
 
         $scope.removeFavorite = function (lakeID) {

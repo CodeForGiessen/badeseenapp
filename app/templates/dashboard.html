@@ -1,6 +1,6 @@
 <ion-view title="Favoriten">
 <ion-nav-buttons side="right">
-<button class="button button-icon icon ion-ios7-plus-outline" ng-click="dbCtrl.addFavorite()"></button>
+<button class="button button-icon icon ion-ios7-star-outline" ng-click="goToLakeList()"></button>
 </ion-nav-buttons>
 <ion-content class="has-header">
 
@@ -29,7 +29,7 @@
             <div class="item item-text-wrap">
                 <p>Keine Favoriten vorhanden</p>
                 <button class="button button-block ion-plus button-light"
-                        ng-click="dbCtrl.addFavorite()">Favoriten
+                        ng-click="goToLakeList()">Favoriten
                     anlegen
                 </button>
             </div>

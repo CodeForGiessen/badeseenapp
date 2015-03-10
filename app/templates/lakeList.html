@@ -14,10 +14,11 @@
 		</a>
 	</ion-item>-->
 	<!-- <ion-item ng-repeat='lake in lakes' ng-click=openModal(lake._id)> -->
-	<ion-item ng-repeat='lake in lakes' ng-href="#/lakes/{{lake._id}}">
-		<span class="info">7 Km {{lake.measurements[0].waterTemperature}}°C</span>
+	<ion-item ng-repeat='lake in lakes' ng-href="#/lakes/{{lake._id}}" class="item item-icon-right">
+		<span class="info">7 Km {{lake.measurements[0].waterTemperature}} °C</span>
 		<p class="h3 dark">{{lake.name}}</p>
 		<i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>
+		<button class="button icon ion-ios7-star-half" ng-click="addFavorite()"></button>
 	</ion-item>
 </ion-list>
 </ion-content>
