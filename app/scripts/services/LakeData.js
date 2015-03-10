@@ -107,7 +107,7 @@ angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http',
 			/**
 			 * [getById Returns a lake by id]
 			 * @param {[String]} id [LakeId]
-			 * @return {[QPromise]} [QPromise. Gets resolved with the lake or undefined if no lake with this id exists. Gets rejected if cache is not ready AND request for new data failed.]
+			 * @return {[QPromise]} [QPromise. Gets resolved with the lake or undefined if no lake with this id exists. ]
 			 */
 			getById: getById
 
