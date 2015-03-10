@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, $ionicHistory) {
+	function ($scope, $stateParams, LakeData, WeatherData, $ionicHistory) {
         console.log($ionicHistory.viewHistory());
 		var id = $stateParams.id;
 		$scope.lake = {};
@@ -42,14 +42,22 @@ angular.module('badeseenApp').controller('LakeController',
                     lng: lng
         		}
         	};
-        	
-
-
-
 		})
 		.catch(function(){
 			//TODO handle
 		});
+
+        WeatherData.getById(id)
+        .then(function(weatherdata){
+            $scope.weatherdata = weatherdata;
+        })
+        .catch(function(){
+            //TODO handle
+        });
+
+        $scope.getWeatherIconUrl = function(iconId){
+            return 'http://openweathermap.org/img/w/' + iconId + '.png';
+        };
 		
 
 	});

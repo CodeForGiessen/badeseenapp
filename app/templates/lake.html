@@ -23,5 +23,35 @@
                 </p>
             </div>
         </div>
+        <div class="list card">
+            <div class="item item-body">
+            <!-- https://github.com/jianwu-github/ionic-openweather-app/blob/master/www/views/weather.html -->
+                <div class="item item-thumbnail-left">
+                    <img ng-src="{{getWeatherIconUrl(weatherdata.current.weather[0].icon)}}" />
+                    <h1>{{weatherdata.current.weather[0].main}}</h1>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-thermometer"></i>
+                    <h2>Current Temperature: {{weatherdata.current.temp}}&deg;</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-thermometer"></i>
+                    <h2>Today's High: {{weatherdata.current.temp_max}}&deg;</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-thermometer"></i>
+                    <h2>Today's Low: {{weatherdata.current.temp_min}}&deg;</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-waterdrop"></i>
+                    <h2>Humidity: {{weatherdata.current.humidity}}%</h2>
+                </div>
+                <div class="item item-icon-left">
+                    <i class="icon ion-shuffle"></i>
+                    <h2>Wind: {{weatherdata.current.wind.speed}}kmh</h2>
+                </div>
+            </div>
+            {{weatherdata}}
+        </div>
     </ion-content>
 </ion-view>

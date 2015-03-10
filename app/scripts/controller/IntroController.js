@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('IntroController',
-    function ($state, $ionicLoading, LakeData, FavData, $ionicPopup) {
+    function ($state, $ionicLoading, LakeData, FavData, WeatherData, $ionicPopup, $q) {
         var testData = true;
         var resetApp = true;
 
@@ -30,7 +30,12 @@ angular.module('badeseenApp').controller('IntroController',
             $ionicLoading.show({
                 template: 'loading'
             });
-            return LakeData.prepareCache()
+
+            return $q.all([
+                LakeData.prepareCache(),
+                WeatherData.prepareCache()
+            ])
+            .then()
                 .then(function(){
                     return addTestData();
                 })
