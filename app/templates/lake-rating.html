@@ -1,12 +1,12 @@
  <button class="button rating-panel" ng-class="buttonclass">
     <div class="content">
-        <p>
-            <i class="fa indicator" ng-class="icon"></i>
-        </p>
-        <p>
-            <i class="fa star" ng-class="{'fa-star': stars >= 1, 'fa-star-o' : stars < 1}"></i>
-            <i class="fa star" ng-class="{'fa-star': stars >= 2, 'fa-star-o' : stars < 2}"></i>
-            <i class="fa star" ng-class="{'fa-star': stars>= 3, 'fa-star-o' : stars < 3}"></i>
-        </p>
+        <div class="indicator">
+            <i class="fa" ng-class="icon"></i>
+        </div>
+        <div class="star">
+            <i class="fa" ng-class="{'fa-star': stars >= 1, 'fa-star-o' : stars < 1}"></i>
+            <i class="fa" ng-class="{'fa-star': stars >= 2, 'fa-star-o' : stars < 2}"></i>
+            <i class="fa" ng-class="{'fa-star': stars>= 3, 'fa-star-o' : stars < 3}"></i>
+        </div>
     </div> 
 </button>

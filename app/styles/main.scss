@@ -185,10 +185,10 @@
 /**
  * Rating panel
  */
-$panelsize: 200px;
+$ratingpanelsize: 150px;
 .rating-panel{
-    height:  $panelsize;
-    width:  $panelsize;
+    height:  $ratingpanelsize;
+    width:  $ratingpanelsize;
     position: relative;
     &:before {
         content: "";
@@ -196,9 +196,6 @@ $panelsize: 200px;
         padding-top: 100%;
     }
     .content {
-        p {
-            margin: 0;
-        }
         position:  absolute;
         top: 0;
         left: 0;
@@ -206,12 +203,59 @@ $panelsize: 200px;
         right: 0;
         text-align: center;
         .indicator{
-            font-size:  #{($panelsize * 0.7)};
+            position: absolute;
+            width: 100%;
+            top: #{($ratingpanelsize * 0.05)};
+            font-size:  #{($ratingpanelsize * 0.65)};
+            line-height:  #{($ratingpanelsize * 0.65)};
             color: white;
         }
         .star{
-            font-size:  #{($panelsize * 0.28)};
+            position: absolute;
+            width: 100%;
+            bottom: #{($ratingpanelsize * 0.05)};
+            font-size:  #{($ratingpanelsize * 0.25)};
+            line-height:  #{($ratingpanelsize * 0.25)};
             color: white;
+        }
+    }
+}
+
+/**
+ * Weather panel
+ */
+$weatherpanelsize: 150px;
+.weather-panel{
+    background-color: white;
+    height:  $weatherpanelsize;
+    width:  $weatherpanelsize;
+    position: relative;
+    &:before {
+        content: "";
+        display: block;
+        padding-top: 100%;
+    }
+    .content {        
+       
+        position:  absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        text-align: center;
+        .top{
+            position: absolute;
+            width: 100%;
+            top: #{($weatherpanelsize * 0.05)};
+            font-size: #{($weatherpanelsize * 0.55)};
+            line-height: #{($weatherpanelsize * 0.55)};
+            // margin-bottom: 10px;
+        }
+        .bottom{
+            position: absolute;
+            width: 100%;
+            bottom: #{($weatherpanelsize * 0.05)};
+            font-size: #{($weatherpanelsize * 0.3)};
         }
     }
 }

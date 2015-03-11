@@ -46,7 +46,6 @@ angular.module('badeseenApp').directive('lakeRating', [function () {
             rating: '=rating'
         },
         link: function (scope, element, attrs) {
-            element.removeAttr('lake-rating');
             scope.$watch('rating', function(value){
                 if(value){
                     var newRating = getRating(value);
