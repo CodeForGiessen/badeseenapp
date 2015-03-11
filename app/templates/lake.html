@@ -15,10 +15,14 @@
                 <ion-slide>
                     <leaflet class="box" center="center" defaults="defaults" markers="markers"></leaflet>
                 </ion-slide>
-                <ion-slide ng-repeat="image in lake.images">
-                    <img class="full-image" ng-src="{{image.src}}"\> 
+                <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
                 </ion-slide>
             </ion-slide-box>
+        </div>
+        <div class="list card">
+            <div class="item item-body">
+                <lake-rating rating="rating"></lake-rating>
+            </div>
         </div>
         <div class="list card">
             <div class="item item-body">
