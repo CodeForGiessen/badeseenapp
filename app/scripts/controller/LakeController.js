@@ -1,8 +1,9 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData, $ionicHistory) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, $ionicHistory, $q) {
         console.log($ionicHistory.viewHistory());
 		var id = $stateParams.id;
+        console.log('state:' + id);
 		$scope.lake = {};
 		$scope.center ={
 			'lat': 50.583732,
@@ -24,40 +25,44 @@ angular.module('badeseenApp').controller('LakeController',
             zoomControl: false,
         };
 		$scope.markers = {};
+        $scope.isFav = FavData.isFav(id);
 
-		LakeData.getById(id)
-		.then(function(lake){
-			var lat = parseFloat(lake.latitude);
-			var lng = parseFloat(lake.longitude);
+        $q.all([
+            LakeData.getById(id),
+            WeatherData.getById(id)
+            ])
+        .then(function(res){
+            var lake = res[0];
+            var weatherdata = res[1];
+            console.log(res);
+            var lat = parseFloat(lake.latitude);
+            var lng = parseFloat(lake.longitude);
 
-			$scope.lake = lake;
-			$scope.center ={
-           		'lat': lat,
-            	'lng': lng,
-            	'zoom': 15
-        	};
-        	$scope.markers = {
-        		'marker': {
-        			lat: lat,
+            $scope.lake = lake;
+            $scope.center ={
+                'lat': lat,
+                'lng': lng,
+                'zoom': 15
+            };
+            $scope.markers = {
+                'marker': {
+                    lat: lat,
                     lng: lng
-        		}
-        	};
-		})
-		.catch(function(){
-			//TODO handle
-		});
-
-        WeatherData.getById(id)
-        .then(function(weatherdata){
+                }
+            };
             $scope.weatherdata = weatherdata;
         })
-        .catch(function(){
+        .catch(function(err){
             //TODO handle
+            console.log(err);
         });
 
         $scope.getWeatherIconUrl = function(iconId){
             return 'http://openweathermap.org/img/w/' + iconId + '.png';
         };
-		
 
+        $scope.toogleFav = function(){
+            $scope.isFav = FavData.toogleFav(id);
+            console.log($scope.isFav);
+        };
 	});

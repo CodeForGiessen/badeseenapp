@@ -33,10 +33,12 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 					var cacheRebuildPromise = _rebuildCache();
 					cacheRebuildPromise
 					.then(function(){
-							return allWeatherMemorycache.data;
+						return allWeatherMemorycache.data;
 					});
 					deferred.resolve(cacheRebuildPromise);
 				}
+			}else{
+				deferred.resolve(allWeatherMemorycache.data);
 			}
 			return deferred.promise;
 		};
@@ -103,7 +105,6 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 			 * @return {[QPromise]} [QPromise. Gets resolved with the lake or undefined if no lake with this id exists. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
 			 */
 			getById: getById
-
 		};
 
 
