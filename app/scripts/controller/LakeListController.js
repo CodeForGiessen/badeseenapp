@@ -47,7 +47,17 @@ angular.module('badeseenApp').controller('LakeListController',
 			}
 		}
 
-		$scope.addFavorite = function (id) {
-			FavData.add(id);
-		}
+		this.searchActive = false;
+		
+        if (localStorage.getItem('saveQuery')) {
+            this.searchActive = true;
+            this.searchQuery = JSON.parse(localStorage.getItem('saveQuery'));
+            localStorage.removeItem('saveQuery');
+        }
+        this.toggleSearch = function () {
+            if (this.searchActive) {
+                this.searchQuery = '';
+            }
+            this.searchActive = !this.searchActive;
+        };
 	});
