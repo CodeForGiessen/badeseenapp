@@ -18,34 +18,36 @@ angular.module('badeseenApp').controller('LakeListController',
 		$scope.ratingClicked0 = 'false';
 		$scope.ratingClicked1 = 'false';
 		$scope.ratingClicked2 = 'false';
+		
+		this.searchQuery = '';
 
 		$scope.switchRating = function (i) {
 			//console.log('switch!');
 			console.log($scope.rating);
 			switch(i){
 				case 0 : 
-					if($scope.ratingClicked0 == 'false'){
+					if($scope.ratingClicked0 === 'false'){
 						$scope.ratingClicked0 = 'true';
 					} else {
 						$scope.ratingClicked0 = 'false';
 					}
 					break;
 				case 1 :
-					if($scope.ratingClicked1 == 'false'){
+					if($scope.ratingClicked1 === 'false'){
 						$scope.ratingClicked1 = 'true';
 					} else {
 						$scope.ratingClicked1 = 'false';
 					}
 					break;
 				case 2 :
-					if($scope.ratingClicked2 == 'false'){
+					if($scope.ratingClicked2 === 'false'){
 						$scope.ratingClicked2 = 'true';
 					} else {
 						$scope.ratingClicked2 = 'false';
 					}
 					break;
 			}
-		}
+		};
 
 		this.searchActive = false;
 		
