@@ -24,48 +24,6 @@ angular.module('badeseenApp').controller('LakeController',
         };
 		$scope.markers = {};
         $scope.isFav = FavData.isFav(id);
-
-        function getRating(lake){
-            var lastRating = LakeUtils.getLatestYearRating(lake);
-            var stars = 0;
-            var icon = 'fa-question';
-            var divclass = 'button-calm';
-            switch(lastRating.rating){
-                case 1:
-                    stars = 3;
-                    icon = 'fa-smile-o';
-                    divclass = 'button-balanced';
-                    
-                break;
-                case 2:
-                    stars = 2;
-                    icon = 'fa-smile-o';
-                    divclass = 'button-balanced';
-                break;
-                case 3:
-                    stars = 1;
-                    icon = 'fa-meh-o';                    
-                    divclass = 'button-energized';
-                break;
-                case 4:
-                    icon = 'fa-frown-o';
-                    stars = 0;
-                    divclass = 'button-energized';
-                    break;
-                case 5:
-                case 6:
-                    stars = 0;
-                    icon = 'fa-ban';
-                    divclass = 'button-assertive';
-                break;
-            }
-            return {
-                icon: icon,
-                stars: stars,
-                class: divclass,
-            };
-        }
-
         $q.all([
             LakeData.getById(id),
             WeatherData.getById(id)

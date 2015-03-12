@@ -15,12 +15,12 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
             scope.onResize = function(){
                 var panelsize = element.width();
                 element.find('.top').css({
-                    // 'top': panelsize * 0.05,
+                    'top': panelsize * 0.05 + 'px',
                     'font-size':  panelsize * 0.55 + 'px',
                     'line-height':  panelsize * 0.55 + 'px'
                 });
                 element.find('.bottom').css({
-                    // 'bottom': panelsize * 0.05,
+                    'bottom': panelsize * 0.05 + 'px',
                     'font-size':  panelsize * 0.25 + 'px',
                     'line-height':  panelsize * 0.25 + 'px'
                 });
@@ -31,7 +31,6 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
             });
             scope.$watch('weatherdata', function(value){
                 if(value){
-                    console.log(value);
                     scope.weather = value[scope.data];
                     var iconId = scope.weather.weather[0].icon;
                     scope.weathericon = WeatherData.getWeatherIconClassById(iconId);

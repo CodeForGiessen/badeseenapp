@@ -11,7 +11,18 @@ angular.module('badeseenApp').factory('LakeUtils',
 		};
 
 		var service = {
-			getLatestYearRating: getLatestYearRating
+			getLatestYearRating: getLatestYearRating,
+			getRatingByYear: function(lake,year){
+				var yearString = year.toString();
+				for(var i in lake.yearratings){
+					var ele = lake.yearratings[i];
+					if(ele.year === yearString){
+						return ele;
+					}
+				}
+				return;
+			}
+
 		};
 
 

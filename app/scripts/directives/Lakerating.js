@@ -1,5 +1,5 @@
 'use strict';
-angular.module('badeseenApp').directive('lakeRating', ['$window',function ($window) {
+angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 'LakeUtils',function ($window,RatingModal, LakeUtils) {
     function getRating(rating){
         var stars = 0;
         var icon = 'fa-question';
@@ -43,33 +43,58 @@ angular.module('badeseenApp').directive('lakeRating', ['$window',function ($wind
         templateUrl: 'templates/lake-rating.html',
         restrict: 'E',
         scope: {
-            rating: '=rating'
+            year: '=year',
+            lake: '=lake'
         },
         link: function (scope, element, attrs) {
+            if(attrs.notClickable === ''){
+                scope.notClickable = true;
+            }
+
             scope.onResize = function(){
                 var panelsize = element.width();
                 element.find('.indicator').css({
-                    // 'top': panelsize * 0.025 + 'px',
+                    'top': panelsize * 0.05 + 'px',
                     'font-size':  panelsize * 0.65 + 'px',
                     'line-height':  panelsize * 0.65 + 'px'
                 });
                 element.find('.star').css({
-                    // 'bottom': panelsize * 0.025 + 'px',
+                    'bottom': panelsize * 0.05 + 'px',
                     'font-size':  panelsize * 0.25 + 'px',
                     'line-height':  panelsize * 0.25 + 'px'
                 });
             };
-
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
 
-            scope.$watch('rating', function(value){
-                if(value){
-                    var newRating = getRating(value);
+            scope.$watch(function() { return element.is(':visible'); }, function() {
+                scope.onResize();
+            });
+
+            var changed = function(){
+                if(scope.lake){
+                    var rating;
+                    if(!scope.year){
+                        rating = LakeUtils.getLatestYearRating(scope.lake);
+                    }else{
+                        rating = LakeUtils.getRatingByYear(scope.lake,scope.year);
+                    }
+                    var newRating = getRating(rating);
                     angular.extend(scope,newRating);
                 }
-            });
+            };
+
+            scope.$watch('lake',changed);
+            scope.$watch('year', changed);
+
+            scope.openModal = function(){
+                if(scope.lake && !scope.notClickable){
+                    RatingModal.openModal(scope.lake._id);
+                }
+            };
+
+
             scope.onResize();
         }
     };

@@ -1,0 +1,31 @@
+<html>
+<body>
+	<ion-modal-view>
+		<div class="bar bar-header bar-positive">
+			<h1 class="title">{{lake.name}}</h1>
+			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
+		</div>
+		<ion-content class="has-header has-footer rating-modal">
+			<div class="card list" ng-repeat="rating in lake.yearratings | orderBy:'-year'">
+				<div class="item item-divider">
+					<strong>{{rating.year}}</strong>
+				</div>
+				<div class="item item-body item-text-wrap row row-center">
+					<div class="col-10">
+						<lake-rating lake="lake" year="rating.year" not-clickable></lake-rating>
+					</div>
+					<div class="col-10" ng-show="showEu">
+						<img class="euimage" ng-src="images/seeeinstufung/{{rating.rating}}.png"\>
+					</div>
+					<div class="col-90 text">
+						{{ratingToString(rating.rating)}}	
+					</div>
+   				</div>
+			</div>
+		<button class="button button-block button-positive" ng-click="switchIcons()">
+  			{{iconButtonSwitchText}}
+		</button>
+		</ion-content>
+	</ion-modal-view>
+</body>
+</html>
