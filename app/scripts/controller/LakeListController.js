@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet) {
 		$scope.lakes = [];
 		LakeData.getAll()
 		.then(function(lakes){
@@ -62,4 +62,19 @@ angular.module('badeseenApp').controller('LakeListController',
             }
             this.searchActive = !this.searchActive;
         };
+
+        $scope.show = function (){
+        	var hideSheet = $ionicActionSheet.show({
+        		buttons: [{
+        			text: 'Entfernung'},
+        			{text: 'Rating'
+        		}],
+        		//destructiveText: 'Filter anwenden',
+        		titleText: 'Filter anwenden',
+        		cancelText: 'Abbrechen',
+        		cancel: function(){
+        			//todo
+        		}
+        	});
+        }
 	});
