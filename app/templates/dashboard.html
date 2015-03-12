@@ -2,8 +2,7 @@
 <ion-nav-buttons side="right">
 <button class="button button-icon icon ion-ios7-plus-outline" ng-click="goToLakeList()"></button>
 </ion-nav-buttons>
-<ion-content class="has-header">
-
+<ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}">
 <div class="list card" ng-repeat="lake in favorites">
   <div class="item item-avatar item-positive" style="background-color: gray">
     <img ng-src="{{lake.images[0].src}}">
@@ -25,14 +24,13 @@
         </div>
     </ion-footer-bar>
  </div>
- <div class="card" ng-hide="favorites.length">
-            <div class="item item-text-wrap">
-                <p>Keine Favoriten vorhanden</p>
-                <button class="button button-block ion-plus button-light"
-                        ng-click="goToLakeList()">Favoriten
-                    anlegen
-                </button>
-            </div>
-	</div>
+ <div ng-hide="favorites.length" class="noelements-container">
+    <div class="noelements-icon">
+      <i class="fa fa-rocket"></i>
+    </div>
+    <div class="noelements-text">
+      Starte durch und favorisiere Badeseen.
+    </div>
+ </div>
 </ion-content>
 </ion-view>

@@ -3,7 +3,10 @@
         {{lake.name}}
     </ion-nav-title>
     <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <a class="button button-clear" ng-href="#/tab/lakeList">
+            <i class="ion-arrow-left-c"></i> Zurück
+        </a>
+        <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
@@ -16,14 +19,15 @@
                     <leaflet class="box" center="center" defaults="defaults" markers="markers"></leaflet>
                 </ion-slide>
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
+                <div class="copyright">
+                    {{image.copyright}}
+                </div>
                 </ion-slide>
             </ion-slide-box>
         </div>
         <div class="list card">
             <div class="item item-body">
-                <p>
-                    {{lake.introtext}}
-                </p>
+                {{lake.introtext}}
             </div>
         </div>
         <div class="row responsive-md">
@@ -33,11 +37,22 @@
                     <lake-weather class="col" weatherdata="weatherdata"></lake-weather>
                 </div>
             </div>
-            <div class="col">
-                <div class="row">
-                    <lake-rating class="col" lake="lake"></lake-rating>
-                    <lake-weather class="col" weatherdata="weatherdata"></lake-weather>
+        </div>
+
+        <div class="card">
+            <div class="item item-divider">
+                <strong>Mögliche Aktivitäten</strong>
+            </div>
+            <div class="item row">
+                <div class="col" ng-repeat="activity in lake.extracurricularActivity">
+                    <activity-button class="col" disabled activity="activity"></activity-button>
+                    <div>
+                        {{activity | lowercase | capitalize}}
+                    </div>
                 </div>
+            </div>
+            <div class="item item-divider">
+                Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
             </div>
         </div>
     </ion-content>

@@ -180,16 +180,18 @@
 
 .cover{
     background-size: cover;
+    .copyright{
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
 }
 
-/**
- * Rating panel
- */
-.rating-panel{
+.simple-panel{
     width: 100%;
     position: relative;
     padding:0;
-    
     &[disabled],
     &.disabled{
         opacity: initial;     
@@ -206,6 +208,15 @@
         bottom: 0;
         right: 0;
         text-align: center;
+    }
+}
+
+/**
+ * Rating panel
+ */
+.rating-panel{
+    @extend .simple-panel;
+    .content {
         .indicator{
             // top: 0;
             position: absolute;
@@ -221,29 +232,15 @@
     }
 }
 
+
+
 /**
  * Weather panel
  */
 .weather-panel{
+    @extend .simple-panel;
     background-color: white;
-    width: 100%;
-    position: relative;
-    padding:0;
-      
-    
-    &:before {
-        content: "";
-        display: block;
-        padding-top: 100%;
-    }
     .content {        
-       
-        position:  absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        text-align: center;
         .top{
             position: absolute;
             width: 100%;
@@ -256,19 +253,59 @@
     }
 }
 
+/**
+ * Activity panel
+ */
+.activity-panel{
+    @extend .simple-panel;
+    background-color: white;
+    .content {     
+        img{
+            padding: 5px;
+            width: 100%;
+        }
+    }
+}
+
 
 /**
  * Rating modal
  */
-
 .rating-modal{
     .euimage{
+        height: 100%;
         width: 100%;
     }
     .text{
         padding-left: 5px;
     }
 }
+
+/**
+ * Dashboard / Favoriten
+ */
+.noelements-scroll{
+    .scroll{
+        width: 100%;
+        height: 100%;
+    }    
+    .noelements-container{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        opacity: 0.25;
+        .noelements-icon{
+            font-size: 50vh;
+        }
+        .noelements-text{
+            font-size: 4vh;
+            line-height: 4vh;
+        }
+    }
+}
+
+
 
 
 
