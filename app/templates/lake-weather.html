@@ -1,10 +1,10 @@
- <button class="button weather-panel" ng-class="buttonclass">
+ <button class="button weather-panel" ng-class="buttonclass" ng-click="openWeather()">
     <div class="content">
         <div class="top">
             <i class="wi" ng-class="weathericon"></i>
         </div>
         <div class="bottom">
-            <span>{{weather.temp | number:1}} °C</span>
+            <span>{{weather.temp | number:1}}°C</span>
         </div>
     </div> 
 </button>

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('badeseenApp').directive('lakeRating', [function () {
+angular.module('badeseenApp').directive('lakeRating', ['$window',function ($window) {
     function getRating(rating){
         var stars = 0;
         var icon = 'fa-question';
@@ -46,12 +46,31 @@ angular.module('badeseenApp').directive('lakeRating', [function () {
             rating: '=rating'
         },
         link: function (scope, element, attrs) {
+            scope.onResize = function(){
+                var panelsize = element.width();
+                element.find('.indicator').css({
+                    // 'top': panelsize * 0.025 + 'px',
+                    'font-size':  panelsize * 0.65 + 'px',
+                    'line-height':  panelsize * 0.65 + 'px'
+                });
+                element.find('.star').css({
+                    // 'bottom': panelsize * 0.025 + 'px',
+                    'font-size':  panelsize * 0.25 + 'px',
+                    'line-height':  panelsize * 0.25 + 'px'
+                });
+            };
+
+            angular.element($window).bind('resize', function() {
+                scope.onResize();
+            });
+
             scope.$watch('rating', function(value){
                 if(value){
                     var newRating = getRating(value);
                     angular.extend(scope,newRating);
                 }
             });
+            scope.onResize();
         }
     };
 }]);
