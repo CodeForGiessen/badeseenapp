@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp').controller('IntroController',
     function ($state, $ionicLoading, LakeData, FavData, WeatherData, $ionicPopup, $q) {
-        var testData = true;
+        var testData = false;
         var resetApp = true;
 
         var addTestData = function(){
