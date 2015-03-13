@@ -1,6 +1,7 @@
 <ion-view title="Liste">
 <ion-nav-buttons side="right">
 <button class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
+<button class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
 </ion-nav-buttons>
 <ion-content class="has-header">
 <div class="item item-input-inset"
@@ -18,19 +19,6 @@
             </button>
         </div>
 <ion-list>
-	<!--<ion-item>
-		<span class="temp-position">7 Km 26°C</span>
-		<p class="h3 dark">Dutenhofener See</p>	
-		<i class="badge badge-assertive info-position">2</i>
-	</ion-item>
-	<ion-item>
-		<span class="temp-position">8 Km 26°C</span>		
-		<p class="h3 dark">Heuchelheimer See</p>
-		<a class="icon-right">
-		<i class="icon ion-happy"></i>
-		</a>
-	</ion-item>-->
-	<!-- <ion-item ng-repeat='lake in lakes' ng-click=openModal(lake._id)> -->
 	<ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
 		<span class="info">7 Km {{lake.measurements[0].waterTemperature}} °C</span>
 		<p class="h3 dark">{{lake.name}}</p>
