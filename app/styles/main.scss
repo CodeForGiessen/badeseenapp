@@ -323,3 +323,11 @@
         }
     }
 }
+
+.row-with-cards{
+    padding: 0;
+    .col{
+        padding: 0;
+        margin-bottom: 5px;
+    }
+}

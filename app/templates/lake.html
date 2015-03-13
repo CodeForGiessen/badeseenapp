@@ -25,7 +25,7 @@
                 </ion-slide>
             </ion-slide-box>
         </div>
-        <div class="list card">
+        <div class="card">
              <div class="item item-divider">
                     <strong>Beschreibung</strong>
             </div>
@@ -34,32 +34,119 @@
                 <a show-more-text-button href="javascript:void(0);"></a>
             </div>
         </div>
-        <div class="row responsive-md">
-             <div class="card col">
-                <div class="item item-divider">
-                    <strong>Status</strong>
-                </div>
-                <div class="even-panel">
-                    <lake-rating  lake="lake"></lake-rating>
-                    <lake-weather weatherdata="weatherdata"></lake-weather>
-                </div>
-            </div>
-            <div class="card col">
-                <div class="item item-divider">
-                    <strong>Mögliche Aktivitäten</strong>
-                </div>
-                <div class="item even-panel">
-                    <div ng-repeat="activity in lake.extracurricularActivity">
-                        <activity-button class="col" disabled activity="activity"></activity-button>
-                        <div>
-                            {{activity | lowercase | capitalize}}
-                        </div>
+        <div class="row responsive-md row-with-cards">
+            <div class="col">
+                <div class="card">
+                    <div class="item item-divider">
+                        <strong>Status</strong>
+                    </div>
+                    <div class="item even-panel">
+                        <lake-rating  lake="lake"></lake-rating>
+                        <lake-weather weatherdata="weatherdata"></lake-weather>
                     </div>
                 </div>
-                <div class="item item-divider">
-                    Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="item item-divider">
+                        <strong>Mögliche Aktivitäten</strong>
+                    </div>
+                    <div class="item even-panel">
+                        <div ng-repeat="activity in lake.extracurricularActivity">
+                            <activity-button class="col" disabled activity="activity"></activity-button>
+                            <div>
+                                {{activity | lowercase | capitalize}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item item-divider">
+                        Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+                    </div>
                 </div>
             </div>       
+        </div>
+        <div class="row responsive-md row-with-cards">
+            <div class="col">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Betreiber</strong>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-user"></i>
+                        {{lake.operator.name}}
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-road"></i>
+                        {{lake.operator.street}} {{lake.operator.zipcodeCity}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.telephone">
+                        <i class="icon fa fa-phone"></i>
+                        {{lake.operator.telephone}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.email">
+                        <i class="icon fa fa-envelope-o"></i>
+                        {{lake.operator.email}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.fax">
+                        <i class="icon fa fa-fax"></i>
+                        {{lake.operator.fax}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.website">
+                        <i class="icon fa fa-external-link"></i>
+                        <a ng-href="{{lake.city}}" target="_blank">Webseite</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Zuständige Behörde</strong>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-user"></i>
+                        {{lake.appropriateAuthority.name}}
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-road"></i>
+                        {{lake.appropriateAuthority.address}} {{lake.appropriateAuthority.addressAdditional}} {{lake.appropriateAuthority.street}} {{lake.appropriateAuthority.zipcodeCity}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.appropriateAuthority.telephone">
+                        <i class="icon fa fa-phone"></i>
+                        {{lake.appropriateAuthority.telephone}}
+                    </div>
+                </div>    
+            </div>
+        </div>
+        <div class="row responsive-md row-with-cards">
+            <div class="col">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Gewässerprofil</strong>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-tint"></i>
+                        Badeseetyp {{lake.lakeType}} 
+                    </div>
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows-v"></i>
+                        {{lake.depthAvg}} Meter durchschnittliche Tiefe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows-v"></i>
+                        {{lake.depthMax}} Meter maximale Tiefe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows"></i>
+                        {{lake.areaHa}} Hektar Größe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-university"></i>
+                        {{lake.city}}
+                    </div>
+                </div>    
+            </div>
+            
         </div>
     </ion-content>
 </ion-view>
