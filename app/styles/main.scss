@@ -188,6 +188,25 @@
     }
 }
 
+
+.even-panel{
+    display: table;
+    table-layout: fixed;
+    padding: 5px 0;
+    width: 100%;
+    > *{
+        display: table-cell;
+        text-align: center;
+        padding: 0 5px;
+        &:first-child{
+            padding-left: 0;
+        }
+        &:last-child{
+            padding-right: 0;    
+        }
+    }
+}
+
 .simple-panel{
     width: 100%;
     position: relative;

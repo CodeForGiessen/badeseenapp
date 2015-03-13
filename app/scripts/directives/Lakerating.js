@@ -67,10 +67,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
-
-            scope.$watch(function() { return element.is(':visible'); }, function() {
-                scope.onResize();
-            });
+          
 
             var changed = function(){
                 if(scope.lake){

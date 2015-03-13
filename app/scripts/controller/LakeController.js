@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData,FavData, $ionicHistory, $q, LakeUtils) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, $ionicHistory, $q, LakeUtils,leafletData) {
 		var id = $stateParams.id;
 		$scope.lake = {};
 		$scope.center ={
@@ -31,7 +31,6 @@ angular.module('badeseenApp').controller('LakeController',
         .then(function(res){
             var lake = res[0];
             var weatherdata = res[1];
-            console.log(res);
             var lat = parseFloat(lake.latitude);
             var lng = parseFloat(lake.longitude);
 
@@ -61,6 +60,20 @@ angular.module('badeseenApp').controller('LakeController',
         $scope.getWeatherIconUrl = function(iconId){
             return 'http://openweathermap.org/img/w/' + iconId + '.png';
         };
+
+        //fix leaflet grey tiles bug
+        $scope.$on('$ionicView.enter', function(){
+            ionic.trigger('resize', {
+                target: window
+            });
+            
+        });
+        // $scope.$on('$ionicView.afterEnter', function(){
+        //     leafletData.getMap()
+        //     .then(function(map){
+        //         map.invalidateSize(false);
+        //     });
+        // });
 
 
         $scope.toogleFav = function(){

@@ -26,34 +26,40 @@
             </ion-slide-box>
         </div>
         <div class="list card">
-            <div class="item item-body">
-                {{lake.introtext}}
+             <div class="item item-divider">
+                    <strong>Beschreibung</strong>
+            </div>
+            <div class="item item-body" show-more-text="lake.introtext" max-chars="250">
+                <span show-more-text-content></span>
+                <a show-more-text-button href="javascript:void(0);"></a>
             </div>
         </div>
         <div class="row responsive-md">
-            <div class="col">
-                <div class="row">
-                    <lake-rating  class="col" lake="lake"></lake-rating>
-                    <lake-weather class="col" weatherdata="weatherdata"></lake-weather>
+             <div class="card col">
+                <div class="item item-divider">
+                    <strong>Status</strong>
+                </div>
+                <div class="even-panel">
+                    <lake-rating  lake="lake"></lake-rating>
+                    <lake-weather weatherdata="weatherdata"></lake-weather>
                 </div>
             </div>
-        </div>
-
-        <div class="card">
-            <div class="item item-divider">
-                <strong>Mögliche Aktivitäten</strong>
-            </div>
-            <div class="item row">
-                <div class="col" ng-repeat="activity in lake.extracurricularActivity">
-                    <activity-button class="col" disabled activity="activity"></activity-button>
-                    <div>
-                        {{activity | lowercase | capitalize}}
+            <div class="card col">
+                <div class="item item-divider">
+                    <strong>Mögliche Aktivitäten</strong>
+                </div>
+                <div class="item even-panel">
+                    <div ng-repeat="activity in lake.extracurricularActivity">
+                        <activity-button class="col" disabled activity="activity"></activity-button>
+                        <div>
+                            {{activity | lowercase | capitalize}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="item item-divider">
-                Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
-            </div>
+                <div class="item item-divider">
+                    Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
+                </div>
+            </div>       
         </div>
     </ion-content>
 </ion-view>
