@@ -38,13 +38,13 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive'])
             }
         }
     })
-    .state('lakes', {
-        url: '/lakes',
-        abstract: true,
-        templateUrl: 'templates/lakemenu.html'
-    })    
-    .state('lakes.single', {
-        url: '/:id',
+    // .state('lakes', {
+    //     url: '/lakes',
+    //     abstract: true,
+    //     templateUrl: 'templates/lakemenu.html'
+    // })    
+    .state('lake', {
+        url: '/lakes/:id',
         templateUrl: 'templates/lake.html',
         controller: 'LakeController as lCtrl'
     }); 

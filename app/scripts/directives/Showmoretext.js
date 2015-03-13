@@ -10,6 +10,9 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
             if(typeof scope.maxChars === 'undefined'){
                 scope.maxChars = 300;
             }
+            if(typeof scope.showMoreText === 'undefined'){
+                scope.showMoreText = '';
+            }
             var collapsed = true;
 
             scope.content = element.find('[show-more-text-content]');
@@ -52,8 +55,6 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
                     reCalculate();
                 }
             });         
-
-                   
         }
     };
 }]);

@@ -1,4 +1,4 @@
-<ion-view title="">
+<ion-view>
     <ion-nav-title>
         {{lake.name}}
     </ion-nav-title>
@@ -6,7 +6,6 @@
         <a class="button button-clear" ng-href="#/tab/lakeList">
             <i class="ion-arrow-left-c"></i> Zurück
         </a>
-        <!-- <button menu-toggle="left" class="button button-icon icon ion-navicon"></button> -->
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
         <button class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
@@ -16,7 +15,7 @@
         <div class="slider-parent">
             <ion-slide-box class="slider-child">
                 <ion-slide>
-                    <leaflet class="box" center="center" defaults="defaults" markers="markers"></leaflet>
+                    <leaflet center="center" defaults="defaults" markers="markers"></leaflet>
                 </ion-slide>
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
                 <div class="copyright">
@@ -61,7 +60,7 @@
                         <strong>Status</strong>
                     </div>
                     <div class="item even-panel">
-                        <lake-rating  lake="lake"></lake-rating>
+                        <lake-rating lake="lake"></lake-rating>
                         <lake-weather weatherdata="weatherdata"></lake-weather>
                     </div>
                 </div>
@@ -89,58 +88,6 @@
             <div class="col-50">
                 <div class="card list">
                     <div class="item item-divider">
-                        <strong>Betreiber</strong>
-                    </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-user"></i>
-                        {{lake.operator.name}}
-                    </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-road"></i>
-                        {{lake.operator.street}} {{lake.operator.zipcodeCity}}
-                    </div>
-                    <div class="item item-icon-left" ng-show="lake.operator.telephone">
-                        <i class="icon fa fa-phone"></i>
-                        {{lake.operator.telephone}}
-                    </div>
-                    <div class="item item-icon-left" ng-show="lake.operator.email">
-                        <i class="icon fa fa-envelope-o"></i>
-                        {{lake.operator.email}}
-                    </div>
-                    <div class="item item-icon-left" ng-show="lake.operator.fax">
-                        <i class="icon fa fa-fax"></i>
-                        {{lake.operator.fax}}
-                    </div>
-                    <div class="item item-icon-left" ng-show="lake.operator.website">
-                        <i class="icon fa fa-external-link"></i>
-                        <a ng-href="{{lake.city}}" target="_blank">Webseite</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-50">
-                <div class="card list">
-                    <div class="item item-divider">
-                        <strong>Zuständige Behörde</strong>
-                    </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-user"></i>
-                        {{lake.appropriateAuthority.name}}
-                    </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-road"></i>
-                        {{lake.appropriateAuthority.address}} {{lake.appropriateAuthority.addressAdditional}} {{lake.appropriateAuthority.street}} {{lake.appropriateAuthority.zipcodeCity}}
-                    </div>
-                    <div class="item item-icon-left" ng-show="lake.appropriateAuthority.telephone">
-                        <i class="icon fa fa-phone"></i>
-                        {{lake.appropriateAuthority.telephone}}
-                    </div>
-                </div>    
-            </div>
-        </div>
-        <div class="row responsive-md row-with-cards">
-            <div class="col">
-                <div class="card list">
-                    <div class="item item-divider">
                         <strong>Gewässerprofil</strong>
                     </div>
                     <div class="item item-icon-left">
@@ -166,7 +113,91 @@
                     </div>
                 </div>    
             </div>
-            
+            <div class="col-50">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Letzter Messwert</strong>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-tint"></i>
+                        Badeseetyp {{lake.lakeType}} 
+                    </div>
+
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows-v"></i>
+                        {{lake.depthAvg}} Meter durchschnittliche Tiefe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows-v"></i>
+                        {{lake.depthMax}} Meter maximale Tiefe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-arrows"></i>
+                        {{lake.areaHa}} Hektar Größe
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-university"></i>
+                        {{lake.city}}
+                    </div>
+                    <a class="item item-icon-left positive" href="#">
+                        <i class="icon fa fa-history "></i>
+                        Historische Messwerte anzeigen
+                    </a>
+                </div>    
+            </div>             
         </div>
+        <div class="row responsive-md row-with-cards">
+            <div class="col-50">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Betreiber</strong>
+                    </div>
+                    <div class="item item-icon-left item-text-wrap">
+                        <i class="icon fa fa-user"></i>
+                        {{lake.operator.name}}
+                    </div>
+                    <div class="item item-icon-left item-text-wrap">
+                        <i class="icon fa fa-road"></i>
+                        {{lake.operator.street}} {{lake.operator.zipcodeCity}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.telephone">
+                        <i class="icon fa fa-phone"></i>
+                        {{lake.operator.telephone}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.email">
+                        <i class="icon fa fa-envelope-o"></i>
+                        {{lake.operator.email}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.operator.fax">
+                        <i class="icon fa fa-fax"></i>
+                        {{lake.operator.fax}}
+                    </div>
+                    <a class="item item-icon-left positive" ng-href="http://{{lake.operator.website}}" ng-show="lake.operator.website" target="_blank">
+                        <i class="icon fa fa-external-link"></i>
+                        Webseite
+                    </a>
+                </div>
+            </div>
+            <div class="col-50">
+                <div class="card list">
+                    <div class="item item-divider">
+                        <strong>Zuständige Behörde</strong>
+                    </div>
+                    <div class="item item-icon-left item-text-wrap">
+                        <i class="icon fa fa-user"></i>
+                        {{lake.appropriateAuthority.name}}
+                    </div>
+                    <div class="item item-icon-left item-text-wrap">
+                        <i class="icon fa fa-road"></i>
+                        {{lake.appropriateAuthority.address}} {{lake.appropriateAuthority.addressAdditional}} {{lake.appropriateAuthority.street}} {{lake.appropriateAuthority.zipcodeCity}}
+                    </div>
+                    <div class="item item-icon-left" ng-show="lake.appropriateAuthority.telephone">
+                        <i class="icon fa fa-phone"></i>
+                        {{lake.appropriateAuthority.telephone}}
+                    </div>
+                </div>    
+            </div>
+        </div>
+        
     </ion-content>
 </ion-view>
