@@ -25,17 +25,37 @@
                 </ion-slide>
             </ion-slide-box>
         </div>
-        <div class="card">
-             <div class="item item-divider">
-                    <strong>Beschreibung</strong>
+        <div class="row responsive-md row-with-cards">
+            <div class="col-50">
+                <div class="card list">
+                    <div class="item item-divider">
+                    <strong>Übersicht</strong>
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-bullhorn"></i>
+                        {{lake.bathingPermission}}
+                    </div>
+                    <div class="item item-icon-left">
+                        <i class="icon fa fa-calendar"></i>
+                        Badesaison vom {{lake.openFrom | date:'dd.MM.yyyy'}} bis zum {{lake.openTo | date:'dd.MM.yyyy'}}
+                    </div>
+                </div>
             </div>
-            <div class="item item-body" show-more-text="lake.introtext" max-chars="250">
-                <span show-more-text-content></span>
-                <a show-more-text-button href="javascript:void(0);"></a>
+            <div class="col-50">
+                <div class="card">
+                    <div class="item item-divider">
+                        <strong>Beschreibung</strong>
+                    </div>
+                    <div class="item item-body" show-more-text="lake.introtext" max-chars="250">
+                        <span show-more-text-content></span>
+                        <a show-more-text-button href="javascript:void(0);"></a>
+                    </div>
+                </div>
             </div>
         </div>
+       
         <div class="row responsive-md row-with-cards">
-            <div class="col">
+            <div class="col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Status</strong>
@@ -46,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Mögliche Aktivitäten</strong>
@@ -66,7 +86,7 @@
             </div>       
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col">
+            <div class="col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Betreiber</strong>
@@ -97,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Zuständige Behörde</strong>
