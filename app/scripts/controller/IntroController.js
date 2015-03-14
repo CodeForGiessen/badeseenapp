@@ -32,8 +32,8 @@ angular.module('badeseenApp').controller('IntroController',
             });
 
             return $q.all([
-                LakeData.prepareCache(),
-                WeatherData.prepareCache()
+                LakeData.getAll(),
+                WeatherData.getAll()
             ])
             .then()
                 .then(function(){

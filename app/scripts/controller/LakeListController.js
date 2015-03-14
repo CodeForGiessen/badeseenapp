@@ -11,7 +11,7 @@ angular.module('badeseenApp').controller('LakeListController',
             LakeData.getAll()
             .then(function(lakes){
                 $scope.lakes = lakes;
-                $scope.error = false;               
+                $scope.error = false;                            
             })
             .catch(function(err){
                 console.log(err);
