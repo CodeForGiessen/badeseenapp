@@ -12,6 +12,10 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
             if (!scope.data){
                scope.data = 'current';
             }
+            if(attrs.notClickable === ''){
+                scope.notClickable = true;
+            }
+
             scope.onResize = function(){
                 var panelsize = element.width();
                 element.find('.top').css({
@@ -37,8 +41,8 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
                 }
             });
             scope.openWeather = function(){
-                if(scope.weatherdata.openWeatherCityId){
-                    $window.open('http://openweathermap.org/city/' + scope.weatherdata.openWeatherCityId, '_blank');
+                if(scope.weatherdata.openWeatherCityId && !scope.notClickable){
+                    $window.open('http://openweathermap.org/city/' + scope.weatherdata.openWeatherCityId, '_system');
                 }
             };
 

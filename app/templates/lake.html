@@ -3,7 +3,7 @@
         {{lake.name}}
     </ion-nav-title>
     <ion-nav-buttons side="left">
-        <a class="button button-clear" ng-href="#/tab/lakeList">
+        <a class="button button-clear" ng-click="goBack()">
             <i class="ion-arrow-left-c"></i> Zurück
         </a>
     </ion-nav-buttons>
@@ -11,12 +11,12 @@
         <button class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
         </button>
     </ion-nav-buttons>
-    <ion-content class="has-header">
-        <div class="slider-parent">
+    <ion-content class="has-header">     
+        <div class="slider-parent" ng-show="lake.images.length">
             <ion-slide-box class="slider-child">
-                <ion-slide>
+                <!-- <ion-slide>
                     <leaflet center="center" defaults="defaults" markers="markers"></leaflet>
-                </ion-slide>
+                </ion-slide> -->
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
                 <div class="copyright">
                     {{image.copyright}}
@@ -30,11 +30,11 @@
                     <div class="item item-divider">
                     <strong>Übersicht</strong>
                     </div>
-                    <div class="item item-icon-left">
+                    <div class="item item-icon-left item-text-wrap">
                         <i class="icon fa fa-bullhorn"></i>
                         {{lake.bathingPermission}}
                     </div>
-                    <div class="item item-icon-left">
+                    <div class="item item-icon-left item-text-wrap">
                         <i class="icon fa fa-calendar"></i>
                         Badesaison vom {{lake.openFrom | date:'dd.MM.yyyy'}} bis zum {{lake.openTo | date:'dd.MM.yyyy'}}
                     </div>
@@ -172,7 +172,7 @@
                         <i class="icon fa fa-fax"></i>
                         {{lake.operator.fax}}
                     </div>
-                    <a class="item item-icon-left positive" ng-href="http://{{lake.operator.website}}" ng-show="lake.operator.website" target="_blank">
+                    <a class="item item-icon-left positive" ng-click="openLinkExtern(lake.operator.website)" ng-show="lake.operator.website">
                         <i class="icon fa fa-external-link"></i>
                         Webseite
                     </a>
