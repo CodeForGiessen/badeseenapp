@@ -7,12 +7,6 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
             showMoreText: '=showMoreText'
         },
         link: function (scope, element, attrs) {
-            if(typeof scope.maxChars === 'undefined'){
-                scope.maxChars = 300;
-            }
-            if(typeof scope.showMoreText === 'undefined'){
-                scope.showMoreText = '';
-            }
             var collapsed = true;
 
             scope.content = element.find('[show-more-text-content]');
@@ -22,10 +16,11 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
             $compile(scope.button)(scope);
 
             var reCalculate = function(){
-                var text = scope.showMoreText;
+                var text = scope.showMoreText || '';
+                var maxChars = scope.maxChars || 300;
                 if(text.length > scope.maxChars){
                     if(collapsed){
-                        text = text.substring(0,scope.maxChars-1);
+                        text = text.substring(0,maxChars-1);
                         text+= ' ...';
                         scope.button.text('mehr anzeigen');
                     }else{

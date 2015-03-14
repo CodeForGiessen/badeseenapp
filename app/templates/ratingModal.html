@@ -11,13 +11,13 @@
 					<strong>{{rating.year}}</strong>
 				</div>
 				<div class="item item-body item-text-wrap row row-center">
-					<div class="col-10">
+					<div class="col-20">
 						<lake-rating lake="lake" year="rating.year" not-clickable></lake-rating>
 					</div>
-					<div class="col-10" ng-show="showEu">
+					<div class="col-20" ng-show="showEu">
 						<img class="euimage" ng-src="images/seeeinstufung/{{rating.rating}}.png"\>
 					</div>
-					<div class="col-90 text">
+					<div class="col text">
 						{{ratingToString(rating.rating)}}	
 					</div>
    				</div>

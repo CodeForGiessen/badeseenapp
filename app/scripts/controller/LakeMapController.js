@@ -10,10 +10,11 @@ angular.module('badeseenApp').controller('LakeMapController',
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileLayerOptions: {
-                attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_blank\');return false;">OpenStreetMap</a>',
+                attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_system\');return false;">OpenStreetMap</a>',
                 detectRetina: true,
-                reuseTiles: true,
-            }
+                reuseTiles: true
+            },
+            zoomControl:false
         };
         $scope.events= {
             markers: {
@@ -21,6 +22,10 @@ angular.module('badeseenApp').controller('LakeMapController',
                 logic: 'emit'
             }
         };
+        leafletData.getMap()
+        .then(function(map){
+            map.attributionControl.setPrefix('<a href="#" onClick="window.open(\'http://leafletjs.com\',\'_system\');return false;">Leaflet</a>');
+        });
 
         //fix leaflet grey tiles bug
         $scope.$on('$ionicView.enter', function(){

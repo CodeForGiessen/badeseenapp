@@ -4,7 +4,7 @@ Model Lake represents every attribute of a lake.
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
-	function ($rootScope,LakeData, $ionicModal) {
+	function ($rootScope,LakeData, $ionicModal, WeatherData,LakeUtils,$q, $state) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/lakeModal.html', {
            animation: 'slide-in-up',
@@ -15,16 +15,29 @@ angular.module('badeseenApp')
         });
         return {
             openModal : function(lakeId){
-                console.log(lakeId);
-                LakeData.getById(lakeId)
-                .then(function(lake){
-                    console.log(lake);
+                $q.all([
+                    LakeData.getById(lakeId),
+                    WeatherData.getById(lakeId)
+                    ])
+                .then(function(res){
+                    var lake = res[0];
+                    var weatherdata = res[1];
+
+                    scope.lake = lake;                
+                    scope.rating = LakeUtils.getLatestYearRating(lake);
+                    scope.weatherdata = weatherdata;
+                    scope.goSinglePage = function(){
+                        scope.modal.hide();
+                        $state.go('lake',{
+                            id:scope.lake._id
+                        });
+                    };
                     scope.modal.show();
-                    scope.lake = lake;
                 })
-                .catch(function(){
+                .catch(function(err){
                     //TODO handle
-                });
+                    console.log(err);
+                });   
             }
         };
 	});
