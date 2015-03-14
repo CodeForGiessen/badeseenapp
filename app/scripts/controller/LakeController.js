@@ -23,7 +23,7 @@ angular.module('badeseenApp').controller('LakeController',
                 var lake = res[0];
                 var weatherdata = res[1];
 
-                $scope.lake = lake;                
+                $scope.lake = lake;   
                 $scope.rating = LakeUtils.getLatestYearRating(lake);
                 $scope.weatherdata = weatherdata;
                 $scope.error = false;
@@ -36,12 +36,9 @@ angular.module('badeseenApp').controller('LakeController',
             .finally(function(){
                 $scope.init = false;
                 $ionicLoading.hide();
-                //put resizeevent AFTER angular apply into event chain
-                $timeout(function(){
-                    ionic.trigger('resize',{
-                        target:'window'
-                    });
-                });
+                ionic.trigger('resize',{
+                    target:'window'
+                });                
             });
         };
 

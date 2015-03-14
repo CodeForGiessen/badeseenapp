@@ -67,7 +67,9 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
-          
+            scope.$watch(function(){
+                return element.width();
+            },scope.onResize);
 
             var changed = function(){
                 if(scope.lake && scope.lake.yearratings){
@@ -85,6 +87,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
 
             scope.$watch('lake',changed);
             scope.$watch('year', changed);
+            
 
             scope.openModal = function(){
                 if(scope.lake && !scope.notClickable){

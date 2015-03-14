@@ -8,26 +8,15 @@
         </a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button ng-hide="error" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
+        <button ng-hide="error || init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
         </button>
     </ion-nav-buttons>
-    <ion-content class="has-header error-scroll" ng-show="error">
-        <div class="error-container">
-            <div class="error-icon">
-                <i class="fa fa-frown-o"></i>
-            </div>
-            <div class="error-text">
-                Kein Internet?
-            </div>
-            <button class="button button-stable error-button" ng-click="reload()">Wiederholen</button>
-        </div>   
-    </ion-content>
+
+    <error-panel reload="reload" error="error"></error-panel>
+
     <ion-content class="has-header" ng-hide="error || init">     
         <div class="slider-parent" ng-show="lake.images.length">
             <ion-slide-box class="slider-child">
-                <!-- <ion-slide>
-                    <leaflet center="center" defaults="defaults" markers="markers"></leaflet>
-                </ion-slide> -->
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
                 <div class="copyright">
                     {{image.copyright}}
@@ -39,7 +28,7 @@
             <div class="col-50">
                 <div class="card list">
                     <div class="item item-divider">
-                    <strong>Übersicht</strong>
+                        <strong>Übersicht</strong>
                     </div>
                     <div class="item item-icon-left item-text-wrap">
                         <i class="icon fa fa-bullhorn"></i>

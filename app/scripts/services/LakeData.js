@@ -10,13 +10,17 @@ angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http',
 		//1 hour
 		// var maxAge = 3600000;
 		//1 week
-		var maxAge = 604800000;
-		
+		// var maxAge = 604800000;		
+		var maxAge = 10;
 		var lakesUrl = ENV.apiEndpoint + '/lakes';
-		
+		var timeout = ENV.requestTimeout;
+
+		//array of promises which much resolved or rejected if the request fails
+		var cacheRefreshRequestDeferres = [];
+
+
+
 		var _isUptoDate = function(){
-			//load data
-			_get();
 			if(allLakesMemorycache){
 				var lastmodified = allLakesMemorycache.lastmodified;
 				var current = new Date();
@@ -26,15 +30,24 @@ angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http',
 		};
 
 		var _get = function(){
+			var deferred = $q.defer();
 			if(!allLakesMemorycache){
 				allLakesMemorycache = localStorage.getItem(allLakesKey);
 				if(allLakesMemorycache){
-					allLakesMemorycache = JSON.parse(allLakesMemorycache);
-				}else{
-					return undefined;
+					allLakesMemorycache = JSON.parse(allLakesMemorycache);					
 				}
 			}
-			return allLakesMemorycache.data;
+			if(_isUptoDate()){
+				deferred.resolve(allLakesMemorycache.data);
+			}else{
+				var promise = _rebuildCache()
+				.then(function(){
+					return allLakesMemorycache.data;
+				});
+				deferred.resolve(promise);
+			}
+			
+			return deferred.promise;
 		};
 
 		var _put = function(value){
@@ -45,43 +58,56 @@ angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http',
 			allLakesMemorycache = storage;
 		};
 
-		
-
 		var _rebuildCache = function(){
 			var deferred = $q.defer();
-			$http.get(lakesUrl + '/all')
-			.then(function(response){
-				var lakes = response.data.lakes;
-				var allLakes ={};
-				lakes.forEach(function(lake){
-					allLakes[lake._id] = lake;
+			
+			if(!cacheRefreshRequestDeferres.length){
+				//no request running
+				$http.get(lakesUrl + '/all',{
+					timeout: timeout
+				})
+				.then(function(response){
+					var lakes = response.data.lakes;
+					var allLakes ={};
+					lakes.forEach(function(lake){
+						allLakes[lake._id] = lake;
+					});				
+					_put(allLakes);
+					var deferres = cacheRefreshRequestDeferres;
+					cacheRefreshRequestDeferres = [];
+					deferres.forEach(function(def){
+						def.resolve();
+					});
+				})
+				.catch(function(response){
+					var deferres = cacheRefreshRequestDeferres;
+					cacheRefreshRequestDeferres = [];
+					deferres.forEach(function(def){
+						def.reject(response);
+					});
 				});
-				_put(allLakes);
-				deferred.resolve();
-			})
-			.catch(function(response){
-				deferred.reject(response);
-			});
+			}
+			cacheRefreshRequestDeferres.push(deferred);		
 
 			return deferred.promise;
-		};
+		};			
 
 		var getAll = function () {
-			var deferred = $q.defer();			
-			var idToLakeMap = _get();
-			var lakeIds= Object.keys(idToLakeMap);
-			var lakes = lakeIds.map(function(id){
-				return idToLakeMap[id];
-			});	
-			deferred.resolve(lakes);
-			return deferred.promise;
+			return _get()
+			.then(function(idToLakeMap){
+				var lakeIds= Object.keys(idToLakeMap);
+				var lakes = lakeIds.map(function(id){
+					return idToLakeMap[id];
+				});	
+				return lakes;
+			});
 		};
 
 		var getById = function (id) {
-			var deferred = $q.defer();
-			var idToLakeMap = _get();
-			deferred.resolve(idToLakeMap[id]);
-			return deferred.promise;
+		 	return _get()
+			.then(function(idToLakeMap){
+				return idToLakeMap[id];
+			});
 		};
 
 		var service = {

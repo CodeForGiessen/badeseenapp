@@ -1,14 +1,37 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading) {
 		$scope.lakes = [];
-		LakeData.getAll()
-		.then(function(lakes){
-			$scope.lakes = lakes;
-		})
-		.catch(function(){
-			//TODO handle
-		});
+        $scope.error = false;
+        $scope.init = true;
+
+
+        var reload = function(){
+            $ionicLoading.show();
+            LakeData.getAll()
+            .then(function(lakes){
+                $scope.lakes = lakes;
+                $scope.error = false;               
+            })
+            .catch(function(err){
+                console.log(err);
+                $scope.error = true;
+            })
+            .finally(function(){
+                $scope.init = false;
+                $ionicLoading.hide();
+                ionic.trigger('resize',{
+                    target:'window'
+                });
+            });
+        };
+        $scope.reload = reload;
+
+
+        $scope.$on('$ionicView.enter', reload);
+        // reload();
+
+		
 
 		$scope.rating = [];
 		$scope.openModal = function (id) {
