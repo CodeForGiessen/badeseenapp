@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation) {
 		$scope.lakes = [];
 		LakeData.getAll()
 		.then(function(lakes){
@@ -61,6 +61,34 @@ angular.module('badeseenApp').controller('LakeListController',
                 this.searchQuery = '';
             }
             this.searchActive = !this.searchActive;
+        };
+
+        var posOptions = {enableHighAccuracy: false};
+        $cordovaGeolocation
+        .getCurrentPosition (posOptions)
+        .then(function (position) {
+        	var latUser = position.coords.latitude
+        	var longUser = position.coords.longitude
+        }, function (err) {
+        	//todo geolocation offline
+        });
+
+        $scope.distBetweenCoords = function (lat, lon) {
+        	var radEarth = 6371;
+        	var dLat = deg2rad(lat-latUser);
+        	var dLon = deg2rad(lon-longUser);
+        	var a =
+        		Math.sin(dLat/2) * Math.sin(dLat/2) +
+        		Math.cos(deg2rad(lat)) * Math.cos(deg2rad(latUser)) *
+        		Math.sin(dLon/2) * Math.sin(dLon/2);
+        	var c = 2 * Math.atan2(Math.sqrt(a), Mahth.sqrt(1-a));
+        	var distance = radEarth * c; //Distance in kilometer
+
+        	return distance;
+        };
+
+        this.deg2rad = function (deg) {
+        	return deg * (Math.PI/180)
         };
 
         $scope.show = function (){
