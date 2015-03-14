@@ -12,5 +12,6 @@ plugins
 *.log
 *.DS_Store
 .temp
+*.tern-project
 
 app/scripts/config.js
