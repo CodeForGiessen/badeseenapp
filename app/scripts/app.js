@@ -1,5 +1,5 @@
 'use strict';
-angular.module('badeseenApp', ['ionic','config', 'leaflet-directive'])
+angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova'])
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider){
     $stateProvider
     .state('intro', {
