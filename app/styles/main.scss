@@ -172,8 +172,8 @@
         top: 0;
         left: 0;
         height: 100%;
-        .angular-leaflet-map {
-                height: 100%;
+        .angular-leaflet-map{
+            height: 100%;
         }
     }
 }
@@ -185,6 +185,25 @@
         position: absolute;
         bottom: 0;
         right: 0;
+    }
+}
+
+
+.even-panel{
+    display: table;
+    table-layout: fixed;
+    padding: 5px 0;
+    width: 100%;
+    > *{
+        display: table-cell;
+        text-align: center;
+        padding: 0 5px;
+        &:first-child{
+            padding-left: 0;
+        }
+        &:last-child{
+            padding-right: 0;    
+        }
     }
 }
 
@@ -302,5 +321,13 @@
             font-size: 4vh;
             line-height: 4vh;
         }
+    }
+}
+
+.row-with-cards{
+    padding: 0;
+    .col{
+        padding: 0;
+        margin-bottom: 5px;
     }
 }

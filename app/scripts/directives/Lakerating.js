@@ -67,15 +67,13 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
-
-            scope.$watch(function() { return element.is(':visible'); }, function() {
-                scope.onResize();
-            });
+          
 
             var changed = function(){
-                if(scope.lake){
+                if(scope.lake && scope.lake.yearratings){
                     var rating;
                     if(!scope.year){
+                        console.log(scope.lake);
                         rating = LakeUtils.getLatestYearRating(scope.lake);
                     }else{
                         rating = LakeUtils.getRatingByYear(scope.lake,scope.year);
@@ -93,7 +91,6 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
                     RatingModal.openModal(scope.lake._id);
                 }
             };
-
 
             scope.onResize();
         }
