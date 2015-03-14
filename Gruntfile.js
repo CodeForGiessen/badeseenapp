@@ -43,7 +43,8 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1'
+            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            requestTimeout: 10000
             // apiEndpoint: 'http://localhost:7650/api/v1'
 
           }
@@ -53,7 +54,8 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1'
+            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            requestTimeout: 10000
           }
         }
       }

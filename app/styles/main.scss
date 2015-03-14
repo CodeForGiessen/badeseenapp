@@ -331,3 +331,40 @@
         margin-bottom: 5px;
     }
 }
+
+
+.loading-container{
+    .loading{
+        background-color: initial;
+        font-size: 70px;
+    }
+
+}
+
+
+/**
+ * Error message
+ */
+.error-scroll{
+    .scroll{
+        width: 100%;
+        height: 100%;
+    }    
+    .error-container{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        opacity: 0.25;
+        .error-icon{
+            font-size: 50vh;
+        }
+        .error-text{
+            font-size: 4vh;
+            line-height: 4vh;
+        }
+        .error-button{
+            margin-top: 5px;
+        }
+    }
+}

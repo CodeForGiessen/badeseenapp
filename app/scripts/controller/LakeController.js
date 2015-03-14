@@ -1,17 +1,19 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData,FavData, $q, LakeUtils,$window, $ionicHistory) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading,$timeout) {
 		var id = $stateParams.id;
 
+        $scope.error = false;
+        $scope.init = true;
         // back directive does not work every time
         $scope.goBack = $ionicHistory.goBack;
         $scope.lake= {};
         
 
-        $scope.$on('$ionicView.enter', function(){
-            ionic.trigger('resize',{
-                target:'window'
-            });
+
+        var reload = function(){
+            $ionicLoading.show();
+            
             $scope.isFav = FavData.isFav(id);
             $q.all([
                 LakeData.getById(id),
@@ -23,15 +25,29 @@ angular.module('badeseenApp').controller('LakeController',
 
                 $scope.lake = lake;                
                 $scope.rating = LakeUtils.getLatestYearRating(lake);
-
                 $scope.weatherdata = weatherdata;
-            })
-            .catch(function(err){
-                //TODO handle
-                console.log(err);
-            });            
+                $scope.error = false;
 
-        });
+            })
+            .catch(function(err){ 
+                console.log(err);
+                $scope.error = true;
+            })
+            .finally(function(){
+                $scope.init = false;
+                $ionicLoading.hide();
+                //put resizeevent AFTER angular apply into event chain
+                $timeout(function(){
+                    ionic.trigger('resize',{
+                        target:'window'
+                    });
+                });
+            });
+        };
+
+        $scope.reload = reload;
+
+        $scope.$on('$ionicView.enter', reload);
 
         $scope.toogleFav = function(){
             $scope.isFav = FavData.toogleFav(id);

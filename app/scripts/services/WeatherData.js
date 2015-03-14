@@ -6,14 +6,14 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 
 		//1 hour
 		var maxAge = 3600000;
+		// var maxAge = 10;
 		//1 week
 		// var maxAge = 604800000;
 		
 		var lakesUrl = ENV.apiEndpoint + '/lakes';
+		var timeout = ENV.requestTimeout;
 		
 		var _isUptoDate = function(){
-			//load data
-			_get();
 			if(allWeatherMemorycache){
 				var lastmodified = allWeatherMemorycache.lastmodified;
 				var current = new Date();
@@ -27,19 +27,19 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 			if(!allWeatherMemorycache){
 				allWeatherMemorycache = localStorage.getItem(allWeatherKey);
 				if(allWeatherMemorycache){
-					allWeatherMemorycache = JSON.parse(allWeatherMemorycache);
-					deferred.resolve(allWeatherMemorycache.data);
-				}else{
-					var cacheRebuildPromise = _rebuildCache();
-					cacheRebuildPromise
-					.then(function(){
-						return allWeatherMemorycache.data;
-					});
-					deferred.resolve(cacheRebuildPromise);
+					allWeatherMemorycache = JSON.parse(allWeatherMemorycache);					
 				}
-			}else{
-				deferred.resolve(allWeatherMemorycache.data);
 			}
+			if(_isUptoDate()){
+				deferred.resolve(allWeatherMemorycache.data);
+			}else{
+				var promise = _rebuildCache()
+				.then(function(){
+					return allWeatherMemorycache.data;
+				});
+				deferred.resolve(promise);
+			}
+			
 			return deferred.promise;
 		};
 
@@ -51,11 +51,11 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 			allWeatherMemorycache = storage;
 		};
 
-		
-
 		var _rebuildCache = function(){
 			var deferred = $q.defer();
-			$http.get(lakesUrl + '/allweather')
+			$http.get(lakesUrl + '/allweather',{
+				timeout: timeout
+			})
 			.then(function(response){
 				var weatherdatas = response.data.weatherdatas;
 				_put(weatherdatas);
@@ -85,13 +85,7 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
 			 * @return {[QPromise]} [QPromise. Gets resolved if cache is ready or rejected if an error occurred e.g. networkconnection does not exist.]
 			 */
 			 prepareCache: function(){
-			 	var deferred = $q.defer();
-			 	if(!_isUptoDate()){
-			 		deferred.resolve(_rebuildCache());
-			 	}else{
-			 		deferred.resolve();
-			 	}
-			 	return deferred.promise;
+			 	return _get();
 			 },
 			
 			/**
