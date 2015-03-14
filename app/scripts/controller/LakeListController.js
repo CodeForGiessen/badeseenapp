@@ -96,7 +96,7 @@ angular.module('badeseenApp').controller('LakeListController',
         	//todo geolocation offline
         });
 
-        //Distance calculation between two geo-coordinates with
+        //Distance calculation between two geo-coordinates with Haversine Algorithm
         $scope.distBetweenCoords = function (lat, lon) {
         	var radEarth = 6371;
         	var dLat = $scope.deg2rad(lat-$scope.latUser);
@@ -108,11 +108,20 @@ angular.module('badeseenApp').controller('LakeListController',
         	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         	var distance = radEarth * c; //Distance in kilometer
 
-        	return distance;
+        	return Math.round(distance);
         };
 
+        //Convert degree to radian
         $scope.deg2rad = function (deg) {
         	return deg * (Math.PI/180)
+        };
+
+        $scope.filterKM = function () {
+            // body...
+        };
+
+        $scope.filterRating = function () {
+            //body
         };
 
         $scope.show = function (){

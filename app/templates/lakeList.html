@@ -20,7 +20,7 @@
         </div>
         <ion-list>
             <ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
-                <span class="info">{{distBetweenCoords(lake.latitude, lake.longitude)}} {{lake.measurements[0].waterTemperature}} °C</span>
+                <span class="info">{{distBetweenCoords(lake.latitude, lake.longitude)}} KM {{lake.measurements[0].waterTemperature}} °C</span>
                 <p class="h3 dark">{{lake.name}}</p>
                 <i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>
             </ion-item>
