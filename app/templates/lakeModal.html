@@ -12,6 +12,10 @@
 				<div class="item item-divider">
 					<strong>Übersicht</strong>
 				</div>
+				<a class="item item-icon-left item-text-wrap assertive" ng-show="messages.length" ng-click="openMessageModal()">
+                    <i class="icon fa fa-exclamation-triangle "></i>
+                    {{messages.length === 1 ? 'Es liegt eine Nachricht vor' : 'Es liegen ' + messages.length + ' Nachrichten vor'}}
+                </a>
 				<div class="item item-icon-left item-text-wrap">
 					<i class="icon fa fa-bullhorn"></i>
 					{{lake.bathingPermission}}

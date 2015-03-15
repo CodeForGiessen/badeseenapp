@@ -4,7 +4,7 @@ Model Lake represents every attribute of a lake.
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
-	function ($rootScope,LakeData, $ionicModal, WeatherData,LakeUtils,$q, $state, $ionicLoading) {
+	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/lakeModal.html', {
            animation: 'slide-in-up',
@@ -21,34 +21,42 @@ angular.module('badeseenApp')
 
                 var reload = function(){
                     $ionicLoading.show();
+
                     $q.all([
                         LakeData.getById(lakeId),
-                        WeatherData.getById(lakeId)
+                        WeatherData.getById(lakeId),
+                        MessagesData.getById(lakeId)
                         ])
                     .then(function(res){
                         var lake = res[0];
                         var weatherdata = res[1];
-
+                        var messages = res[2];
                         scope.lake = lake;   
                         scope.rating = LakeUtils.getLatestYearRating(lake);
                         scope.weatherdata = weatherdata;
+                        scope.messages = messages;
                         scope.error = false;
-                        scope.init = false;
+                        scope.init = false;                
                     })
                     .catch(function(err){ 
                         console.log(err);
                         scope.error = true;
                     })
-                    .finally(function(){                       
+                    .finally(function(){
                         $ionicLoading.hide();
+
                         ionic.trigger('resize',{
                             target:'window'
-                        });                
+                        });
                     });
                 };
                 scope.modal.show();
                 scope.reload = reload;
-                reload();                   
+                reload();
+
+                scope.openMessageModal = function(){
+                    MessagesModal.openModal(scope.lake._id);
+                };                   
             }
         };
 	});
