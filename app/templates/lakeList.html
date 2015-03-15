@@ -22,9 +22,24 @@
         </div>
         <ion-list>
             <ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
-                <span class="info">{{distBetweenCoords(lake.latitude, lake.longitude)}} KM {{weatherData[lake._id].current.temp | number:1}} °C</span>
-                <p class="h3 dark">{{lake.name}}</p>
-                <i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>
+            	<div class="row">
+                	<div class="col col-90">
+                		<span class="info">
+                			{{distBetweenCoords(lake.latitude, lake.longitude)}} km
+                		</span>
+                		<p class="h3 dark">
+                			{{lake.name}}
+                		</p>
+                	</div>                	
+                	<div class="col">
+                		<br>
+                		<div class="weatherinfo">
+		                	<i class="wi" ng-class="getWeatherIcon(lake._id)"></i>
+		                	<strong>{{weatherData[lake._id].current.temp | number:1}} °C</strong>
+		                </div>
+                	</div>
+                	<!--<i class="badge badge-calm">{{lake.yearratings[0].rating}}</i> -->
+            	</div>
             </ion-item>
         </ion-list>
     </ion-content>
