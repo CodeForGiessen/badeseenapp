@@ -1,102 +1,50 @@
 'use strict';
-angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http',
-	function ($q,ENV, $http) {
+angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http', 'KeyCache',
+	function ($q,ENV, $http,KeyCache) {
 		var allWeatherKey = 'weatherCache.allweatherdata';
-		var allWeatherMemorycache;
-
-		//1 hour
-		var maxAge = 3600000;
-		// var maxAge = 10;
-		//1 week
-		// var maxAge = 604800000;
-		
+		var maxAge = ENV.cachesMaxAge.weather;		
 		var lakesUrl = ENV.apiEndpoint + '/lakes';
 		var timeout = ENV.requestTimeout;
-		
-		var _isUptoDate = function(){
-			if(allWeatherMemorycache){
-				var lastmodified = allWeatherMemorycache.lastmodified;
-				var current = new Date();
-				return (current.getTime() <= lastmodified + maxAge );
-			}
-			return false;
-		};
 
-		var _get = function(){
-			var deferred = $q.defer();
-			if(!allWeatherMemorycache){
-				allWeatherMemorycache = localStorage.getItem(allWeatherKey);
-				if(allWeatherMemorycache){
-					allWeatherMemorycache = JSON.parse(allWeatherMemorycache);					
-				}
-			}
-			if(_isUptoDate()){
-				deferred.resolve(allWeatherMemorycache.data);
-			}else{
-				var promise = _rebuildCache()
-				.then(function(){
-					return allWeatherMemorycache.data;
-				});
-				deferred.resolve(promise);
-			}
-			
-			return deferred.promise;
-		};
-
-		var _put = function(value){
-			var storage = {};
-			storage.data = value;
-			storage.lastmodified = new Date().getTime();			
-			localStorage.setItem(allWeatherKey,JSON.stringify(storage));
-			allWeatherMemorycache = storage;
-		};
-
-		var _rebuildCache = function(){
-			var deferred = $q.defer();
-			$http.get(lakesUrl + '/allweather',{
+		var rebuild = function(){
+			return $http.get(lakesUrl + '/allweather',{
 				timeout: timeout
 			})
 			.then(function(response){
-				var weatherdatas = response.data.weatherdatas;
-				_put(weatherdatas);
-				deferred.resolve();
-			})
-			.catch(function(response){
-				deferred.reject(response);
+				return response.data.weatherdatas;
 			});
+		};
 
-			return deferred.promise;
+		var option ={
+			key: allWeatherKey,
+			rebuild: rebuild,
+			maxAge: maxAge
 		};
 
 		var getAll = function () {
-			return _get();
+			return KeyCache.get(option);
 		};
 
 		var getById = function (id) {
-		 	return _get()
+		 	return KeyCache.get(option)
 			.then(function(idToWeatherMap){
 				return idToWeatherMap[id];
 			});
 		};
 
+		
+
 		var service = {
-			/**
-			 * [prepareCache This method fills / updates the cache if elements are outdated. This method should be execute once at start of the app.]
-			 * @return {[QPromise]} [QPromise. Gets resolved if cache is ready or rejected if an error occurred e.g. networkconnection does not exist.]
-			 */
-			 prepareCache: function(){
-			 	return _get();
-			 },
 			
 			/**
-			 * [getAll Returns all lakes]
-			 * @return {[QPromise]} [QPromise. Gets resolved with the lakes. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
+			 * [getAll Returns all weatherdatas mapped by the lake id]
+			 * @return {[QPromise]} [QPromise. Gets resolved with the all weatherdatas. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
 			 */
 			getAll: getAll,
 			/**
-			 * [getById Returns a lake by id]
+			 * [getById Returns weatherdata object for an specific lake]
 			 * @param {[String]} id [LakeId]
-			 * @return {[QPromise]} [QPromise. Gets resolved with the lake or undefined if no lake with this id exists. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
+			 * @return {[QPromise]} [QPromise. Gets resolved with the weatherdata or undefined if no lake with this id exists. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
 			 */
 			getById: getById,
 

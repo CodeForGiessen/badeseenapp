@@ -1,33 +1,24 @@
 <ion-view>
     <ion-nav-title>
-        {{lake.name}} <ion-spinner></ion-spinner>
+        {{lake.name}}
     </ion-nav-title>
     <ion-nav-buttons side="left">
         <a class="button button-clear" ng-click="goBack()">
             <i class="ion-arrow-left-c"></i> Zurück
         </a>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button ng-hide="error" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
+    <ion-nav-buttons side="right" >
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
         </button>
     </ion-nav-buttons>
-    <ion-content class="has-header error-scroll" ng-show="error">
-        <div class="error-container">
-            <div class="error-icon">
-                <i class="fa fa-frown-o"></i>
-            </div>
-            <div class="error-text">
-                Kein Internet?
-            </div>
-            <button class="button button-stable error-button" ng-click="reload()">Wiederholen</button>
-        </div>   
-    </ion-content>
-    <ion-content class="has-header" ng-hide="error || init">     
+
+    <error-panel reload="reload" error="error"></error-panel>
+
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-hide="error" ng-hide="init">     
         <div class="slider-parent" ng-show="lake.images.length">
             <ion-slide-box class="slider-child">
-                <!-- <ion-slide>
-                    <leaflet center="center" defaults="defaults" markers="markers"></leaflet>
-                </ion-slide> -->
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
                 <div class="copyright">
                     {{image.copyright}}
@@ -36,11 +27,15 @@
             </ion-slide-box>
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
-                    <strong>Übersicht</strong>
+                        <strong>Übersicht</strong>
                     </div>
+                    <a class="item item-icon-left item-text-wrap assertive" ng-show="messages.length" ng-click="openMessageModal()">
+                        <i class="icon fa fa-exclamation-triangle "></i>
+                        {{messages.length === 1 ? 'Es liegt eine Nachricht vor' : 'Es liegen ' + messages.length + ' Nachrichten vor'}}
+                    </a>                    
                     <div class="item item-icon-left item-text-wrap">
                         <i class="icon fa fa-bullhorn"></i>
                         {{lake.bathingPermission}}
@@ -51,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Beschreibung</strong>
@@ -65,7 +60,7 @@
         </div>
        
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Status</strong>
@@ -76,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Mögliche Aktivitäten</strong>
@@ -96,7 +91,7 @@
             </div>       
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Gewässerprofil</strong>
@@ -124,33 +119,40 @@
                     </div>
                 </div>    
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
-                        <strong>Letzter Messwert</strong>
+                        <strong>Letzte Gewässerprobe</strong>
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-tint"></i>
-                        Badeseetyp {{lake.lakeType}} 
+                    <div class="item item-icon-left  item-text-wrap" ng-hide="latestMeasurement">
+                        <i class="icon fa fa-info"></i>
+                        Für diesen Badesee liegen noch keine Messwerte vor
                     </div>
-
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows-v"></i>
-                        {{lake.depthAvg}} Meter durchschnittliche Tiefe
+                    <div class="item item-icon-left" ng-show="latestMeasurement">
+                        <i class="icon fa fa-calendar"></i>
+                        {{latestMeasurement.date | date:'dd.MM.yyyy'}}
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows-v"></i>
-                        {{lake.depthMax}} Meter maximale Tiefe
+                    <div class="item item-icon-left" ng-class="measurementRatingToClass(latestMeasurement)" ng-show="latestMeasurement">
+                        <i class="icon fa" ng-class="{'fa-smile-o': (latestMeasurement.rating===1), 'fa-meh-o': (latestMeasurement.rating===2), 'fa-frown-o': (latestMeasurement.rating===3), 'fa-info': (latestMeasurement.rating > 3)}"></i>
+                        {{measurementRatingToText(latestMeasurement)}}
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows"></i>
-                        {{lake.areaHa}} Hektar Größe
+                    <div class="item item-icon-left" ng-show="latestMeasurement.waterTemperature">
+                        <i class="icon wi wi-thermometer"></i>
+                        {{latestMeasurement.waterTemperature}} °C Wassertemperatur
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-university"></i>
-                        {{lake.city}}
+                    <div class="item item-icon-left" ng-show="latestMeasurement.enterocsocci">
+                        <i class="icon fa fa-bug"></i>
+                        {{latestMeasurement.enterocsocci}} Enterokokken (KBE/100ml)
                     </div>
-                    <a class="item item-icon-left positive" href="#">
+                    <div class="item item-icon-left" ng-show="latestMeasurement.escherichiaColi">
+                        <i class="icon fa fa-bug"></i>
+                        {{latestMeasurement.escherichiaColi}} Escherichia-coli (KBE/100ml)
+                    </div>
+                    <div class="item item-icon-left" ng-show="latestMeasurement.comment">
+                        <i class="icon fa fa-comment"></i>
+                        {{latestMeasurement.comment}}
+                    </div> 
+                    <a class="item item-icon-left positive" href="#" ng-show="latestMeasurement" ng-click="openMeasurementsModal()">
                         <i class="icon fa fa-history "></i>
                         Historische Messwerte anzeigen
                     </a>
@@ -158,7 +160,7 @@
             </div>             
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Betreiber</strong>
@@ -189,7 +191,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Zuständige Behörde</strong>
@@ -209,6 +211,5 @@
                 </div>    
             </div>
         </div>
-        
     </ion-content>
 </ion-view>

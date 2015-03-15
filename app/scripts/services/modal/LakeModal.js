@@ -4,7 +4,7 @@ Model Lake represents every attribute of a lake.
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
-	function ($rootScope,LakeData, $ionicModal, WeatherData,LakeUtils,$q, $state) {
+	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/lakeModal.html', {
            animation: 'slide-in-up',
@@ -15,29 +15,48 @@ angular.module('badeseenApp')
         });
         return {
             openModal : function(lakeId){
-                $q.all([
-                    LakeData.getById(lakeId),
-                    WeatherData.getById(lakeId)
-                    ])
-                .then(function(res){
-                    var lake = res[0];
-                    var weatherdata = res[1];
+                scope.error = false;
+                scope.init = true;
+                scope.lake= {};
 
-                    scope.lake = lake;                
-                    scope.rating = LakeUtils.getLatestYearRating(lake);
-                    scope.weatherdata = weatherdata;
-                    scope.goSinglePage = function(){
-                        scope.modal.hide();
-                        $state.go('lake',{
-                            id:scope.lake._id
+                var reload = function(){
+                    $ionicLoading.show();
+
+                    $q.all([
+                        LakeData.getById(lakeId),
+                        WeatherData.getById(lakeId),
+                        MessagesData.getById(lakeId)
+                        ])
+                    .then(function(res){
+                        var lake = res[0];
+                        var weatherdata = res[1];
+                        var messages = res[2];
+                        scope.lake = lake;   
+                        scope.rating = LakeUtils.getLatestYearRating(lake);
+                        scope.weatherdata = weatherdata;
+                        scope.messages = messages;
+                        scope.error = false;
+                        scope.init = false;                
+                    })
+                    .catch(function(err){ 
+                        console.log(err);
+                        scope.error = true;
+                    })
+                    .finally(function(){
+                        $ionicLoading.hide();
+
+                        ionic.trigger('resize',{
+                            target:'window'
                         });
-                    };
-                    scope.modal.show();
-                })
-                .catch(function(err){
-                    //TODO handle
-                    console.log(err);
-                });   
+                    });
+                };
+                scope.modal.show();
+                scope.reload = reload;
+                reload();
+
+                scope.openMessageModal = function(){
+                    MessagesModal.openModal(scope.lake._id);
+                };                   
             }
         };
 	});

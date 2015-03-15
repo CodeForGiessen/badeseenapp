@@ -4,7 +4,14 @@
     top: 10%;
     /*left: 15%;*/
     font-family: Hawaii 5-0, sans-serif;
-    color: #96561E;
+    color: blue;
+};
+.weatherinfo {
+    //position: inherit;
+    top: 100%;
+    right: 0%;
+    font-family: Hawaii 5-0, sans-serif;
+    //color: blue;
 };
 .fontColor {
     font-family: Hawaii 5-0, sans-serif;
@@ -292,7 +299,6 @@
  */
 .rating-modal{
     .euimage{
-        height: 100%;
         width: 100%;
     }
     .text{
@@ -360,11 +366,12 @@
             font-size: 50vh;
         }
         .error-text{
-            font-size: 4vh;
-            line-height: 4vh;
-        }
+            font-size: 6vh;
+            line-height: 6vh;
+        }    
+        
         .error-button{
-            margin-top: 5px;
+            margin-top: 20px;
         }
     }
 }

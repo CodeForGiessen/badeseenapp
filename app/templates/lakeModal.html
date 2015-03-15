@@ -5,11 +5,17 @@
 			<h1 class="title">{{lake.name}}</h1>
 			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
 		</div>
-		<ion-content class="has-header has-footer">
+		<error-panel reload="reload" error="error"></error-panel>
+    	<!-- Due to an angular bug an expression like error || init does not work every time -->
+    	<ion-content class="has-header" ng-hide="error" ng-hide="init">
 			<div class="card list">
 				<div class="item item-divider">
 					<strong>Übersicht</strong>
 				</div>
+				<a class="item item-icon-left item-text-wrap assertive" ng-show="messages.length" ng-click="openMessageModal()">
+                    <i class="icon fa fa-exclamation-triangle "></i>
+                    {{messages.length === 1 ? 'Es liegt eine Nachricht vor' : 'Es liegen ' + messages.length + ' Nachrichten vor'}}
+                </a>
 				<div class="item item-icon-left item-text-wrap">
 					<i class="icon fa fa-bullhorn"></i>
 					{{lake.bathingPermission}}

@@ -1,14 +1,44 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q) {
 		$scope.lakes = [];
-		LakeData.getAll()
-		.then(function(lakes){
-			$scope.lakes = lakes;
-		})
-		.catch(function(){
-			//TODO handle
-		});
+		$scope.weatherData = [];
+        $scope.error = false;
+        $scope.init = true;
+
+
+        var reload = function(){
+            $ionicLoading.show();
+            $q.all([
+                LakeData.getAll(),
+                WeatherData.getAll()
+                ])
+            .then(function(res){
+                var lakes = res[0];
+                var weatherdatas = res[1];
+
+            	$scope.weatherData = weatherdatas;
+                $scope.lakes = lakes;
+                $scope.error = false;                            
+                $scope.init = false; 
+            })
+            .catch(function(err){
+                console.log(err);
+                $scope.error = true;
+            })
+            .finally(function(){
+                $ionicLoading.hide();
+                ionic.trigger('resize',{
+                    target:'window'
+                });
+            });
+        };
+        $scope.reload = reload;
+
+        $scope.$on('$ionicView.enter', reload);
+
+
+		
 
 		$scope.rating = [];
 		$scope.openModal = function (id) {
@@ -73,7 +103,7 @@ angular.module('badeseenApp').controller('LakeListController',
         	//todo geolocation offline
         });
 
-        //Distance calculation between two geo-coordinates with
+        //Distance calculation between two geo-coordinates with Haversine Algorithm
         $scope.distBetweenCoords = function (lat, lon) {
         	var radEarth = 6371;
         	var dLat = $scope.deg2rad(lat-$scope.latUser);
@@ -85,11 +115,20 @@ angular.module('badeseenApp').controller('LakeListController',
         	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         	var distance = radEarth * c; //Distance in kilometer
 
-        	return distance;
+        	return Math.round(distance);
         };
 
+        //Convert degree to radian
         $scope.deg2rad = function (deg) {
         	return deg * (Math.PI/180)
+        };
+
+        $scope.filterKM = function () {
+            // body...
+        };
+
+        $scope.filterRating = function () {
+            //body
         };
 
         $scope.show = function (){
@@ -105,5 +144,9 @@ angular.module('badeseenApp').controller('LakeListController',
         			//todo
         		}
         	});
+        };
+        $scope.getWeatherIcon = function(id) {
+        	var iconId = $scope.weatherData[id].current.weather[0].icon;
+        	return WeatherData.getWeatherIconClassById(iconId);
         }
 	});

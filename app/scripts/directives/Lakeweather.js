@@ -33,6 +33,9 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
+            scope.$watch(function(){
+                return element.width();
+            },scope.onResize);
             scope.$watch('weatherdata', function(value){
                 if(value){
                     scope.weather = value[scope.data];

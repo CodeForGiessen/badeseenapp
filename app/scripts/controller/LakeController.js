@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData,FavData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading,$timeout) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, MeasurementsData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading, MessagesData, MessagesModal, MeasurementsModal) {
 		var id = $stateParams.id;
 
         $scope.error = false;
@@ -17,30 +17,33 @@ angular.module('badeseenApp').controller('LakeController',
             $scope.isFav = FavData.isFav(id);
             $q.all([
                 LakeData.getById(id),
-                WeatherData.getById(id)
+                WeatherData.getById(id),
+                MessagesData.getById(id),
+                MeasurementsData.getById(id)
                 ])
             .then(function(res){
                 var lake = res[0];
                 var weatherdata = res[1];
-
-                $scope.lake = lake;                
+                var messages = res[2];
+                var measurements = res[3];
+                $scope.lake = lake;   
                 $scope.rating = LakeUtils.getLatestYearRating(lake);
                 $scope.weatherdata = weatherdata;
+                $scope.messages = messages;
+                $scope.measurements = measurements;
+                $scope.latestMeasurement = MeasurementsData.getLatestMeasurement(measurements);
                 $scope.error = false;
-
+                $scope.init = false;                
             })
             .catch(function(err){ 
                 console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
-                $scope.init = false;
                 $ionicLoading.hide();
-                //put resizeevent AFTER angular apply into event chain
-                $timeout(function(){
-                    ionic.trigger('resize',{
-                        target:'window'
-                    });
+                
+                ionic.trigger('resize',{
+                    target:'window'
                 });
             });
         };
@@ -60,6 +63,35 @@ angular.module('badeseenApp').controller('LakeController',
                     link = 'http://' + link;
                 }
                 $window.open(link,'_system');
+            }
+        };
+
+        $scope.openMessageModal = function(){
+            MessagesModal.openModal($scope.lake._id);
+        };
+
+        $scope.openMeasurementsModal = function(){
+            MeasurementsModal.openModal($scope.lake._id);
+        };
+
+        $scope.measurementRatingToText = function(measurement){
+            if(measurement){
+                return MeasurementsData.getMeasurementRatingAsText(measurement);
+            }
+        };
+
+        $scope.measurementRatingToClass = function(measurement){
+            if(measurement){
+                switch(measurement.rating){
+                    case 1:
+                    return 'balanced';
+                    case 2:
+                    return 'energized';
+                    case 3:
+                    return 'assertive';
+                    default:
+                    return '';
+                }
             }
         };
 	});

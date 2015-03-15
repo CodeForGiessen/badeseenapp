@@ -24,7 +24,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             case 4:
             icon = 'fa-frown-o';
             stars = 0;
-            buttonclass = 'button-energized';
+            buttonclass = 'button-assertive';
             break;
             case 5:
             case 6:
@@ -67,13 +67,14 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             angular.element($window).bind('resize', function() {
                 scope.onResize();
             });
-          
+            scope.$watch(function(){
+                return element.width();
+            },scope.onResize);
 
             var changed = function(){
                 if(scope.lake && scope.lake.yearratings){
                     var rating;
                     if(!scope.year){
-                        console.log(scope.lake);
                         rating = LakeUtils.getLatestYearRating(scope.lake);
                     }else{
                         rating = LakeUtils.getRatingByYear(scope.lake,scope.year);
@@ -85,6 +86,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
 
             scope.$watch('lake',changed);
             scope.$watch('year', changed);
+            
 
             scope.openModal = function(){
                 if(scope.lake && !scope.notClickable){

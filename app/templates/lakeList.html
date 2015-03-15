@@ -1,12 +1,14 @@
 <ion-view title="Liste">
-<ion-nav-buttons side="right">
-<button class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
-<button class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
-</ion-nav-buttons>
-<ion-content class="has-header">
-<div class="item item-input-inset"
+    <ion-nav-buttons side="right">
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
+    </ion-nav-buttons>
+    <error-panel reload="reload" error="error"></error-panel>
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-hide="error" ng-hide="init">
+        <div class="item item-input-inset"
              ng-show="llCtrl.searchActive">
-
             <label class="item-input-wrapper">
                 <i class="icon ion-ios7-search placeholder-icon"></i>
                 <input type="text" placeholder="Search"
@@ -18,12 +20,27 @@
                     ng-click="llCtrl.toggleSearch()">Cancel
             </button>
         </div>
-<ion-list>
-	<ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
-		<span class="info">{{distBetweenCoords(lake.latitude, lake.longitude)}} {{lake.measurements[0].waterTemperature}} °C</span>
-		<p class="h3 dark">{{lake.name}}</p>
-		<i class="badge badge-assertive">{{lake.yearratings[0].rating}}</i>
-	</ion-item>
-</ion-list>
-</ion-content>
+        <ion-list>
+            <ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
+            	<div class="row">
+                	<div class="col col-90">
+                		<span class="info">
+                			{{distBetweenCoords(lake.latitude, lake.longitude)}} km
+                		</span>
+                		<p class="h3 dark">
+                			{{lake.name}}
+                		</p>
+                	</div>                	
+                	<div class="col">
+                		<br>
+                		<div class="weatherinfo">
+		                	<i class="wi" ng-class="getWeatherIcon(lake._id)"></i>
+		                	<strong>{{weatherData[lake._id].current.temp | number:1}} °C</strong>
+		                </div>
+                	</div>
+                	<!--<i class="badge badge-calm">{{lake.yearratings[0].rating}}</i> -->
+            	</div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>
