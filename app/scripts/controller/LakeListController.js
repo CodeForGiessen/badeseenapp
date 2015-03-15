@@ -145,4 +145,8 @@ angular.module('badeseenApp').controller('LakeListController',
         		}
         	});
         };
+        $scope.getWeatherIcon = function(id) {
+        	var iconId = $scope.weatherData[id].current.weather[0].icon;
+        	return WeatherData.getWeatherIconClassById(iconId);
+        }
 	});
