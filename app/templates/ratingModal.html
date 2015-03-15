@@ -2,12 +2,12 @@
 <body>
 	<ion-modal-view>
 		<div class="bar bar-header bar-positive">
-			<h1 class="title">{{lake.name}}</h1>
+			<h1 class="title">Einstufungen</h1>
 			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
 		<!-- Due to an angular bug an expression like error || init does not work every time -->
-    	<ion-content class="has-header has-footer rating-modar" ng-hide="error" ng-hide="init">
+    	<ion-content class="has-header has-footer rating-modal" ng-hide="error" ng-hide="init">
 			<div class="card list" ng-repeat="rating in lake.yearratings | orderBy:'-year'">
 				<div class="item item-divider">
 					<strong>{{rating.year}}</strong>

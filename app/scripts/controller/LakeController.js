@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData,FavData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading,$timeout) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading, MessagesData, MessagesModal) {
 		var id = $stateParams.id;
 
         $scope.error = false;
@@ -17,15 +17,17 @@ angular.module('badeseenApp').controller('LakeController',
             $scope.isFav = FavData.isFav(id);
             $q.all([
                 LakeData.getById(id),
-                WeatherData.getById(id)
+                WeatherData.getById(id),
+                MessagesData.getById(id)
                 ])
             .then(function(res){
                 var lake = res[0];
                 var weatherdata = res[1];
-
+                var messages = res[2];
                 $scope.lake = lake;   
                 $scope.rating = LakeUtils.getLatestYearRating(lake);
                 $scope.weatherdata = weatherdata;
+                $scope.messages = messages;
                 $scope.error = false;
                 $scope.init = false;                
             })
@@ -38,10 +40,6 @@ angular.module('badeseenApp').controller('LakeController',
                 
                 ionic.trigger('resize',{
                     target:'window'
-                });
-                $timeout(function(){
-                    //rerun digest
-                    $scope.$apply();               
                 });
             });
         };
@@ -62,5 +60,9 @@ angular.module('badeseenApp').controller('LakeController',
                 }
                 $window.open(link,'_system');
             }
+        };
+
+        $scope.openMessageModal = function(){
+            MessagesModal.openModal($scope.lake._id);
         };
 	});

@@ -1,6 +1,3 @@
-/**
-Model Lake represents every attribute of a lake.
-*/
 'use strict';
 angular.module('badeseenApp')
 .factory('RatingModal',

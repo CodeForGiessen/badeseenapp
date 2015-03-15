@@ -24,7 +24,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             case 4:
             icon = 'fa-frown-o';
             stars = 0;
-            buttonclass = 'button-energized';
+            buttonclass = 'button-assertive';
             break;
             case 5:
             case 6:
@@ -75,7 +75,6 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
                 if(scope.lake && scope.lake.yearratings){
                     var rating;
                     if(!scope.year){
-                        console.log(scope.lake);
                         rating = LakeUtils.getLatestYearRating(scope.lake);
                     }else{
                         rating = LakeUtils.getRatingByYear(scope.lake,scope.year);
