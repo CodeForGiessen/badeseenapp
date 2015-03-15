@@ -5,7 +5,6 @@ angular.module('badeseenApp').controller('LakeMapController',
         $scope.markers = {};
         $scope.error = false;
         $scope.init = true;
-        var errors = 0;
         var reload = function(){
             $ionicLoading.show();
             LakeData.getAll()
