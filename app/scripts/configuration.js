@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://badeseen.andinfinity.de/api/v1',requestTimeout:10000})
+.constant('ENV', {name:'development',apiEndpoint:'http://badeseen.andinfinity.de/api/v1',requestTimeout:20000})
 
 ;

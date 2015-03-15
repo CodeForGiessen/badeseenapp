@@ -27,18 +27,22 @@ angular.module('badeseenApp').controller('LakeController',
                 $scope.rating = LakeUtils.getLatestYearRating(lake);
                 $scope.weatherdata = weatherdata;
                 $scope.error = false;
-
+                $scope.init = false;                
             })
             .catch(function(err){ 
                 console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
-                $scope.init = false;
                 $ionicLoading.hide();
+                
                 ionic.trigger('resize',{
                     target:'window'
-                });                
+                });
+                $timeout(function(){
+                    //rerun digest
+                    $scope.$apply();               
+                });
             });
         };
 

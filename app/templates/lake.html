@@ -1,20 +1,22 @@
 <ion-view>
     <ion-nav-title>
-        {{lake.name}} <ion-spinner></ion-spinner>
+        {{lake.name}}
     </ion-nav-title>
     <ion-nav-buttons side="left">
         <a class="button button-clear" ng-click="goBack()">
             <i class="ion-arrow-left-c"></i> Zurück
         </a>
     </ion-nav-buttons>
-    <ion-nav-buttons side="right">
-        <button ng-hide="error || init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
+    <ion-nav-buttons side="right" >
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
         </button>
     </ion-nav-buttons>
 
     <error-panel reload="reload" error="error"></error-panel>
 
-    <ion-content class="has-header" ng-hide="error || init">     
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-hide="error" ng-hide="init">     
         <div class="slider-parent" ng-show="lake.images.length">
             <ion-slide-box class="slider-child">
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">

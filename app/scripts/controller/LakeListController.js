@@ -12,7 +12,9 @@ angular.module('badeseenApp').controller('LakeListController',
             LakeData.getAll()
             .then(function(lakes){
                 $scope.lakes = lakes;
-                $scope.error = false;
+                $scope.error = false;                            
+                $scope.init = false;
+
                 WeatherData.getAll()
             	.then(function(value){
             		$scope.weatherData = value;
@@ -20,13 +22,13 @@ angular.module('badeseenApp').controller('LakeListController',
             	.catch(function(err){
             		console.log(err);
             	});
+
             })
             .catch(function(err){
                 console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
-                $scope.init = false;
                 $ionicLoading.hide();
                 ionic.trigger('resize',{
                     target:'window'
@@ -35,9 +37,8 @@ angular.module('badeseenApp').controller('LakeListController',
         };
         $scope.reload = reload;
 
-
         $scope.$on('$ionicView.enter', reload);
-        // reload();
+
 
 		
 
