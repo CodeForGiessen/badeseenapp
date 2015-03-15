@@ -4,11 +4,8 @@ Factory LakeData pulls the data for every lake from the localStorage, parses it 
 'use strict';
 angular.module('badeseenApp').factory('LakeData',['$q', 'ENV', '$http', 'KeyCache',
 	function ($q,ENV, $http,KeyCache) {
-		var allLakesKey ='lakeCache.alllakes';		//1 hour
-		var maxAge = 3600000;
-		//1 week
-		// var maxAge = 604800000;		
-		// var maxAge = 10;
+		var allLakesKey ='lakeCache.alllakes';
+		var maxAge = ENV.cachesMaxAge.lakes;
 		var lakesUrl = ENV.apiEndpoint + '/lakes';
 		var timeout = ENV.requestTimeout;
 

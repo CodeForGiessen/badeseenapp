@@ -43,10 +43,17 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
-            requestTimeout: 20000
             // apiEndpoint: 'http://localhost:7650/api/v1'
-
+            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            requestTimeout: 20000,
+            cachesMaxAge:{
+              //1 week
+              lakes: 604800000,
+              //2 hours
+              weather: 7200000,
+              //2 hours
+              messages: 7200000 
+            }
           }
         }
       },
@@ -55,7 +62,15 @@ module.exports = function (grunt) {
           ENV: {
             name: 'production',
             apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
-            requestTimeout: 20000
+            requestTimeout: 20000,
+            cachesMaxAge:{
+              //1 week
+              lakes: 604800000,
+              //2 hours
+              weather: 7200000,
+              //2 hours
+              messages: 7200000 
+            }
           }
         }
       }

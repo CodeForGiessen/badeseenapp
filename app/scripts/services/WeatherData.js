@@ -2,14 +2,7 @@
 angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http', 'KeyCache',
 	function ($q,ENV, $http,KeyCache) {
 		var allWeatherKey = 'weatherCache.allweatherdata';
-		var allWeatherMemorycache;
-
-		//1 hour
-		var maxAge = 3600000;
-		// var maxAge = 10;
-		//1 week
-		// var maxAge = 604800000;
-		
+		var maxAge = ENV.cachesMaxAge.weather;		
 		var lakesUrl = ENV.apiEndpoint + '/lakes';
 		var timeout = ENV.requestTimeout;
 
@@ -44,14 +37,14 @@ angular.module('badeseenApp').factory('WeatherData',['$q', 'ENV', '$http', 'KeyC
 		var service = {
 			
 			/**
-			 * [getAll Returns all lakes]
-			 * @return {[QPromise]} [QPromise. Gets resolved with the lakes. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
+			 * [getAll Returns all weatherdatas mapped by the lake id]
+			 * @return {[QPromise]} [QPromise. Gets resolved with the all weatherdatas. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
 			 */
 			getAll: getAll,
 			/**
-			 * [getById Returns a lake by id]
+			 * [getById Returns weatherdata object for an specific lake]
 			 * @param {[String]} id [LakeId]
-			 * @return {[QPromise]} [QPromise. Gets resolved with the lake or undefined if no lake with this id exists. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
+			 * @return {[QPromise]} [QPromise. Gets resolved with the weatherdata or undefined if no lake with this id exists. Gets rejected if cache is outdated and an error occured e.g. networkconnection does not exist.]
 			 */
 			getById: getById,
 

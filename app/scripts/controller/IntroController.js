@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('IntroController',
-    function ($state, $ionicLoading, LakeData, FavData, WeatherData, $ionicPopup, $q) {
+    function ($state, $ionicLoading, LakeData, FavData, WeatherData, MessagesData , $ionicPopup, $q) {
         var testData = false;
         var resetApp = true;
 
@@ -33,26 +33,32 @@ angular.module('badeseenApp').controller('IntroController',
 
             return $q.all([
                 LakeData.getAll(),
-                WeatherData.getAll()
-            ])
-            .then()
+                WeatherData.getAll(),
+                MessagesData.getAll()
+                ])
+            // .then(function(res){
+            //     var alllakes = res[0];
+            //     var allweatherdatas = res[1];
+            //     var allmessages = res[2];
+            //     console.log(allmessages);
+            // })
+            .then(function(){
+                return addTestData();
+            })
+            .then(function(){           
+                startApp();            
+            })
+            .catch(function(err){
+                $ionicLoading.hide();
+                $ionicPopup.alert({
+                    title: 'Keine Internetverbindung',
+                    template: 'Keine Internetverbindung. Erneut versuchen?'
+                })
                 .then(function(){
-                    return addTestData();
-                })
-                .then(function(){           
-                    startApp();            
-                })
-                .catch(function(err){
-                    $ionicLoading.hide();
-                    $ionicPopup.alert({
-                        title: 'Keine Internetverbindung',
-                        template: 'Keine Internetverbindung. Erneut versuchen?'
-                    })
-                    .then(function(){
-                        initApp();    
-                    });
-                    
+                    initApp();    
                 });
+
+            });
         };
         initApp();
 
