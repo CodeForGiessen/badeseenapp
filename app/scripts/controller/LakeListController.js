@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q) {
 		$scope.lakes = [];
 		$scope.weatherData = [];
         $scope.error = false;
@@ -9,20 +9,18 @@ angular.module('badeseenApp').controller('LakeListController',
 
         var reload = function(){
             $ionicLoading.show();
-            LakeData.getAll()
-            .then(function(lakes){
+            $q.all([
+                LakeData.getAll(),
+                WeatherData.getAll()
+                ])
+            .then(function(res){
+                var lakes = res[0];
+                var weatherdatas = res[1];
+
+            	$scope.weatherData = weatherdatas;
                 $scope.lakes = lakes;
                 $scope.error = false;                            
-                $scope.init = false;
-
-                WeatherData.getAll()
-            	.then(function(value){
-            		$scope.weatherData = value;
-            	})
-            	.catch(function(err){
-            		console.log(err);
-            	});
-
+                $scope.init = false; 
             })
             .catch(function(err){
                 console.log(err);
