@@ -3,34 +3,48 @@
 <button class="button button-icon icon ion-ios7-plus-outline" ng-click="goToLakeList()"></button>
 </ion-nav-buttons>
 <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}">
-<div class="list card" ng-repeat="lake in favorites">
-  <div class="item item-avatar item-positive" style="background-color: gray">
-    <img ng-src="{{lake.images[0].src}}">
-    <h2>{{lake.name}}</h2>
-    <p style="color: #96561E">Badesaison: {{lake.openFrom}} - {{lake.openTo}}</p>
-  </div>
 
-  <div class="item item-body">
-    <p>
-      {{lake.introtext}}
-    </p>
-    <p>
-      <a href="#" class="subdued">{{lake.measurements[0].waterTemperature}} Like(s)</a>
-    </p>
-  </div>
-  <ion-footer-bar class="bar-stable">
-        <div class="button-bar">
-            <button class="button button-clear" ng-click="openModal(lake)">Mehr Informationen</button>
+<div ng-repeat="lake in favorites">
+  <div class="row responsive-md row-with-cards">
+    <div class="col-50">
+      <div class="card">
+        <div class="item item-divider">
+            <center>
+              <span ng-click="removeFavorite(lake._id)"
+                    style="float: left;">
+                    <i class="fa fa-times"></i>
+              </span>
+              <strong> {{lake.name}} </strong>
+              <span ng-show="true"
+                    ng-click="goToLake(lake._id)"
+                    style="float: right; color: #D24A53">
+                <i class="fa fa-info-circle fa-lg"></i>
+              </span>
+            </center>
         </div>
-    </ion-footer-bar>
- </div>
- <div ng-hide="favorites.length" class="noelements-container">
-    <div class="noelements-icon">
-      <i class="fa fa-rocket"></i>
+        <div class="item even-panel">
+          <div class="dashboard-lake-distance" style="text-align:center; vertical-align: middle;  font-size: 75px; line-height: 75px; ">
+            <div> 4 </div> Km
+          </div>
+          <lake-weather weatherdata="weatherData[lake._id]"></lake-weather>
+        </div>
+        <div class="item item-body" show-more-text="lake.introtext" max-chars="50">
+          <span show-more-text-content></span>
+          <a show-more-text-button href="javascript:void(0);"></a>
+        </div>
+      </div>
     </div>
-    <div class="noelements-text">
-      Starte durch und favorisiere Badeseen.
-    </div>
- </div>
+  </div>
+</div>
+
+<div ng-hide="favorites.length" class="noelements-container">
+  <div class="noelements-icon">
+    <i class="fa fa-rocket"></i>
+  </div>
+  <div class="noelements-text">
+    Starte durch und favorisiere Badeseen.
+  </div>
+</div>
+
 </ion-content>
 </ion-view>
