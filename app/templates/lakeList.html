@@ -1,10 +1,12 @@
 <ion-view title="Liste">
     <ion-nav-buttons side="right">
-        <button ng-hide="error || init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
-        <button ng-hide="error || init" class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
+        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
     </ion-nav-buttons>
     <error-panel reload="reload" error="error"></error-panel>
-    <ion-content class="has-header" ng-hide="error || init">
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-hide="error" ng-hide="init">
         <div class="item item-input-inset"
              ng-show="llCtrl.searchActive">
             <label class="item-input-wrapper">

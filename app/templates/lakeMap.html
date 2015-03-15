@@ -1,5 +1,7 @@
 <ion-view title="Karte">
-    <ion-content class="has-header lakemap">
+    <error-panel reload="reload" error="error"></error-panel>
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-hide="error" ng-hide="init">
         <leaflet data-tap-disabled="true" center="center" defaults="defaults" markers="markers" event-broadcast="events"></leaflet>
     </ion-content>
 </ion-view>

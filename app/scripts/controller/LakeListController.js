@@ -12,13 +12,13 @@ angular.module('badeseenApp').controller('LakeListController',
             .then(function(lakes){
                 $scope.lakes = lakes;
                 $scope.error = false;                            
+                $scope.init = false;
             })
             .catch(function(err){
                 console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
-                $scope.init = false;
                 $ionicLoading.hide();
                 ionic.trigger('resize',{
                     target:'window'
@@ -27,9 +27,8 @@ angular.module('badeseenApp').controller('LakeListController',
         };
         $scope.reload = reload;
 
-
         $scope.$on('$ionicView.enter', reload);
-        // reload();
+
 
 		
 
