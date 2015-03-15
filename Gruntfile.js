@@ -52,7 +52,9 @@ module.exports = function (grunt) {
               //2 hours
               weather: 7200000,
               //2 hours
-              messages: 7200000 
+              messages: 7200000,
+              //1 week
+              measurements: 604800000
             }
           }
         }
@@ -69,7 +71,9 @@ module.exports = function (grunt) {
               //2 hours
               weather: 7200000,
               //2 hours
-              messages: 7200000 
+              messages: 7200000,
+              //1 week
+              measurements: 604800000 
             }
           }
         }

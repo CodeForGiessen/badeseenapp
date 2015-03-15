@@ -27,7 +27,7 @@
             </ion-slide-box>
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Übersicht</strong>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Beschreibung</strong>
@@ -60,7 +60,7 @@
         </div>
        
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class=" colcol-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Status</strong>
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card">
                     <div class="item item-divider">
                         <strong>Mögliche Aktivitäten</strong>
@@ -91,7 +91,7 @@
             </div>       
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Gewässerprofil</strong>
@@ -119,33 +119,40 @@
                     </div>
                 </div>    
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
-                        <strong>Letzter Messwert</strong>
+                        <strong>Letzte Gewässerprobe</strong>
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-tint"></i>
-                        Badeseetyp {{lake.lakeType}} 
+                    <div class="item item-icon-left  item-text-wrap" ng-hide="latestMeasurement">
+                        <i class="icon fa fa-info"></i>
+                        Für diesen Badesee liegen noch keine Messwerte vor
                     </div>
-
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows-v"></i>
-                        {{lake.depthAvg}} Meter durchschnittliche Tiefe
+                    <div class="item item-icon-left" ng-show="latestMeasurement">
+                        <i class="icon fa fa-calendar"></i>
+                        {{latestMeasurement.date | date:'dd.MM.yyyy'}}
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows-v"></i>
-                        {{lake.depthMax}} Meter maximale Tiefe
+                    <div class="item item-icon-left" ng-class="measurementRatingToClass(latestMeasurement)" ng-show="latestMeasurement">
+                        <i class="icon fa" ng-class="{'fa-smile-o': (latestMeasurement.rating===1), 'fa-meh-o': (latestMeasurement.rating===2), 'fa-frown-o': (latestMeasurement.rating===3), 'fa-info': (latestMeasurement.rating > 3)}"></i>
+                        {{measurementRatingToText(latestMeasurement)}}
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-arrows"></i>
-                        {{lake.areaHa}} Hektar Größe
+                    <div class="item item-icon-left" ng-show="latestMeasurement.waterTemperature">
+                        <i class="icon wi wi-thermometer"></i>
+                        {{latestMeasurement.waterTemperature}} °C Wassertemperatur
                     </div>
-                    <div class="item item-icon-left">
-                        <i class="icon fa fa-university"></i>
-                        {{lake.city}}
+                    <div class="item item-icon-left" ng-show="latestMeasurement.enterocsocci">
+                        <i class="icon fa fa-bug"></i>
+                        {{latestMeasurement.enterocsocci}} Enterokokken (KBE/100ml)
                     </div>
-                    <a class="item item-icon-left positive" href="#">
+                    <div class="item item-icon-left" ng-show="latestMeasurement.escherichiaColi">
+                        <i class="icon fa fa-bug"></i>
+                        {{latestMeasurement.escherichiaColi}} Escherichia-coli (KBE/100ml)
+                    </div>
+                    <div class="item item-icon-left" ng-show="latestMeasurement.comment">
+                        <i class="icon fa fa-comment"></i>
+                        {{latestMeasurement.comment}}
+                    </div> 
+                    <a class="item item-icon-left positive" href="#" ng-show="latestMeasurement" ng-click="openMeasurementsModal()">
                         <i class="icon fa fa-history "></i>
                         Historische Messwerte anzeigen
                     </a>
@@ -153,7 +160,7 @@
             </div>             
         </div>
         <div class="row responsive-md row-with-cards">
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Betreiber</strong>
@@ -184,7 +191,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col col-50">
                 <div class="card list">
                     <div class="item item-divider">
                         <strong>Zuständige Behörde</strong>
@@ -204,6 +211,5 @@
                 </div>    
             </div>
         </div>
-        
     </ion-content>
 </ion-view>

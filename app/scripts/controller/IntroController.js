@@ -27,10 +27,7 @@ angular.module('badeseenApp').controller('IntroController',
         }
 
         var initApp = function(){
-            $ionicLoading.show({
-                template: 'loading'
-            });
-
+            $ionicLoading.show();
             return $q.all([
                 LakeData.getAll(),
                 WeatherData.getAll(),
