@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q, $timeout,LocationUtils) {
 		$scope.lakes = [];
 		$scope.weatherData = [];
         $scope.error = false;
@@ -19,8 +19,24 @@ angular.module('badeseenApp').controller('LakeListController',
 
             	$scope.weatherData = weatherdatas;
                 $scope.lakes = lakes;
-                $scope.error = false;                            
-                $scope.init = false; 
+                $scope.error = false;
+                $scope.init = false;
+
+                LocationUtils
+                .getCurrentLocation(false)
+                .then(function(currentPos){
+                    $scope.lakes.forEach(function(lake){
+                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
+                            lat: lake.latitude,
+                            lng: lake.longitude
+                        },currentPos);
+                    });
+                })
+                .catch(function(err){
+                    console.log(err);
+                    //TODO
+                    //Geo sensor disabled or not available
+                });
             })
             .catch(function(err){
                 console.log(err);
@@ -28,8 +44,10 @@ angular.module('badeseenApp').controller('LakeListController',
             })
             .finally(function(){
                 $ionicLoading.hide();
-                ionic.trigger('resize',{
-                    target:'window'
+                $timeout(function(){
+                    ionic.trigger('resize',{
+                        target:'window'
+                    });
                 });
             });
         };
@@ -38,7 +56,7 @@ angular.module('badeseenApp').controller('LakeListController',
         $scope.$on('$ionicView.enter', reload);
 
 
-		
+
 
 		$scope.rating = [];
 		$scope.openModal = function (id) {
@@ -48,14 +66,14 @@ angular.module('badeseenApp').controller('LakeListController',
 		$scope.ratingClicked0 = 'false';
 		$scope.ratingClicked1 = 'false';
 		$scope.ratingClicked2 = 'false';
-		
+
 		this.searchQuery = '';
 
 		$scope.switchRating = function (i) {
 			//console.log('switch!');
 			console.log($scope.rating);
 			switch(i){
-				case 0 : 
+				case 0 :
 					if($scope.ratingClicked0 === 'false'){
 						$scope.ratingClicked0 = 'true';
 					} else {
@@ -80,7 +98,7 @@ angular.module('badeseenApp').controller('LakeListController',
 		};
 
 		this.searchActive = false;
-		
+
         if (localStorage.getItem('saveQuery')) {
             this.searchActive = true;
             this.searchQuery = JSON.parse(localStorage.getItem('saveQuery'));
@@ -117,6 +135,8 @@ angular.module('badeseenApp').controller('LakeListController',
 
         	return Math.round(distance);
         };
+
+
 
         //Convert degree to radian
         $scope.deg2rad = function (deg) {

@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('MeasurementsModal',
-	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading) {
+	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading, $timeout) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/measurementsModal.html', {
            animation: 'slide-in-up',
@@ -30,8 +30,10 @@ angular.module('badeseenApp')
                     })
                     .finally(function(){                       
                         $ionicLoading.hide();
-                        ionic.trigger('resize',{
-                            target:'window'
+                        $timeout(function(){
+                            ionic.trigger('resize',{
+                                target:'window'
+                            });
                         });                
                     });
                 };

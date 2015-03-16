@@ -1,50 +1,53 @@
 <ion-view title="Favoriten">
-<ion-nav-buttons side="right">
-<button class="button button-icon icon ion-ios7-plus-outline" ng-click="goToLakeList()"></button>
-</ion-nav-buttons>
-<ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}">
 
-<div ng-repeat="lake in favorites">
-  <div class="row responsive-md row-with-cards">
-    <div class="col-50">
-      <div class="card">
-        <div class="item item-divider">
-            <center>
-              <span ng-click="removeFavorite(lake._id)"
-                    style="float: left;">
-                    <i class="fa fa-times"></i>
-              </span>
-              <strong> {{lake.name}} </strong>
-              <span ng-show="messages[lake._id].length"
-                    ng-click="openMessageModal(lake._id)"
-                    style="float: right; color: #D24A53">
-                <i class="fa fa-info-circle fa-lg"></i>
-              </span>
-            </center>
+    <ion-nav-buttons side="right">
+        <button class="button button-icon icon ion-ios7-plus-outline" ng-click="goToLakeList()"></button>
+    </ion-nav-buttons>
+
+    <error-panel reload="reload" error="error"></error-panel>
+
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error" ng-hide="init">
+        <div class="row responsive-md row-with-cards" ng-repeat="row in rows">
+            <div class="col col-50" ng-repeat="lake in row">
+                <div class="card">
+                    <div class="item item-divider">
+                        <center>
+                          <span ng-click="removeFavorite(lake._id)"
+                                style="float: left;">
+                                <i class="fa fa-times"></i>
+                          </span>
+                          <strong> {{lake.name}} </strong>
+                          <span ng-show="messages[lake._id].length"
+                                ng-click="openMessageModal(lake._id)"
+                                style="float: right; color: #D24A53">
+                            <i class="fa fa-info-circle fa-lg"></i>
+                          </span>
+                        </center>
+                    </div>
+                    <div class="item even-panel">
+                        <div class="dashboard-lake-distance"
+                             style="text-align:center; vertical-align: middle;  font-size: 75px; line-height: 75px; ">
+                            <div> {{ getDistance(lake._id) }} </div> Km
+                        </div>
+                        <lake-weather weatherdata="weather[lake._id]"></lake-weather>
+                    </div>
+                    <div class="item item-body" show-more-text="lake.introtext" max-chars="50">
+                        HALLO
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="item even-panel">
-          <div class="dashboard-lake-distance" style="text-align:center; vertical-align: middle;  font-size: 75px; line-height: 75px; ">
-            <div> 4 </div> Km
-          </div>
-          <lake-weather weatherdata="weather[lake._id]"></lake-weather>
+
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <div ng-hide="favorites.length" ng-hide="error" class="noelements-container">
+            <div class="noelements-icon">
+                <i class="fa fa-rocket"></i>
+            </div>
+            <div class="noelements-text">
+                Starte durch und favorisiere Badeseen.
+            </div>
         </div>
-        <div class="item item-body" show-more-text="lake.introtext" max-chars="50">
-<!--           <span show-more-text-content></span>
-          <a show-more-text-button href="javascript:void(0);"></a>
- -->        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div ng-hide="favorites.length" class="noelements-container">
-  <div class="noelements-icon">
-    <i class="fa fa-rocket"></i>
-  </div>
-  <div class="noelements-text">
-    Starte durch und favorisiere Badeseen.
-  </div>
-</div>
-
-</ion-content>
+    </ion-content>
 </ion-view>
