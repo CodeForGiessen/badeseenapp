@@ -101,34 +101,10 @@
                             </td>
                         </tr>
                     </table>
-                        <!-- <div ng-repeat="activity in lake.extracurricularActivity">
-                            <activity-button  disabled activity="activity"></activity-button>
-                            <div>
-                                {{activity | lowercase | capitalize}}
-                            </div>
-                        </div> -->
-                    
                     </div>
-                    <div class="item even-panel">
-                        <!-- <div ng-repeat="activity in lake.extracurricularActivity">
-                            <activity-button  disabled activity="activity"></activity-button>
-                            <div>
-                                {{activity | lowercase | capitalize}}
-                            </div>
-                        </div> -->
-                        <!-- <activity-button disabled activity="'BADEN'"></activity-button> -->
-                    </div>
-                   <!--  <div class="item row">
-                        <div class="col col-50" ng-repeat="activity in lake.extracurricularActivity">
-                            <activity-button disabled activity="activity"></activity-button>
-                            <div>
-                                {{activity | lowercase | capitalize}}
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="item item-divider">
+                   <!--  <div class="item item-divider">
                         Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>       
         </div>
@@ -223,9 +199,10 @@
                         <i class="icon fa fa-envelope-o"></i>
                         {{lake.operator.email}}
                     </div>
+
                     <div class="item item-icon-left" ng-show="lake.operator.fax">
                         <i class="icon fa fa-fax"></i>
-                        {{lake.operator.fax}}
+                        {{lake.operator.fax}} s
                     </div>
                     <a class="item item-icon-left positive" ng-click="openLinkExtern(lake.operator.website)" ng-show="lake.operator.website">
                         <i class="icon fa fa-external-link"></i>
