@@ -1,9 +1,6 @@
-
 'use strict';
 angular.module('badeseenApp').factory('LocationUtils',
 	function ($cordovaGeolocation, $q) {
-
-
 		var _deg2rad = function (deg) {
         	return deg * (Math.PI/180);
         };

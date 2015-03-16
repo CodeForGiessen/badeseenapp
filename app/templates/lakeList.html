@@ -1,12 +1,10 @@
 <ion-view title="Liste">
     <ion-nav-buttons side="right">
-        <!-- Due to an angular bug an expression like error || init does not work every time -->
-        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
-        <button ng-hide="error" ng-hide="init" class="button button-icon icon ion-ios7-more" ng-click="show()" ng-model="sortOrder"></button>
+        <button ng-hide="error || init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
+        <button ng-hide="error || init" class="button button-icon icon ion-ios7-more" ng-click="show()" ng-model="sortOrder"></button>
     </ion-nav-buttons>
     <error-panel reload="reload" error="error"></error-panel>
-    <!-- Due to an angular bug an expression like error || init does not work every time -->
-    <ion-content class="has-header" ng-hide="error" ng-hide="init">
+    <ion-content class="has-header" ng-hide="error || init">
         <div class="item item-input-inset"
              ng-show="llCtrl.searchActive">
             <label class="item-input-wrapper">
@@ -24,7 +22,7 @@
             <ion-item ng-repeat='lake in filteredLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy: "-distance")' ng-href="#/lakes/{{lake._id}}">
             	<div class="row">
                 	<div class="col col-90">
-                		<span class="info" ng-show="lake.distance">
+                		<span class="positive" ng-show="lake.distance">
                             {{lake.distance}} km
                 		</span>
                 		<p class="h3 dark">

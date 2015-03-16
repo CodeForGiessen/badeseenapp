@@ -33,7 +33,11 @@ angular.module('badeseenApp').controller('LakeController',
                 $scope.measurements = measurements;
                 $scope.latestMeasurement = MeasurementsData.getLatestMeasurement(measurements);
                 $scope.error = false;
-                $scope.init = false;                
+                //Due to an angular bug an expression like error || init will not be evaluated a second time
+                $timeout(function(){
+                    $scope.init = false;
+                });
+                
             })
             .catch(function(err){ 
                 console.log(err);
@@ -41,7 +45,6 @@ angular.module('badeseenApp').controller('LakeController',
             })
             .finally(function(){
                 $ionicLoading.hide();
-                
                 $timeout(function(){
                     ionic.trigger('resize',{
                         target:'window'
@@ -95,5 +98,9 @@ angular.module('badeseenApp').controller('LakeController',
                     return '';
                 }
             }
+        };
+
+        $scope.isActivity = function(activity){
+            return $scope.lake.extracurricularActivity.indexOf(activity) !== -1;
         };
 	});

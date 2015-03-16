@@ -8,15 +8,12 @@
         </a>
     </ion-nav-buttons>
     <ion-nav-buttons side="right" >
-        <!-- Due to an angular bug an expression like error || init does not work every time -->
-        <button ng-hide="error" ng-hide="init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
+        <button ng-hide="error || init" class="button button-icon icon" ng-class="{'ion-ios7-star-outline': !isFav, 'ion-ios7-star': isFav }"  ng-click="toogleFav()">
         </button>
     </ion-nav-buttons>
 
     <error-panel reload="reload" error="error"></error-panel>
-
-    <!-- Due to an angular bug an expression like error || init does not work every time -->
-    <ion-content class="has-header" ng-hide="error" ng-hide="init">     
+    <ion-content class="has-header" ng-hide="error || init">
         <div class="slider-parent" ng-show="lake.images.length">
             <ion-slide-box class="slider-child">
                 <ion-slide class="cover" ng-repeat="image in lake.images" ng-style="{'background-image':'url(\'{{image.src}}\')'}">
@@ -76,14 +73,59 @@
                     <div class="item item-divider">
                         <strong>Mögliche Aktivitäten</strong>
                     </div>
+                    <div class="item">
+                    <table class="activity-table">
+                        <tr>
+                            <td ng-class="{'is-activity': isActivity('BADEN')}">
+                                <activity-button disabled  activity="'BADEN'"></activity-button>
+                            </td>
+                            <td ng-class="{'is-activity': isActivity('ANGELSPORT')}">
+                                <activity-button disabled activity="'ANGELSPORT'"></activity-button>
+                            </td>
+                            <td ng-class="{'is-activity': isActivity('SEGELN')}">
+                                <activity-button disabled activity="'SEGELN'"></activity-button>
+                            </td>
+                            <td ng-class="{'is-activity': isActivity('SPORTTAUCHEN')}">
+                                <activity-button disabled activity="'SPORTTAUCHEN'"></activity-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td ng-class="{'is-activity': isActivity('WASSERSKI')}">
+                                <activity-button disabled activity="'WASSERSKI'"></activity-button>
+                            </td>
+                            <td ng-class="{'is-activity': isActivity('WASSERSPORT')}">
+                                <activity-button disabled activity="'WASSERSPORT'"></activity-button>
+                            </td>
+                            <td ng-class="{'is-activity': isActivity('WINDSURFEN')}">
+                                <activity-button disabled activity="'WINDSURFEN'"></activity-button>
+                            </td>
+                        </tr>
+                    </table>
+                        <!-- <div ng-repeat="activity in lake.extracurricularActivity">
+                            <activity-button  disabled activity="activity"></activity-button>
+                            <div>
+                                {{activity | lowercase | capitalize}}
+                            </div>
+                        </div> -->
+                    
+                    </div>
                     <div class="item even-panel">
-                        <div ng-repeat="activity in lake.extracurricularActivity">
-                            <activity-button class="col" disabled activity="activity"></activity-button>
+                        <!-- <div ng-repeat="activity in lake.extracurricularActivity">
+                            <activity-button  disabled activity="activity"></activity-button>
+                            <div>
+                                {{activity | lowercase | capitalize}}
+                            </div>
+                        </div> -->
+                        <!-- <activity-button disabled activity="'BADEN'"></activity-button> -->
+                    </div>
+                   <!--  <div class="item row">
+                        <div class="col col-50" ng-repeat="activity in lake.extracurricularActivity">
+                            <activity-button disabled activity="activity"></activity-button>
                             <div>
                                 {{activity | lowercase | capitalize}}
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item item-divider">
                         Icons made by <a href="http://www.flaticon.com/authors/scott-de-jonge" title="Scott de Jonge">Scott de Jonge</a>, <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>, <a href="http://www.flaticon.com/authors/icons8" title="Icons8">Icons8</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a>
                     </div>

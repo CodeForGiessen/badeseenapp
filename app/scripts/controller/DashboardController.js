@@ -1,11 +1,10 @@
 'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, FavData, LakeData, $q, $state, WeatherData, $ionicLoading, $timeout) {
+	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, $ionicPopup, WeatherData, MessagesData, MessagesModal, LocationUtils) {
     	$scope.favorites = [];
 
         $scope.error = false;
         $scope.init = true;
-        var first = false;
 
         var chunk = function(arr, size) {
             var newArr = [];
@@ -15,9 +14,17 @@ angular.module('badeseenApp').controller('DashboardController',
             return newArr;
         };
 
-         var reload = function(){
+        $scope.openMessageModal = function(lakeID){
+            MessagesModal.openModal(lakeID);
+        };
+
+        $scope.getDistance = function(lakeID) {
+            var currPosition = LocationUtils.getCurrentLocation().then(function(res){});
+        };
+
+        var reload = function(){
             $ionicLoading.show();
-            
+
             var lakeIds = FavData.getAll();
             $q.all([
                 $q.all(
@@ -25,18 +32,37 @@ angular.module('badeseenApp').controller('DashboardController',
                     return LakeData.getById(id);
                 })),
                 WeatherData.getAll(),
+                MessagesData.getAll()
             ])
             .then(function(res){
-                var favoriteLakes = res[0];
-                var weatherDataAllLakes = res[1];
-
-                $scope.rows = chunk(favoriteLakes,2);
-                $scope.favorites = favoriteLakes;
-                $scope.weatherData = weatherDataAllLakes;
+                $scope.favorites = res[0];
+                $scope.weather = res[1];
+                $scope.messages = res[2];
+                $scope.rows = chunk($scope.favorites,2);
                 $scope.error = false;
-                $scope.init = false;   
+
+                //Due to an angular bug an expression like error || init will not be evaluated a second time
+                $timeout(function(){
+                    $scope.init = false;
+                });
+
+                LocationUtils
+                .getCurrentLocation(false)
+                .then(function(currentPos){
+                    $scope.favorites.forEach(function(lake){
+                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
+                            lat: lake.latitude,
+                            lng: lake.longitude
+                        },currentPos);
+                    });
+                })
+                .catch(function(err){
+                    console.log(err);
+                    //TODO
+                    //Geo sensor disabled or not available
+                });
             })
-            .catch(function(err){ 
+            .catch(function(err){
                 console.log(err);
                 $scope.error = true;
             })
@@ -54,18 +80,28 @@ angular.module('badeseenApp').controller('DashboardController',
 
         $scope.$on('$ionicView.enter', reload);
 
-
-
         $scope.goToLakeList = function () {
             $state.go ('tabs.lakeList');
         };
 
-        $scope.removeFavorite = function (lakeID) {
+        // A confirm dialog
+        $scope.showConfirm = function(lakeID) {
+            $ionicPopup.confirm({
+                title: 'Favorit entfernen',
+        })
+        .then(function(res) {
+            if(res) {
+               console.log('You are sure');
+               removeFavorite(lakeID);
+           } else {
+               console.log('You are not sure');
+           }
+        });
+       };
+
+        var removeFavorite = function (lakeID) {
             FavData.remove(lakeID);
             $state.go($state.current, {}, {reload: true});
         };
 
-        $scope.goToLake = function(lakeID) {
-            $state.go('lake',{ id: lakeID });
-        };
 	});
