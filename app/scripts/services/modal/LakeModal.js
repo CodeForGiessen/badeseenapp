@@ -36,7 +36,10 @@ angular.module('badeseenApp')
                         scope.weatherdata = weatherdata;
                         scope.messages = messages;
                         scope.error = false;
-                        scope.init = false;                
+                        //Due to an angular bug an expression like error || init will not be evaluated a second time
+                        $timeout(function(){
+                            scope.init = false;
+                        });
                     })
                     .catch(function(err){ 
                         console.log(err);

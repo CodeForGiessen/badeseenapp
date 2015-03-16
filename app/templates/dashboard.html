@@ -4,7 +4,7 @@
     </ion-nav-buttons>
     <error-panel reload="reload" error="error"></error-panel>
     <!-- Due to an angular bug an expression like error || init does not work every time -->
-    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error" ng-hide="init">
+    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error || init">
         <div class="row responsive-md row-with-cards" ng-repeat="row in rows">
             <div class="col col-50" ng-repeat="lake in row">        
                 <div class="card">
