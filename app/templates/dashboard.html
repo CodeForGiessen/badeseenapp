@@ -15,8 +15,8 @@
                     <i class="fa fa-times"></i>
               </span>
               <strong> {{lake.name}} </strong>
-              <span ng-show="true"
-                    ng-click="goToLake(lake._id)"
+              <span ng-show="messages[lake._id].length"
+                    ng-click="openMessageModal(lake._id)"
                     style="float: right; color: #D24A53">
                 <i class="fa fa-info-circle fa-lg"></i>
               </span>
@@ -26,12 +26,12 @@
           <div class="dashboard-lake-distance" style="text-align:center; vertical-align: middle;  font-size: 75px; line-height: 75px; ">
             <div> 4 </div> Km
           </div>
-          <lake-weather weatherdata="weatherData[lake._id]"></lake-weather>
+          <lake-weather weatherdata="weather[lake._id]"></lake-weather>
         </div>
         <div class="item item-body" show-more-text="lake.introtext" max-chars="50">
-          <span show-more-text-content></span>
+<!--           <span show-more-text-content></span>
           <a show-more-text-button href="javascript:void(0);"></a>
-        </div>
+ -->        </div>
       </div>
     </div>
   </div>

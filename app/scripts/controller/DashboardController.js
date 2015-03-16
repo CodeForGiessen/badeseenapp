@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, FavData, LakeData, $q, $state, WeatherData) {
+	function ($scope, FavData, LakeData, $q, $state, WeatherData, MessagesData, MessagesModal) {
     	$scope.favorites = [];
 
         $scope.goToLakeList = function () {
@@ -12,8 +12,8 @@ angular.module('badeseenApp').controller('DashboardController',
             $state.go($state.current, {}, {reload: true});
         };
 
-        $scope.goToLake = function(lakeID) {
-            $state.go('lake',{ id: lakeID });
+        $scope.openMessageModal = function(lakeID){
+            MessagesModal.openModal(lakeID);
         };
 
         $scope.$on('$ionicView.enter', function(){
@@ -25,14 +25,12 @@ angular.module('badeseenApp').controller('DashboardController',
                     return LakeData.getById(id);
                 })),
                 WeatherData.getAll(),
-
+                MessagesData.getAll()
             ])
             .then(function(res){
-                var favoriteLakes = res[0];
-                var weatherDataAllLakes = res[1];
-
-                $scope.favorites = favoriteLakes;
-                $scope.weatherData = weatherDataAllLakes;
+                $scope.favorites = res[0];
+                $scope.weather = res[1];
+                $scope.messages = res[2];
             })
             .catch(function(){
                 //TODO handle
