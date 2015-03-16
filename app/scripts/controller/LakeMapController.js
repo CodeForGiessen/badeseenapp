@@ -50,7 +50,7 @@ angular.module('badeseenApp').controller('LakeMapController',
         $scope.center ={
             'lat': 50.583732,
             'lng': 8.678344,
-            'zoom': 11
+            'zoom': 8
         };
         
         $scope.defaults = {

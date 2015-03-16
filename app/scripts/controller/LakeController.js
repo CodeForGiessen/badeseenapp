@@ -101,6 +101,10 @@ angular.module('badeseenApp').controller('LakeController',
         };
 
         $scope.isActivity = function(activity){
-            return $scope.lake.extracurricularActivity.indexOf(activity) !== -1;
+            if($scope.lake && $scope.lake.extracurricularActivity){
+                return $scope.lake.extracurricularActivity.indexOf(activity) !== -1;
+            }else{
+                return false;
+            }
         };
 	});
