@@ -69,7 +69,7 @@
     .scroll, .angular-leaflet-map {
         height: 100%;
     }
-    height: 100%;      
+    height: 100%;
 }
 
 
@@ -209,7 +209,7 @@
             padding-left: 0;
         }
         &:last-child{
-            padding-right: 0;    
+            padding-right: 0;
         }
     }
 }
@@ -220,7 +220,7 @@
     padding:0;
     &[disabled],
     &.disabled{
-        opacity: initial;     
+        opacity: initial;
     }
     &:before {
         content: "";
@@ -266,7 +266,26 @@
 .weather-panel{
     @extend .simple-panel;
     background-color: white;
-    .content {        
+    .content {
+        .top{
+            position: absolute;
+            width: 100%;
+        }
+        .bottom{
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+        }
+    }
+}
+
+/**
+ * Distance panel
+ */
+.distance-panel{
+    @extend .simple-panel;
+    background-color: white;
+    .content {
         .top{
             position: absolute;
             width: 100%;
@@ -285,7 +304,7 @@
 .activity-panel{
     @extend .simple-panel;
     background-color: white;
-    .content {     
+    .content {
         img{
             padding: 5px;
             width: 100%;
@@ -309,11 +328,22 @@
 /**
  * Dashboard / Favoriten
  */
+
+ .dashboard {
+    .messages {
+        float: right;
+    }
+    .weather-btn > button {
+        border: none;
+    }
+}
+
+
 .noelements-scroll{
     .scroll{
         width: 100%;
         height: 100%;
-    }    
+    }
     .noelements-container{
         position: relative;
         top: 50%;
@@ -355,7 +385,7 @@
     .scroll{
         width: 100%;
         height: 100%;
-    }    
+    }
     .error-container{
         position: relative;
         top: 50%;
@@ -368,10 +398,11 @@
         .error-text{
             font-size: 6vh;
             line-height: 6vh;
-        }    
-        
+        }
+
         .error-button{
             margin-top: 20px;
         }
     }
 }
+

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, WeatherData, MessagesData, MessagesModal, LocationUtils) {
+	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, $ionicPopup, WeatherData, MessagesData, MessagesModal, LocationUtils) {
     	$scope.favorites = [];
 
         $scope.error = false;
@@ -40,7 +40,11 @@ angular.module('badeseenApp').controller('DashboardController',
                 $scope.messages = res[2];
                 $scope.rows = chunk($scope.favorites,2);
                 $scope.error = false;
-                $scope.init = false;
+
+                //Due to an angular bug an expression like error || init will not be evaluated a second time
+                $timeout(function(){
+                    $scope.init = false;
+                });
 
                 LocationUtils
                 .getCurrentLocation(false)
@@ -80,8 +84,24 @@ angular.module('badeseenApp').controller('DashboardController',
             $state.go ('tabs.lakeList');
         };
 
-        $scope.removeFavorite = function (lakeID) {
+        // A confirm dialog
+        $scope.showConfirm = function(lakeID) {
+            $ionicPopup.confirm({
+                title: 'Favorit entfernen',
+        })
+        .then(function(res) {
+            if(res) {
+               console.log('You are sure');
+               removeFavorite(lakeID);
+           } else {
+               console.log('You are not sure');
+           }
+        });
+       };
+
+        var removeFavorite = function (lakeID) {
             FavData.remove(lakeID);
             $state.go($state.current, {}, {reload: true});
         };
+
 	});

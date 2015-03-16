@@ -7,33 +7,34 @@
     <error-panel reload="reload" error="error"></error-panel>
 
     <!-- Due to an angular bug an expression like error || init does not work every time -->
-    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error" ng-hide="init">
+    <ion-content class="has-header dashboard" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error || init">
         <div class="row responsive-md row-with-cards" ng-repeat="row in rows">
             <div class="col col-50" ng-repeat="lake in row">
                 <div class="card">
                     <div class="item item-divider">
                         <center>
-                          <span ng-click="removeFavorite(lake._id)"
+                          <span ng-click="showConfirm(lake._id)"
                                 style="float: left;">
                                 <i class="fa fa-times"></i>
                           </span>
                           <strong> {{lake.name}} </strong>
-                          <span ng-show="messages[lake._id].length"
-                                ng-click="openMessageModal(lake._id)"
-                                style="float: right; color: #D24A53">
+                                <!-- style="float: right; color: #D24A53"> -->
+                          <span class="assertive messages"
+                                ng-show="messages[lake._id].length"
+                                ng-click="openMessageModal(lake._id)">
                             <i class="fa fa-info-circle fa-lg"></i>
                           </span>
                         </center>
                     </div>
                     <div class="item even-panel">
-                        <div class="dashboard-lake-distance"
-                             style="text-align:center; vertical-align: middle;  font-size: 75px; line-height: 75px; ">
-                            <div> {{ getDistance(lake._id) }} </div> Km
+
+<!--                         <div class="lake-distance">
+                            <div class="distance"> {{  }} </div>
+                            <span class="unit"> Km </span>
                         </div>
-                        <lake-weather weatherdata="weather[lake._id]"></lake-weather>
-                    </div>
-                    <div class="item item-body" show-more-text="lake.introtext" max-chars="50">
-                        HALLO
+ -->
+                        <lake-distance class="weather-btn" distance="lake.distance"></lake-distance>
+                        <lake-weather class="weather-btn" weatherdata="weather[lake._id]"></lake-weather>
                     </div>
                 </div>
             </div>

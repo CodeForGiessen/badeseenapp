@@ -6,8 +6,7 @@
 			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
-		<!-- Due to an angular bug an expression like error || init does not work every time -->
-    	<ion-content class="has-header has-footer" ng-hide="error" ng-hide="init" ng-class="{'noelements-scroll':!messages.length}">
+		<ion-content class="has-header has-footer" ng-hide="error || init" ng-class="{'noelements-scroll':!messages.length}">
 			<div class="card list" ng-repeat="message in messages | orderBy:'-date'">
 				<div class="item item-divider">
 					<strong>{{message.date | date:'dd.MM.yyyy'}}</strong>
