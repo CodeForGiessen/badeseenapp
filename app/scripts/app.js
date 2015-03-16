@@ -59,5 +59,9 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
             if(window.StatusBar) {
                 StatusBar.styleDefault();
             }
+            if(window.navigator && window.navigator.splashscreen) {
+                window.navigator.splashscreen.hide();
+            }
         });
-});
+
+    });

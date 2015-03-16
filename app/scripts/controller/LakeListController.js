@@ -112,39 +112,7 @@ angular.module('badeseenApp').controller('LakeListController',
                 this.searchQuery = '';
             }
             this.searchActive = !this.searchActive;
-        };
-
-        var posOptions = {enableHighAccuracy: false};
-        $cordovaGeolocation
-        .getCurrentPosition (posOptions)
-        .then(function (position) {
-        	$scope.latUser = position.coords.latitude
-        	$scope.longUser = position.coords.longitude
-        }, function (err) {
-        	//todo geolocation offline
-        });
-
-        //Distance calculation between two geo-coordinates with Haversine Algorithm
-        $scope.distBetweenCoords = function (lat, lon) {
-        	var radEarth = 6371;
-        	var dLat = $scope.deg2rad(lat-$scope.latUser);
-        	var dLon = $scope.deg2rad(lon-$scope.longUser);
-        	var a =
-        		Math.sin(dLat/2) * Math.sin(dLat/2) +
-        		Math.cos($scope.deg2rad(lat)) * Math.cos($scope.deg2rad($scope.latUser)) *
-        		Math.sin(dLon/2) * Math.sin(dLon/2);
-        	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        	var distance = radEarth * c; //Distance in kilometer
-
-        	return Math.round(distance);
-        };
-
-
-
-        //Convert degree to radian
-        $scope.deg2rad = function (deg) {
-        	return deg * (Math.PI/180)
-        };
+        };        
 
         $scope.filterKM = function () {
             // body...

@@ -99,4 +99,8 @@ angular.module('badeseenApp').controller('LakeController',
                 }
             }
         };
+
+        $scope.isActivity = function(activity){
+            return $scope.lake.extracurricularActivity.indexOf(activity) !== -1;
+        };
 	});

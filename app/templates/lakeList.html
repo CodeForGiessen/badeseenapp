@@ -22,7 +22,7 @@
             <ion-item ng-repeat='lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery})' ng-href="#/lakes/{{lake._id}}">
             	<div class="row">
                 	<div class="col col-90">
-                		<span class="info" ng-show="lake.distance">
+                		<span class="positive" ng-show="lake.distance">
                             {{lake.distance}} km
                 		</span>
                 		<p class="h3 dark">
