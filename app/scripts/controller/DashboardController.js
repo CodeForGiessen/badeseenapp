@@ -3,6 +3,14 @@ angular.module('badeseenApp').controller('DashboardController',
 	function ($scope, FavData, LakeData, $q, $state, WeatherData) {
     	$scope.favorites = [];
 
+        var chunk = function(arr, size) {
+            var newArr = [];
+            for (var i=0; i<arr.length; i+=size) {
+                newArr.push(arr.slice(i, i+size));
+            }
+            return newArr;
+        }
+
         $scope.goToLakeList = function () {
             $state.go ('tabs.lakeList');
         };
@@ -31,6 +39,7 @@ angular.module('badeseenApp').controller('DashboardController',
                 var favoriteLakes = res[0];
                 var weatherDataAllLakes = res[1];
 
+                $scope.rows = chunk(favoriteLakes,2);
                 $scope.favorites = favoriteLakes;
                 $scope.weatherData = weatherDataAllLakes;
             })
@@ -38,5 +47,8 @@ angular.module('badeseenApp').controller('DashboardController',
                 //TODO handle
             });
         });
+
+        
+        
 
 	});
