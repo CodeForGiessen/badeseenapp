@@ -12,6 +12,7 @@ $ grunt plugin:add:org.apache.cordova.device
 $ grunt plugin:add:org.apache.cordova.console
 $ grunt plugin:add:org.apache.cordova.geolocation
 $ grunt plugin:add:org.apache.cordova.inappbrowser
+$ grunt plugin:add:org.apache.cordova.splashscreen
 $ grunt serve
 
 ```
