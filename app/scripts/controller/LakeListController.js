@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q, $timeout,LocationUtils) {
+	function ($scope, $ionicModal, $ionicPopup, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q, $timeout,LocationUtils) {
 		$scope.lakes = [];
 		$scope.weatherData = [];
         $scope.error = false;
@@ -33,9 +33,13 @@ angular.module('badeseenApp').controller('LakeListController',
                     });
                 })
                 .catch(function(err){
-                    console.log(err);
-                    //TODO
-                    //Geo sensor disabled or not available
+                	
+                    if(err.PERMISSION_DENIED == 1){
+                    	$ionicPopup.alert({
+                    		title: 'GPS deaktiviert',
+                    		template: 'Bitte aktivieren sie für die Kilometerangabe ihr GPS!'
+                    	})
+                    }
                 });
             })
             .catch(function(err){
@@ -111,40 +115,10 @@ angular.module('badeseenApp').controller('LakeListController',
             this.searchActive = !this.searchActive;
         };
 
-        var posOptions = {enableHighAccuracy: false};
-        $cordovaGeolocation
-        .getCurrentPosition (posOptions)
-        .then(function (position) {
-        	$scope.latUser = position.coords.latitude
-        	$scope.longUser = position.coords.longitude
-        }, function (err) {
-        	//todo geolocation offline
-        });
-
-        //Distance calculation between two geo-coordinates with Haversine Algorithm
-        $scope.distBetweenCoords = function (lat, lon) {
-        	var radEarth = 6371;
-        	var dLat = $scope.deg2rad(lat-$scope.latUser);
-        	var dLon = $scope.deg2rad(lon-$scope.longUser);
-        	var a =
-        		Math.sin(dLat/2) * Math.sin(dLat/2) +
-        		Math.cos($scope.deg2rad(lat)) * Math.cos($scope.deg2rad($scope.latUser)) *
-        		Math.sin(dLon/2) * Math.sin(dLon/2);
-        	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        	var distance = radEarth * c; //Distance in kilometer
-
-        	return Math.round(distance);
-        };
-
-
-
-        //Convert degree to radian
-        $scope.deg2rad = function (deg) {
-        	return deg * (Math.PI/180)
-        };
+        $scope.sortOrder = {1: '-distance', 2: 'distance'};
 
         $scope.filterKM = function () {
-            // body...
+            $scope.lakes = lakes;
         };
 
         $scope.filterRating = function () {
@@ -153,10 +127,16 @@ angular.module('badeseenApp').controller('LakeListController',
 
         $scope.show = function (){
         	var hideSheet = $ionicActionSheet.show({
-        		buttons: [{
-        			text: 'Entfernung'},
+        		buttons: [
+        		{text: 'Entfernung'},
         			{text: 'Rating'
         		}],
+        		buttonClicked: function(index){
+        			switch (index){
+        				case 0: $scope.sortOrder;
+        				case 1: return true;
+        			};
+        		},
         		//destructiveText: 'Filter anwenden',
         		titleText: 'Filter anwenden',
         		cancelText: 'Abbrechen',
