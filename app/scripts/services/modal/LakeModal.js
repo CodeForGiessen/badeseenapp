@@ -58,6 +58,12 @@ angular.module('badeseenApp')
 
                 scope.openMessageModal = function(){
                     MessagesModal.openModal(scope.lake._id);
+                };
+                scope.goSinglePage = function(){
+                    scope.modal.hide();
+                    $state.go('lake',{
+                        id:scope.lake._id
+                    });
                 };                   
             }
         };
