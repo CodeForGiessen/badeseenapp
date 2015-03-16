@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeMapController',
-	function ($scope, LakeData, leafletData, $ionicModal, LakeModal, $ionicLoading) {
+	function ($scope, LakeData, leafletData, $ionicModal, LakeModal, $ionicLoading,$timeout) {
         $scope.lakes = [];
         $scope.markers = {};
         $scope.error = false;
@@ -27,13 +27,16 @@ angular.module('badeseenApp').controller('LakeMapController',
             })
             .finally(function(){
                 $ionicLoading.hide();
-                ionic.trigger('resize',{
-                    target:'window'
+                $timeout(function(){
+                    ionic.trigger('resize',{
+                        target:'window'
+                    });
+                    leafletData.getMap()
+                    .then(function(map){
+                        map.invalidateSize(false);
+                    });
                 });
-                leafletData.getMap()
-                .then(function(map){
-                    map.invalidateSize(false);
-                });
+                
             });
         };
         $scope.reload = reload;

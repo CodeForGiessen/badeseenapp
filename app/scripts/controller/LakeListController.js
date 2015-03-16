@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeListController',
-	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q) {
+	function ($scope, $ionicModal, LakeData, LakeModal, FavData, $ionicActionSheet, $cordovaGeolocation, $ionicLoading, WeatherData, $q, $timeout) {
 		$scope.lakes = [];
 		$scope.weatherData = [];
         $scope.error = false;
@@ -28,8 +28,10 @@ angular.module('badeseenApp').controller('LakeListController',
             })
             .finally(function(){
                 $ionicLoading.hide();
-                ionic.trigger('resize',{
-                    target:'window'
+                $timeout(function(){
+                    ionic.trigger('resize',{
+                        target:'window'
+                    });
                 });
             });
         };

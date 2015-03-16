@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('RatingModal',
-	function ($rootScope,LakeData,$ionicModal, $ionicLoading) {
+	function ($rootScope,LakeData,$ionicModal, $ionicLoading,$timeout) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/ratingModal.html', {
            animation: 'slide-in-up',
@@ -61,8 +61,10 @@ angular.module('badeseenApp')
                     })
                     .finally(function(){                       
                         $ionicLoading.hide();
-                        ionic.trigger('resize',{
-                            target:'window'
+                        $timeout(function(){
+                            ionic.trigger('resize',{
+                                target:'window'
+                            });
                         });                
                     });
                 };

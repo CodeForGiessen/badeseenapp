@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeController',
-	function ($scope, $stateParams, LakeData, WeatherData,FavData, MeasurementsData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading, MessagesData, MessagesModal, MeasurementsModal) {
+	function ($scope, $stateParams, LakeData, WeatherData,FavData, MeasurementsData, $q, LakeUtils,$window, $ionicHistory, $ionicLoading, MessagesData, MessagesModal, MeasurementsModal, $timeout) {
 		var id = $stateParams.id;
 
         $scope.error = false;
@@ -42,8 +42,10 @@ angular.module('badeseenApp').controller('LakeController',
             .finally(function(){
                 $ionicLoading.hide();
                 
-                ionic.trigger('resize',{
-                    target:'window'
+                $timeout(function(){
+                    ionic.trigger('resize',{
+                        target:'window'
+                    });
                 });
             });
         };
