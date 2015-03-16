@@ -2,7 +2,9 @@
     <ion-nav-buttons side="right">
         <button class="button button-icon icon ion-ios7-plus-outline" ng-click="goToLakeList()"></button>
     </ion-nav-buttons>
-    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}">
+    <error-panel reload="reload" error="error"></error-panel>
+    <!-- Due to an angular bug an expression like error || init does not work every time -->
+    <ion-content class="has-header" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error" ng-hide="init">
         <div class="row responsive-md row-with-cards" ng-repeat="row in rows">
             <div class="col col-50" ng-repeat="lake in row">        
                 <div class="card">
@@ -30,7 +32,8 @@
                 </div>
             </div>
         </div>
-        <div ng-hide="favorites.length" class="noelements-container">
+        <!-- Due to an angular bug an expression like error || init does not work every time -->
+        <div ng-hide="favorites.length" ng-hide="error" class="noelements-container">
             <div class="noelements-icon">
                 <i class="fa fa-rocket"></i>
             </div>
