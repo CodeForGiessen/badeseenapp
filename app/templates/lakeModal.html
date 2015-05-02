@@ -7,7 +7,7 @@
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
     	<!-- Due to an angular bug an expression like error || init does not work every time -->
-    	<ion-content class="has-header" ng-hide="error || init">
+    	<ion-content class="has-header" ng-hide="error || init" delegate-handle="mainScroll">
 			<div class="card list">
 				<div class="item item-divider">
 					<strong>Übersicht</strong>
@@ -46,7 +46,7 @@
 			<button class="button button-full button-positive" ng-click="goSinglePage();">
 				Zur Einzelansicht
 			</button>
-		</ion-content>		
+		</ion-content>
 	</ion-modal-view>
 </body>
 </html>

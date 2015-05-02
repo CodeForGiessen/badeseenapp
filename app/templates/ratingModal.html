@@ -5,8 +5,8 @@
 			<h1 class="title">Einstufungen</h1>
 			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
 		</div>
-		<error-panel reload="reload" error="error"></error-panel>	
-    	<ion-content class="has-header has-footer rating-modal" ng-hide="error || init">
+		<error-panel reload="reload" error="error"></error-panel>
+    	<ion-content class="has-header has-footer rating-modal" ng-hide="error || init"  delegate-handle="mainScroll">
 			<div class="card list" ng-repeat="rating in lake.yearratings | orderBy:'-year'">
 				<div class="item item-divider">
 					<strong>{{rating.year}}</strong>
@@ -19,7 +19,7 @@
 						<img class="euimage" ng-src="images/seeeinstufung/{{rating.rating}}.png"\>
 					</div>
 					<div class="col text">
-						{{ratingToString(rating.rating)}}	
+						{{ratingToString(rating.rating)}}
 					</div>
    				</div>
 			</div>
