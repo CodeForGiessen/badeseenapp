@@ -4,9 +4,9 @@
         <button ng-hide="error || init" class="button button-icon" ng-disabled="!distanceReady" ng-click="toggleSort()">{{sortText}}</button>
     </ion-nav-buttons>
     <error-panel reload="reload" error="error"></error-panel>
-    <ion-content class="has-header" ng-hide="error || init">
+    <ion-content class="has-header" ng-hide="error || init">        
         <div class="item item-input-inset"
-             ng-show="llCtrl.searchActive">
+              ng-show="llCtrl.searchActive">
             <label class="item-input-wrapper">
                 <i class="icon ion-ios7-search placeholder-icon"></i>
                 <input type="text" placeholder="Suchen"
@@ -17,7 +17,7 @@
                     style="min-height: inherit;line-height: inherit;"
                     ng-click="llCtrl.toggleSearch()">Abbrechen
             </button>
-        </div>
+        </div>        
         <ion-list>
             <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey ) " ng-href="#/lakes/{{lake._id}}">
             	<div class="row">
