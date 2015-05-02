@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('MeasurementsModal',
-	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading, $timeout) {
+	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading, $timeout,$ionicScrollDelegate) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/measurementsModal.html', {
            animation: 'slide-in-up',
@@ -9,7 +9,7 @@ angular.module('badeseenApp')
         })
         .then(function (modal) {
             scope.modal = modal;
-        });  
+        });
 
         return {
             openModal : function(lakeId){
@@ -27,19 +27,20 @@ angular.module('badeseenApp')
                             scope.init = false;
                         });
                     })
-                    .catch(function(err){ 
+                    .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
-                    .finally(function(){                       
+                    .finally(function(){
                         $ionicLoading.hide();
                         $timeout(function(){
                             ionic.trigger('resize',{
                                 target:'window'
                             });
-                        });                
+                        });
                     });
                 };
+                $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
                 scope.modal.show();
                 scope.reload = reload;
                 reload();

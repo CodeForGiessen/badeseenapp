@@ -6,7 +6,7 @@
 			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
-    	<ion-content class="has-header has-footer" ng-hide="error || init" ng-class="{'noelements-scroll':!measurements.length}">
+    	<ion-content class="has-header has-footer" ng-hide="error || init" ng-class="{'noelements-scroll':!measurements.length}" delegate-handle="mainScroll">
 			<div class="card list" ng-repeat="measurement in measurements | orderBy:'-date'">
                 <div class="item item-divider">
                     <strong>{{measurement.date | date:'dd.MM.yyyy'}}</strong>
@@ -30,8 +30,8 @@
                 <div class="item item-icon-left" ng-show="measurement.comment">
                     <i class="icon fa fa-comment"></i>
                     {{measurement.comment}}
-                </div> 
-            </div>            
+                </div>
+            </div>
             <div ng-hide="measurements.length" class="noelements-container">
                 <div class="noelements-icon">
                     <i class="fa fa-smile-o"></i>
@@ -39,7 +39,7 @@
                 <div class="noelements-text">
                     Keine Messwerte vorhanden
                 </div>
-            </div>		
+            </div>
 		</ion-content>
 	</ion-modal-view>
 </body>

@@ -4,7 +4,7 @@ Model Lake represents every attribute of a lake.
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
-	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal, $timeout) {
+	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal, $timeout, $ionicScrollDelegate) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/lakeModal.html', {
            animation: 'slide-in-up',
@@ -31,7 +31,7 @@ angular.module('badeseenApp')
                         var lake = res[0];
                         var weatherdata = res[1];
                         var messages = res[2];
-                        scope.lake = lake;   
+                        scope.lake = lake;
                         scope.rating = LakeUtils.getLatestYearRating(lake);
                         scope.weatherdata = weatherdata;
                         scope.messages = messages;
@@ -41,7 +41,7 @@ angular.module('badeseenApp')
                             scope.init = false;
                         });
                     })
-                    .catch(function(err){ 
+                    .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
@@ -55,6 +55,7 @@ angular.module('badeseenApp')
                         });
                     });
                 };
+                $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
                 scope.modal.show();
                 scope.reload = reload;
                 reload();
@@ -67,7 +68,7 @@ angular.module('badeseenApp')
                     $state.go('lake',{
                         id:scope.lake._id
                     });
-                };                   
+                };
             }
         };
 	});

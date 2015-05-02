@@ -6,6 +6,10 @@ angular.module('badeseenApp').controller('LakeListController',
         $scope.error = false;
         $scope.init = true;
 
+        $scope.sortKey = 'name';
+        $scope.sortText = 'KM';
+        $scope.distanceReady = false;
+
 
         var reload = function(){
             $ionicLoading.show();
@@ -29,6 +33,7 @@ angular.module('badeseenApp').controller('LakeListController',
                 LocationUtils
                 .getCurrentLocation(false)
                 .then(function(currentPos){
+                    $scope.distanceReady = true;
                     $scope.lakes.forEach(function(lake){
                         lake.distance = LocationUtils.getDistanceFromPointToPoint({
                             lat: lake.latitude,
@@ -63,47 +68,11 @@ angular.module('badeseenApp').controller('LakeListController',
 
         $scope.$on('$ionicView.enter', reload);
 
-
-
-
-		$scope.rating = [];
 		$scope.openModal = function (id) {
 			LakeModal.openModal(id);
 		};
-		console.log($scope.rating);
-		$scope.ratingClicked0 = 'false';
-		$scope.ratingClicked1 = 'false';
-		$scope.ratingClicked2 = 'false';
 
 		this.searchQuery = '';
-
-		$scope.switchRating = function (i) {
-			//console.log('switch!');
-			console.log($scope.rating);
-			switch(i){
-				case 0 :
-					if($scope.ratingClicked0 === 'false'){
-						$scope.ratingClicked0 = 'true';
-					} else {
-						$scope.ratingClicked0 = 'false';
-					}
-					break;
-				case 1 :
-					if($scope.ratingClicked1 === 'false'){
-						$scope.ratingClicked1 = 'true';
-					} else {
-						$scope.ratingClicked1 = 'false';
-					}
-					break;
-				case 2 :
-					if($scope.ratingClicked2 === 'false'){
-						$scope.ratingClicked2 = 'true';
-					} else {
-						$scope.ratingClicked2 = 'false';
-					}
-					break;
-			}
-		};
 
 		this.searchActive = false;
 
@@ -119,36 +88,16 @@ angular.module('badeseenApp').controller('LakeListController',
             this.searchActive = !this.searchActive;
         };
 
-        $scope.sortOrder = {1: '-distance', 2: 'distance'};
-
-        $scope.filterKM = function () {
-            $scope.lakes = lakes;
+        $scope.toggleSort = function(){
+            if($scope.sortKey === 'name'){
+                $scope.sortKey ='distance';
+                $scope.sortText = 'ABC';
+            }else{
+                $scope.sortKey ='name';
+                $scope.sortText = 'KM';
+            }
         };
 
-        $scope.filterRating = function () {
-            //body
-        };
-
-        $scope.show = function (){
-        	var hideSheet = $ionicActionSheet.show({
-        		buttons: [
-        		{text: 'Entfernung'},
-        			{text: 'Rating'
-        		}],
-        		buttonClicked: function(index){
-        			switch (index){
-        				case 0: $scope.sortOrder;
-        				case 1: return true;
-        			};
-        		},
-        		//destructiveText: 'Filter anwenden',
-        		titleText: 'Filter anwenden',
-        		cancelText: 'Abbrechen',
-        		cancel: function(){
-        			//todo
-        		}
-        	});
-        };
         $scope.getWeatherIcon = function(id) {
         	var iconId = $scope.weatherData[id].current.weather[0].icon;
         	return WeatherData.getWeatherIconClassById(iconId);

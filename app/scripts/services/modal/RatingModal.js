@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('RatingModal',
-	function ($rootScope,LakeData,$ionicModal, $ionicLoading,$timeout) {
+	function ($rootScope,LakeData,$ionicModal, $ionicLoading,$timeout, $ionicScrollDelegate) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/ratingModal.html', {
            animation: 'slide-in-up',
@@ -51,26 +51,27 @@ angular.module('badeseenApp')
                     $ionicLoading.show();
                      LakeData.getById(lakeId)
                     .then(function(lake){
-                        scope.lake = lake;   
+                        scope.lake = lake;
                         scope.error = false;
                         //Due to an angular bug an expression like error || init will not be evaluated a second time
                         $timeout(function(){
                             scope.init = false;
                         });
                     })
-                    .catch(function(err){ 
+                    .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
-                    .finally(function(){                       
+                    .finally(function(){
                         $ionicLoading.hide();
                         $timeout(function(){
                             ionic.trigger('resize',{
                                 target:'window'
                             });
-                        });                
+                        });
                     });
                 };
+                $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
                 scope.modal.show();
                 scope.reload = reload;
                 reload();
