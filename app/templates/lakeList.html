@@ -1,14 +1,14 @@
 <ion-view title="Liste">
     <ion-nav-buttons side="right">
-        <button ng-hide="error || init" class="button button-icon icon ion-ios7-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
-        <button ng-hide="error || init" class="button button-icon icon ion-ios7-more" ng-click="show()"></button>
+        <button ng-hide="error || init" class="button button-icon icon ion-ios-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
+        <button ng-hide="error || init" class="button button-icon icon ion-ios-more" ng-click="show()"></button>
     </ion-nav-buttons>
     <error-panel reload="reload" error="error"></error-panel>
     <ion-content class="has-header" ng-hide="error || init">
         <div class="item item-input-inset"
              ng-show="llCtrl.searchActive">
             <label class="item-input-wrapper">
-                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <i class="icon ion-ios-search placeholder-icon"></i>
                 <input type="text" placeholder="Suchen"
                        ng-model="llCtrl.searchQuery">
             </label>

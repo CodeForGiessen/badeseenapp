@@ -250,7 +250,7 @@
             padding-left: 0;
         }
         &:last-child{
-            padding-right: 0;    
+            padding-right: 0;
         }
     }
 }
@@ -350,3 +350,14 @@
     }
 }
 
+#no-dist-spin svg {
+  width: 60px;
+  height: 60px;
+  stroke: #444;
+  fill: #444;
+}
+
+#load-dist {
+    line-height: 1em;
+    font-weight: bold;
+}

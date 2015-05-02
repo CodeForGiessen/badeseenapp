@@ -3,7 +3,7 @@
 	<ion-modal-view>
 		<div class="bar bar-header bar-positive">
 			<h1 class="title">Gewässerproben</h1>
-			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
+			<button class="button button-icon icon ion-ios-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
     	<ion-content class="has-header has-footer" ng-hide="error || init" ng-class="{'noelements-scroll':!measurements.length}">
@@ -30,8 +30,8 @@
                 <div class="item item-icon-left" ng-show="measurement.comment">
                     <i class="icon fa fa-comment"></i>
                     {{measurement.comment}}
-                </div> 
-            </div>            
+                </div>
+            </div>
             <div ng-hide="measurements.length" class="noelements-container">
                 <div class="noelements-icon">
                     <i class="fa fa-smile-o"></i>
@@ -39,7 +39,7 @@
                 <div class="noelements-text">
                     Keine Messwerte vorhanden
                 </div>
-            </div>		
+            </div>
 		</ion-content>
 	</ion-modal-view>
 </body>
