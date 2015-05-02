@@ -5,6 +5,7 @@ angular.module('badeseenApp').controller('LakeMapController',
         $scope.markers = {};
         $scope.error = false;
         $scope.init = true;
+        $scope.errorOrInit = $scope.error || $scope.init;
         var reload = function(){
             $ionicLoading.show();
             LakeData.getAll()
@@ -18,17 +19,16 @@ angular.module('badeseenApp').controller('LakeMapController',
                     markers[item._id] = marker;
                 });
                 $scope.markers=markers;
-                $scope.error = false;                            
-                //Due to an angular bug an expression like error || init will not be evaluated a second time
-                $timeout(function(){
-                    $scope.init = false;
-                });
+                $scope.error = false;
+                $scope.init = false;
             })
             .catch(function(err){
                 console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
+                //Due to an angular bug an expression like error || init will not be evaluated a second time
+                $scope.errorOrInit = $scope.error || $scope.init;
                 $ionicLoading.hide();
                 $timeout(function(){
                     ionic.trigger('resize',{
@@ -39,12 +39,12 @@ angular.module('badeseenApp').controller('LakeMapController',
                         map.invalidateSize(false);
                     });
                 });
-                
+
             });
         };
         $scope.reload = reload;
 
-        $scope.$on('$ionicView.enter', reload);    
+        $scope.$on('$ionicView.enter', reload);
 
 
         $scope.center ={
@@ -52,7 +52,7 @@ angular.module('badeseenApp').controller('LakeMapController',
             'lng': 8.678344,
             'zoom': 8
         };
-        
+
         $scope.defaults = {
             tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             tileLayerOptions: {
@@ -72,7 +72,7 @@ angular.module('badeseenApp').controller('LakeMapController',
         .then(function(map){
             map.attributionControl.setPrefix('<a href="#" onClick="window.open(\'http://leafletjs.com\',\'_system\');return false;">Leaflet</a>');
         });
-        
+
         $scope.$on('leafletDirectiveMarker.click',function(event,leafletEvent){
             LakeModal.openModal(leafletEvent.markerName);
         });

@@ -1,6 +1,3 @@
-/**
-Model Lake represents every attribute of a lake.
-*/
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
@@ -17,6 +14,8 @@ angular.module('badeseenApp')
             openModal : function(lakeId){
                 scope.error = false;
                 scope.init = true;
+
+                scope.errorOrInit = scope.error || scope.init;
                 scope.lake= {};
 
                 var reload = function(){
@@ -28,24 +27,24 @@ angular.module('badeseenApp')
                         MessagesData.getById(lakeId)
                         ])
                     .then(function(res){
+
                         var lake = res[0];
                         var weatherdata = res[1];
                         var messages = res[2];
-                        scope.lake = lake;   
+                        scope.lake = lake;
                         scope.rating = LakeUtils.getLatestYearRating(lake);
                         scope.weatherdata = weatherdata;
                         scope.messages = messages;
                         scope.error = false;
-                        //Due to an angular bug an expression like error || init will not be evaluated a second time
-                        $timeout(function(){
-                            scope.init = false;
-                        });
+                        scope.init = false;
                     })
-                    .catch(function(err){ 
+                    .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
                     .finally(function(){
+                        //Due to an angular bug an expression like error || init will not be evaluated a second time
+                        scope.errorOrInit = scope.error || scope.init;
                         $ionicLoading.hide();
 
                         $timeout(function(){
@@ -59,6 +58,7 @@ angular.module('badeseenApp')
                 scope.reload = reload;
                 reload();
 
+
                 scope.openMessageModal = function(){
                     MessagesModal.openModal(scope.lake._id);
                 };
@@ -67,7 +67,7 @@ angular.module('badeseenApp')
                     $state.go('lake',{
                         id:scope.lake._id
                     });
-                };                   
+                };
             }
         };
 	});

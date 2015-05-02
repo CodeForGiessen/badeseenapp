@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('MeasurementsModal',
-	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading, $timeout) {
+	function ($rootScope,MeasurementsData,$ionicModal, $ionicLoading, $timeout,$ionicScrollDelegate) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/measurementsModal.html', {
            animation: 'slide-in-up',
@@ -9,12 +9,13 @@ angular.module('badeseenApp')
         })
         .then(function (modal) {
             scope.modal = modal;
-        });  
+        });
 
         return {
             openModal : function(lakeId){
                 scope.error = false;
                 scope.init = true;
+                scope.errorOrInit = scope.error || scope.init;
 
                 var reload = function(){
                     $ionicLoading.show();
@@ -22,24 +23,23 @@ angular.module('badeseenApp')
                     .then(function(measurements){
                         scope.measurements = measurements;
                         scope.error = false;
-                        //Due to an angular bug an expression like error || init will not be evaluated a second time
-                        $timeout(function(){
-                            scope.init = false;
-                        });
+                        scope.init = false;
                     })
-                    .catch(function(err){ 
+                    .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
-                    .finally(function(){                       
+                    .finally(function(){
+                        scope.errorOrInit = scope.error || scope.init;
                         $ionicLoading.hide();
                         $timeout(function(){
                             ionic.trigger('resize',{
                                 target:'window'
                             });
-                        });                
+                        });
                     });
                 };
+                $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
                 scope.modal.show();
                 scope.reload = reload;
                 reload();
