@@ -15,6 +15,8 @@ angular.module('badeseenApp')
             openModal : function(lakeId){
                 scope.error = false;
                 scope.init = true;
+                scope.errorOrInit = scope.error || scope.init;
+
                 scope.lake= {};
 
                 var reload = function(){
@@ -23,16 +25,15 @@ angular.module('badeseenApp')
                     .then(function(messages){
                         scope.messages = messages;
                         scope.error = false;
-                        //Due to an angular bug an expression like error || init will not be evaluated a second time
-                        $timeout(function(){
-                            scope.init = false;
-                        });
+                        scope.init = false;
                     })
                     .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
                     .finally(function(){
+                        //Due to an angular bug an expression like error || init will not be evaluated a second time
+                        scope.errorOrInit = scope.error || scope.init;
                         $ionicLoading.hide();
                         $timeout(function(){
                             ionic.trigger('resize',{

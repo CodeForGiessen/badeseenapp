@@ -43,7 +43,7 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'development',
-            // apiEndpoint: 'http://localhost:7650/api/v1'
+            // apiEndpoint: 'http://localhost:7650/api/v1',
             apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
             requestTimeout: 30000,
             cachesMaxAge:{
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
               //2 hours
               messages: 7200000,
               //1 week
-              measurements: 604800000 
+              measurements: 604800000
             }
           }
         }
@@ -186,7 +186,7 @@ module.exports = function (grunt) {
       }
     },
 
-    
+
     // Compiles Sass to CSS and generates necessary files if requested
     compass: {
       options: {
@@ -215,7 +215,7 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so

@@ -1,10 +1,7 @@
-/**
-Model Lake represents every attribute of a lake.
-*/
 'use strict';
 angular.module('badeseenApp')
 .factory('LakeModal',
-	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal, $timeout, $ionicScrollDelegate) {
+	function ($rootScope,LakeData, $ionicModal, WeatherData,MessagesData,LakeUtils,$q, $state, $ionicLoading, MessagesModal, $timeout) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/lakeModal.html', {
            animation: 'slide-in-up',
@@ -17,11 +14,13 @@ angular.module('badeseenApp')
             openModal : function(lakeId){
                 scope.error = false;
                 scope.init = true;
+
+                scope.errorOrInit = scope.error || scope.init;
                 scope.lake= {};
 
                 var reload = function(){
                     $ionicLoading.show();
-
+                    console.log(lakeId);
                     $q.all([
                         LakeData.getById(lakeId),
                         WeatherData.getById(lakeId),
@@ -36,16 +35,15 @@ angular.module('badeseenApp')
                         scope.weatherdata = weatherdata;
                         scope.messages = messages;
                         scope.error = false;
-                        //Due to an angular bug an expression like error || init will not be evaluated a second time
-                        $timeout(function(){
-                            scope.init = false;
-                        });
+                        scope.init = false;
                     })
                     .catch(function(err){
                         console.log(err);
                         scope.error = true;
                     })
                     .finally(function(){
+                        //Due to an angular bug an expression like error || init will not be evaluated a second time
+                        scope.errorOrInit = scope.error || scope.init;
                         $ionicLoading.hide();
 
                         $timeout(function(){
@@ -55,10 +53,10 @@ angular.module('badeseenApp')
                         });
                     });
                 };
-                $ionicScrollDelegate.$getByHandle('mainScroll').scrollTop();
                 scope.modal.show();
                 scope.reload = reload;
                 reload();
+
 
                 scope.openMessageModal = function(){
                     MessagesModal.openModal(scope.lake._id);

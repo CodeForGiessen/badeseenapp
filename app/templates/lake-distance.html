@@ -1,10 +1,18 @@
  <button ng-disabled="notClickable" class="button distance-panel" ng-class="buttonclass" ng-click="openMaps()">
     <div class="content">
         <div class="top">
-            <i class="fa" ng-class="hasDistance ? 'fa-globe' : 'fa-frown-o'"></i>
+            <span ng-hide="hasDistance">
+                <ion-spinner id="no-dist-spin"></ion-spinner>
+            </span>
+            <span ng-show="hasDistance">
+                <i class="fa fa-globe"></i>
+            </span>
         </div>
         <div class="bottom">
-        <span ng-show="hasDistance">{{ distance }} km</span> <span ng-hide="hasDistance">?</span>
+        <span ng-show="hasDistance">{{ distance }} km</span>
+        <span ng-hide="hasDistance" style="font-size: large;">
+        <div id="load-dist"> Lade <br/>Entfernungen </div>
+        </span>
         </div>
     </div>
 </button>

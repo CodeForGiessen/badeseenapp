@@ -3,10 +3,10 @@
 	<ion-modal-view>
 		<div class="bar bar-header bar-positive">
 			<h1 class="title">Nachrichten</h1>
-			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
+			<button class="button button-icon icon ion-ios-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
-		<ion-content class="has-header has-footer" ng-hide="error || init" ng-class="{'noelements-scroll':!messages.length}" delegate-handle="mainScroll">
+		<ion-content class="has-header" ng-hide="errorOrInit" ng-class="{'noelements-scroll':!messages.length}" delegate-handle="mainScroll">
 			<div class="card list" ng-repeat="message in messages | orderBy:'-date'">
 				<div class="item item-divider">
 					<strong>{{message.date | date:'dd.MM.yyyy'}}</strong>

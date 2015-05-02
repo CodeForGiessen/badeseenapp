@@ -3,10 +3,10 @@
 	<ion-modal-view>
 		<div class="bar bar-header bar-positive">
 			<h1 class="title">Einstufungen</h1>
-			<button class="button button-icon icon ion-ios7-close-outline" ng-click="modal.hide()"></button>
+			<button class="button button-icon icon ion-ios-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
-    	<ion-content class="has-header has-footer rating-modal" ng-hide="error || init"  delegate-handle="mainScroll">
+    	<ion-content class="has-header rating-modal" ng-hide="error || init"  delegate-handle="mainScroll">
 			<div class="card list" ng-repeat="rating in lake.yearratings | orderBy:'-year'">
 				<div class="item item-divider">
 					<strong>{{rating.year}}</strong>
