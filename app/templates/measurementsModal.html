@@ -6,7 +6,7 @@
 			<button class="button button-icon icon ion-ios-close-outline" ng-click="modal.hide()"></button>
 		</div>
 		<error-panel reload="reload" error="error"></error-panel>
-    	<ion-content class="has-header has-footer" ng-hide="errorOrInit" ng-class="{'noelements-scroll':!measurements.length}" delegate-handle="mainScroll">
+    	<ion-content class="has-header" ng-hide="errorOrInit" ng-class="{'noelements-scroll':!measurements.length}" delegate-handle="mainScroll">
 			<div class="card list" ng-repeat="measurement in measurements | orderBy:'-date'">
                 <div class="item item-divider">
                     <strong>{{measurement.date | date:'dd.MM.yyyy'}}</strong>

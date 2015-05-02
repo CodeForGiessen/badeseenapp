@@ -74,6 +74,6 @@ angular.module('badeseenApp').controller('LakeMapController',
         });
 
         $scope.$on('leafletDirectiveMarker.click',function(event,leafletEvent){
-            LakeModal.openModal(leafletEvent.markerName);
+            LakeModal.openModal(leafletEvent.modelName);
         });
     });
