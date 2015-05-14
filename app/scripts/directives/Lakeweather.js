@@ -45,7 +45,7 @@ angular.module('badeseenApp').directive('lakeWeather', ['WeatherData', '$window'
             });
             scope.openWeather = function(){
                 if(scope.weatherdata.openWeatherCityId && !scope.notClickable){
-                    $window.open('http://openweathermap.org/city/' + scope.weatherdata.openWeatherCityId, '_system');
+                   $window.open('http://openweathermap.org/city/' + scope.weatherdata.openWeatherCityId, '_system', 'location=yes');
                 }
             };
 
