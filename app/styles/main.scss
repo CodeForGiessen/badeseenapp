@@ -214,9 +214,14 @@
     @extend .simple-panel;
     background-color: white;
     .content {
-        img{
-            padding: 5px;
+        .thumb {
+            display: inline-block;
             width: 100%;
+            height: 100%;
+            background-position: center center;
+            background-size: cover;
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
         }
     }
 }
