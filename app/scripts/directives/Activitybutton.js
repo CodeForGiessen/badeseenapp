@@ -8,7 +8,12 @@ angular.module('badeseenApp').directive('activityButton', [function () {
         },
         link: function (scope, element, attrs) {
             scope.getImageSvg = function(){
-                return 'images/sport/' + scope.activity + '.svg';
+                return 'images/sport/' + scope.activity + '.png';
+            };
+            scope.getBackgroundStyle = function(){
+                return {
+                    'background-image':'url(' + scope.getImageSvg() + ')'
+                };
             };
         }
     };
