@@ -7,7 +7,7 @@ angular.module('badeseenApp').controller('LakeListController',
         $scope.init = true;
 
         $scope.sortKey = 'name';
-        $scope.sortText = 'KM';
+        $scope.sortText = 'ABC';
         $scope.distanceReady = false;
 
 
@@ -42,12 +42,12 @@ angular.module('badeseenApp').controller('LakeListController',
                     });
                 })
                 .catch(function(err){
-                	
+
                     if(err.PERMISSION_DENIED == 1){
                     	$ionicPopup.alert({
                     		title: 'GPS deaktiviert',
                     		template: 'Bitte aktivieren sie für die Kilometerangabe ihr GPS!'
-                    	})
+                    	});
                     }
                 });
             })
@@ -91,15 +91,15 @@ angular.module('badeseenApp').controller('LakeListController',
         $scope.toggleSort = function(){
             if($scope.sortKey === 'name'){
                 $scope.sortKey ='distance';
-                $scope.sortText = 'ABC';
+                $scope.sortText = 'KM';
             }else{
                 $scope.sortKey ='name';
-                $scope.sortText = 'KM';
+                $scope.sortText = 'ABC';
             }
         };
 
         $scope.getWeatherIcon = function(id) {
         	var iconId = $scope.weatherData[id].current.weather[0].icon;
         	return WeatherData.getWeatherIconClassById(iconId);
-        }
+        };
 	});
