@@ -18,10 +18,6 @@ angular.module('badeseenApp').controller('DashboardController',
             MessagesModal.openModal(lakeID);
         };
 
-        $scope.getDistance = function(lakeID) {
-            var currPosition = LocationUtils.getCurrentLocation().then(function(res){});
-        };
-
         var reload = function(){
             $ionicLoading.show();
 

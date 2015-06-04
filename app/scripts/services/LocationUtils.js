@@ -5,7 +5,7 @@ angular.module('badeseenApp').factory('LocationUtils',
         	return deg * (Math.PI/180);
         };
         //Distance calculation between two geo-coordinates with Haversine Algorithm
-        
+
         /**
          * [_distanceBetweeenCoords Distance calculation between two geo-coordinates with Haversine Algorithm]
          * @param {[Object]} pointa [TODO]
@@ -22,7 +22,7 @@ angular.module('badeseenApp').factory('LocationUtils',
         		Math.cos(_deg2rad(pointa.lat)) * Math.cos(_deg2rad(pointb.lat)) *
         		Math.sin(dLon/2) * Math.sin(dLon/2);
         	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        	var distance = radEarth * c; 
+        	var distance = radEarth * c;
         	return Math.round(distance);
         };
         var getCurrentLocation = function(highAcc){

@@ -42,12 +42,12 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
     //     url: '/lakes',
     //     abstract: true,
     //     templateUrl: 'templates/lakemenu.html'
-    // })    
+    // })
     .state('lake', {
         url: '/lakes/:id',
         templateUrl: 'templates/lake.html',
         controller: 'LakeController as lCtrl'
-    }); 
+    });
     $urlRouterProvider.otherwise('/intro');
     $ionicConfigProvider.tabs.position('top');
     })
