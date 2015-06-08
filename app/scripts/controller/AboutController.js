@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('AboutController',
-	function ($scope) {
+	function ($scope,$window) {
         $scope.contributors = [
         {name:'Christian Schulze',task:'Service'},
         {name:'Christian Heigele',task:'App-Prototyp'},
@@ -11,4 +11,12 @@ angular.module('badeseenApp').controller('AboutController',
         {name:'Julian Schmitt',task:'App'},
         {name:'Florian Kolb',task:'App'}
         ];
+        $scope.openLink =
+
+        $scope.openWeather = function(link){
+            if(link){
+                $window.open(link, '_system');
+            }
+        };
+
 	});

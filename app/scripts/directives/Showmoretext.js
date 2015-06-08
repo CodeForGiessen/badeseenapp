@@ -36,10 +36,12 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
                 }else{
                     scope.button.hide();
                 }
+
                 scope.content.html(text);
                 ionic.trigger('resize',{
                     target:'window'
                 });
+                $compile(scope.content)(scope);
             };
 
             scope.triggerCollapse = function(){
