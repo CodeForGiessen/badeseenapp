@@ -3,7 +3,7 @@
         <button ng-hide="error || init" class="button button-icon icon ion-ios-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
         <button ng-hide="error || init" class="button button-icon" ng-disabled="!distanceReady" ng-click="toggleSort()">{{sortText}}</button>
     </ion-nav-buttons>
-    <error-panel reload="reload" error="error"></error-panel>            
+    <error-panel reload="reload" error="error"></error-panel>
         <div class="search-bar item item-input-inset"
               ng-show="llCtrl.searchActive">
             <label class="item-input-wrapper">
@@ -17,31 +17,7 @@
                     ng-click="llCtrl.toggleSearch()">Abbrechen
             </button>
         </div>
-        <ion-content class="has-header setList" ng-hide="error || init" ng-switch-when="true">       
-        <ion-list>
-            <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey ) " ng-href="#/lakes/{{lake._id}}">
-                <div class="row">
-                    <div class="col col-90">
-                        <span class="positive" ng-show="lake.distance">
-                            {{lake.distance}} km
-                        </span>
-                        <p class="h3 dark">
-                            {{lake.name}}
-                        </p>
-                    </div>
-                    <div class="col">
-                        <br>
-                        <div class="weatherinfo">
-                            <i class="wi" ng-class="getWeatherIcon(lake._id)"></i>
-                            <strong>{{weatherData[lake._id].current.temp | number:1}} °C</strong>
-                        </div>
-                    </div>
-                    <!--<i class="badge badge-calm">{{lake.yearratings[0].rating}}</i> -->
-                </div>
-            </ion-item>
-        </ion-list>
-    </ion-content>
-    <ion-content class="has-header" ng-hide="error || init" ng-switch-when="false">       
+        <ion-content class="has-header" ng-class="{'setList':llCtrl.searchActive}" ng-hide="error || init">
         <ion-list>
             <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey ) " ng-href="#/lakes/{{lake._id}}">
                 <div class="row">
