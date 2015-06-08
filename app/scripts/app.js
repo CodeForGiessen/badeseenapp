@@ -38,6 +38,15 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
             }
         }
     })
+    .state('tabs.about', {
+        url: '/about',
+        views: {
+            'about-tab': {
+                templateUrl: 'templates/about.html',
+                controller: 'AboutController as aCtrl'
+            }
+        }
+    })
     // .state('lakes', {
     //     url: '/lakes',
     //     abstract: true,

@@ -11,12 +11,18 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
 
             scope.content = element.find('[show-more-text-content]');
             scope.button = element.find('[show-more-text-button]');
-
+            scope.input = element.find('[show-more-text-input]');
             scope.button.attr('ng-click', 'triggerCollapse()');
             $compile(scope.button)(scope);
 
+            scope.input.hide();
+            var getInputText = function(){
+                return scope.input.html();
+            };
+
             var reCalculate = function(){
-                var text = scope.showMoreText || '';
+                getInputText();
+                var text = scope.showMoreText || getInputText() || '';
                 var maxChars = scope.maxChars || 300;
                 if(text.length > scope.maxChars){
                     if(collapsed){
@@ -24,18 +30,19 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
                         text+= ' ...';
                         scope.button.text('mehr anzeigen');
                     }else{
-                        scope.content.text(text);
                         scope.button.text('weniger anzeigen');
                     }
                     scope.button.show();
                 }else{
                     scope.button.hide();
                 }
-                scope.content.text(text);
+                scope.content.html(text);
+                ionic.trigger('resize',{
+                    target:'window'
+                });
             };
 
-            scope.triggerCollapse = function(){ 
-                console.log('triggered');
+            scope.triggerCollapse = function(){
                 collapsed = !collapsed;
                 reCalculate();
 
@@ -49,7 +56,7 @@ angular.module('badeseenApp').directive('showMoreText', ['$compile',function ($c
                 if(value){
                     reCalculate();
                 }
-            });         
+            });
         }
     };
 }]);

@@ -1,6 +1,6 @@
 {
   "name": "Badeseenapp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {},
   "devDependencies": {
@@ -43,6 +43,7 @@
   "scripts": {
     "test": "grunt test"
   },
+  "license": "MIT",
   "cordovaPlugins": [
     "org.apache.cordova.console",
     "com.ionic.keyboard",
