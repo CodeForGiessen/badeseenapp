@@ -300,10 +300,13 @@
         text-align: center;
         opacity: 0.25;
         .noelements-icon{
+            font-size: 250px;
             font-size: 50vh;
         }
         .noelements-text{
+            font-size: 24px;
             font-size: 4vh;
+            line-height: 24px;
             line-height: 4vh;
         }
     }
@@ -341,11 +344,15 @@
         transform: translateY(-50%);
         text-align: center;
         opacity: 0.25;
+
         .error-icon{
+            font-size: 250px;
             font-size: 50vh;
         }
         .error-text{
+            font-size: 36px;
             font-size: 6vh;
+            line-height: 36px;
             line-height: 6vh;
         }
 
