@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('DashboardController',
-	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, $ionicPopup, WeatherData, MessagesData, MessagesModal, LocationUtils) {
+	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, $ionicPopup, WeatherData, MessagesData, MessagesModal, LocationUtils, AboutModal) {
     	$scope.favorites = [];
 
         $scope.error = false;
@@ -17,6 +17,10 @@ angular.module('badeseenApp').controller('DashboardController',
         $scope.openMessageModal = function(lakeID){
             MessagesModal.openModal(lakeID);
         };
+
+				$scope.openAboutModal = function(){
+					AboutModal.openModal();
+				};
 
         var reload = function(){
             $ionicLoading.show();
