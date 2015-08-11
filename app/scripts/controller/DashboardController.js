@@ -57,9 +57,12 @@ angular.module('badeseenApp').controller('DashboardController',
                     });
                 })
                 .catch(function(err){
-                    console.log(err);
-                    //TODO
-                    //Geo sensor disabled or not available
+                    if(err.PERMISSION_DENIED === 1){
+                        $ionicPopup.alert({
+                            title: 'GPS deaktiviert',
+                            template: 'Bitte aktivieren Sie für die Kilometerangabe Ihr GPS!'
+                        });
+                    }
                 });
             })
             .catch(function(err){
@@ -91,11 +94,11 @@ angular.module('badeseenApp').controller('DashboardController',
         })
         .then(function(res) {
             if(res) {
-               console.log('You are sure');
-               removeFavorite(lakeID);
-           } else {
-               console.log('You are not sure');
-           }
+                console.log('You are sure');
+                removeFavorite(lakeID);
+            } else {
+                console.log('You are not sure');
+            }
         });
        };
 

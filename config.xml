@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="de.codefor.giessen.Badeseenapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="de.codefor.giessen.Badeseenapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Badeseenapp</name>
   <description>
-        A sample Apache Cordova application that responds to the deviceready event.
-    </description>
-  <author email="dev@cordova.apache.org" href="http://codefor.de/giessen">
+  	Mit der Badeseenapp kannst du die hessischen Badeseen erkunden und wichtig Informationen wie Bakterienbelastung oder EU-Badeseebewertung abrufen.
+  </description>
+  <author email="vew-dev@posteo.de" href="http://codefor.de/giessen">
         Code for Germany - OK Lab Gießen
-    </author>
+  </author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="SplashScreen" value="screen"/>

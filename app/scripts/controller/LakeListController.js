@@ -46,7 +46,7 @@ angular.module('badeseenApp').controller('LakeListController',
                     if(err.PERMISSION_DENIED == 1){
                     	$ionicPopup.alert({
                     		title: 'GPS deaktiviert',
-                    		template: 'Bitte aktivieren sie für die Kilometerangabe ihr GPS!'
+                    		template: 'Bitte aktivieren Sie für die Kilometerangabe Ihr GPS!'
                     	});
                     }
                 });

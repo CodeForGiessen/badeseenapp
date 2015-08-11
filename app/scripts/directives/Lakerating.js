@@ -8,7 +8,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             case 1:
             stars = 3;
             icon = 'fa-smile-o';
-            buttonclass = 'button-balanced';
+            buttonclass = 'button-positive';
 
             break;
             case 2:
@@ -18,7 +18,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
             break;
             case 3:
             stars = 1;
-            icon = 'fa-meh-o';                    
+            icon = 'fa-meh-o';
             buttonclass = 'button-energized';
             break;
             case 4:
@@ -86,7 +86,7 @@ angular.module('badeseenApp').directive('lakeRating', ['$window','RatingModal', 
 
             scope.$watch('lake',changed);
             scope.$watch('year', changed);
-            
+
 
             scope.openModal = function(){
                 if(scope.lake && !scope.notClickable){
