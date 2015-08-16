@@ -19,11 +19,27 @@
         </div>
         <ion-content class="has-header" ng-class="{'setList':llCtrl.searchActive}" ng-hide="error || init">
         <ion-list>
+            <ion-item ng-show="locationmiss">
+                <div class="row">
+                    <div class="col gps-card" ng-click="reloadLocation()">
+                        <center>
+                        GPS nicht verfügbar<br>
+                        Antippen um es noch einmal zu versuchen
+                        </center>
+                    </div>
+                </div>
+            </ion-item>
             <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey ) " ng-href="#/lakes/{{lake._id}}">
                 <div class="row">
                     <div class="col col-90">
                         <span class="positive" ng-show="lake.distance">
                             {{lake.distance}} km
+                        </span>
+                        <span class="positive" ng-hide="lake.distance || locationmiss">
+                            <ion-spinner class="no-dist-spin-list"></ion-spinner>
+                        </span>
+                        <span class="positive" ng-show="locationmiss && !lake.distance">
+                            GPS?
                         </span>
                         <p class="h3 dark">
                             {{lake.name}}

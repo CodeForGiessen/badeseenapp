@@ -4,7 +4,8 @@ angular.module('badeseenApp').directive('lakeDistance', ['WeatherData', '$window
         templateUrl: 'templates/lake-distance.html',
         restrict: 'E',
         scope: {
-            distance: '=distance',
+            distance: '=',
+            gpsmiss: '='
         },
         link: function (scope, element, attrs) {
             if (!scope.data){

@@ -5,11 +5,31 @@ angular.module('badeseenApp').controller('LakeListController',
 		$scope.weatherData = [];
         $scope.error = false;
         $scope.init = true;
+        $scope.locationmiss = false;
+
 
         $scope.sortKey = 'name';
         $scope.sortText = 'ABC';
         $scope.distanceReady = false;
 
+
+        var reloadLocation = function(){
+            $scope.locationmiss = false;
+            LocationUtils
+                .getCurrentLocation(false)
+                .then(function(currentPos){
+                    $scope.distanceReady = true;
+                    $scope.lakes.forEach(function(lake){
+                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
+                            lat: lake.latitude,
+                            lng: lake.longitude
+                        },currentPos);
+                    });
+                })
+                .catch(function(err){
+                    $scope.locationmiss = true;
+                });
+        };
 
         var reload = function(){
             $ionicLoading.show();
@@ -30,26 +50,7 @@ angular.module('badeseenApp').controller('LakeListController',
                     $scope.init = false;
                 });
 
-                LocationUtils
-                .getCurrentLocation(false)
-                .then(function(currentPos){
-                    $scope.distanceReady = true;
-                    $scope.lakes.forEach(function(lake){
-                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
-                            lat: lake.latitude,
-                            lng: lake.longitude
-                        },currentPos);
-                    });
-                })
-                .catch(function(err){
-
-                    if(err.PERMISSION_DENIED == 1){
-                    	$ionicPopup.alert({
-                    		title: 'GPS deaktiviert',
-                    		template: 'Bitte aktivieren Sie für die Kilometerangabe Ihr GPS!'
-                    	});
-                    }
-                });
+                $scope.reloadLocation();
             })
             .catch(function(err){
                 console.log(err);
@@ -65,6 +66,7 @@ angular.module('badeseenApp').controller('LakeListController',
             });
         };
         $scope.reload = reload;
+        $scope.reloadLocation = reloadLocation;
 
         $scope.$on('$ionicView.enter', reload);
 

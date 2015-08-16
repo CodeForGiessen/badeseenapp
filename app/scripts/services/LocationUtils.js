@@ -31,7 +31,8 @@ angular.module('badeseenApp').factory('LocationUtils',
         	}
         	return $cordovaGeolocation
         	.getCurrentPosition ({
-				enableHighAccuracy: highAcc
+				enableHighAccuracy: highAcc,
+                timeout: 30000
 			})
         	.then(function (position) {
         		return {

@@ -1,17 +1,24 @@
  <button ng-disabled="notClickable" class="button distance-panel" ng-class="buttonclass" ng-click="openMaps()">
     <div class="content">
         <div class="top">
-            <span ng-hide="hasDistance">
+            <span ng-hide="hasDistance || gpsmiss">
                 <ion-spinner id="no-dist-spin"></ion-spinner>
             </span>
             <span ng-show="hasDistance">
                 <i class="fa fa-globe"></i>
             </span>
+            <span ng-show="gpsmiss" class="fa-stack">
+                <i class="fa fa-globe fa-stack-1x stack-bot"></i>
+                <i class="fa fa-question fa-stack-1x stack-top"></i>
+            </span>
         </div>
         <div class="bottom">
-        <span ng-show="hasDistance">{{ distance }} km</span>
-        <span ng-hide="hasDistance" style="font-size: large;">
-        <div id="load-dist"> Lade <br/>Entfernungen </div>
+        <span ng-show="hasDistance && !gpsmiss">{{ distance }} km</span>
+        <span ng-hide="hasDistance || gpsmiss" style="font-size: large;">
+            <div id="load-dist"> Lade <br/>Entfernungen </div>
+        </span>
+        <span ng-show="gpsmiss" style="font-size: large;">
+            <div id="load-dist"> GPS <br/>nicht verfügbar </div>
         </span>
         </div>
     </div>

@@ -179,6 +179,7 @@
         .top{
             position: absolute;
             width: 100%;
+            overflow: hidden;
         }
         .bottom{
             position: absolute;
@@ -369,6 +370,13 @@
   fill: #444;
 }
 
+.no-dist-spin-list svg {
+  width: 15px;
+  height: 15px;
+  // stroke: #444;
+  // fill: #444;
+}
+
 #load-dist {
     line-height: 1em;
     font-weight: bold;
@@ -400,3 +408,23 @@
         }
     }
 }
+
+
+//GPS not avaliable
+//
+.gps-card{
+    height: 60px;
+    line-height: 30px;
+    opacity: 0.25;
+
+}
+
+.stack-bot{
+    line-height: initial !important;
+    opacity: 0.5;
+}
+
+.stack-top{
+    line-height: initial !important;
+}
+

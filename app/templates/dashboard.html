@@ -8,9 +8,22 @@
     </ion-nav-buttons> -->
     <error-panel reload="reload" error="error"></error-panel>
 
+
+
     <!-- Due to an angular bug an expression like error || init does not work every time -->
     <ion-content class="has-header dashboard" ng-class="{'noelements-scroll':!favorites.length}" ng-hide="error || init">
+        <div class="row row-with-cards"  ng-show="locationmiss">
+            <div class="col" >
+                <div class="card gps-card" ng-click="reloadLocation()">
+                    <center>
+                    GPS nicht verfügbar<br>
+                    Antippen um es noch einmal zu versuchen
+                    </center>
+                </div>
+            </div>
+        </div>
         <div class="row responsive-md row-with-cards" ng-repeat="row in rows">
+
             <div class="col col-50" ng-repeat="lake in row">
                 <div class="card">
                     <div class="item item-divider">
@@ -29,15 +42,8 @@
                         </center>
                     </div>
                     <div class="item even-panel">
-
-<!--                         <div class="lake-distance">
-                            <div class="distance"> {{  }} </div>
-                            <span class="unit"> Km </span>
-                        </div>
- -->
-                        <lake-distance class="weather-btn" distance="lake.distance" not-clickable></lake-distance>
+                        <lake-distance class="weather-btn" distance="lake.distance" not-clickable gpsmiss="locationmiss"></lake-distance>
                         <lake-weather class="weather-btn" weatherdata="weather[lake._id]"></lake-weather>
-
                     </div>
                 </div>
             </div>

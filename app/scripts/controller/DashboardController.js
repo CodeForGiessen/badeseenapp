@@ -2,9 +2,9 @@
 angular.module('badeseenApp').controller('DashboardController',
 	function ($scope, FavData, LakeData, $q, $state, $ionicLoading, $timeout, $ionicPopup, WeatherData, MessagesData, MessagesModal, LocationUtils, AboutModal) {
     	$scope.favorites = [];
-
         $scope.error = false;
         $scope.init = true;
+        $scope.locationmiss = false;
 
         var chunk = function(arr, size) {
             var newArr = [];
@@ -18,9 +18,26 @@ angular.module('badeseenApp').controller('DashboardController',
             MessagesModal.openModal(lakeID);
         };
 
-				$scope.openAboutModal = function(){
-					AboutModal.openModal();
-				};
+		$scope.openAboutModal = function(){
+			AboutModal.openModal();
+		};
+
+        var reloadLocation = function(){
+            $scope.locationmiss = false;
+            LocationUtils
+                .getCurrentLocation(false)
+                .then(function(currentPos){
+                    $scope.favorites.forEach(function(lake){
+                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
+                            lat: lake.latitude,
+                            lng: lake.longitude
+                        },currentPos);
+                    });
+                })
+                .catch(function(err){
+                    $scope.locationmiss = true;
+                });
+        };
 
         var reload = function(){
             $ionicLoading.show();
@@ -46,27 +63,9 @@ angular.module('badeseenApp').controller('DashboardController',
                     $scope.init = false;
                 });
 
-                LocationUtils
-                .getCurrentLocation(false)
-                .then(function(currentPos){
-                    $scope.favorites.forEach(function(lake){
-                        lake.distance = LocationUtils.getDistanceFromPointToPoint({
-                            lat: lake.latitude,
-                            lng: lake.longitude
-                        },currentPos);
-                    });
-                })
-                .catch(function(err){
-                    if(err.PERMISSION_DENIED === 1){
-                        $ionicPopup.alert({
-                            title: 'GPS deaktiviert',
-                            template: 'Bitte aktivieren Sie für die Kilometerangabe Ihr GPS!'
-                        });
-                    }
-                });
+                $scope.reloadLocation();
             })
             .catch(function(err){
-                console.log(err);
                 $scope.error = true;
             })
             .finally(function(){
@@ -80,6 +79,7 @@ angular.module('badeseenApp').controller('DashboardController',
         };
 
         $scope.reload = reload;
+        $scope.reloadLocation = reloadLocation;
 
         $scope.$on('$ionicView.enter', reload);
 
@@ -91,16 +91,13 @@ angular.module('badeseenApp').controller('DashboardController',
         $scope.showConfirm = function(lakeID) {
             $ionicPopup.confirm({
                 title: 'Favorit entfernen',
-        })
-        .then(function(res) {
-            if(res) {
-                console.log('You are sure');
-                removeFavorite(lakeID);
-            } else {
-                console.log('You are not sure');
-            }
-        });
-       };
+            })
+            .then(function(res) {
+                if(res) {
+                    removeFavorite(lakeID);
+                }
+            });
+        };
 
         var removeFavorite = function (lakeID) {
             FavData.remove(lakeID);
