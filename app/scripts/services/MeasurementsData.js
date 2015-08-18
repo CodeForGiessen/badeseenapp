@@ -33,7 +33,14 @@ angular.module('badeseenApp').factory('MeasurementsData',['$q', 'ENV', '$http', 
 		 	return KeyCache.get(option);
 		};
 
-		
+		var sortMeasurements = function(measurements){
+			measurements.sort(function(a,b){
+				return new Date(b.date) - new Date(a.date);
+			});
+			return measurements;
+		};
+
+
 
 		var service = {
 			/**
@@ -49,21 +56,15 @@ angular.module('badeseenApp').factory('MeasurementsData',['$q', 'ENV', '$http', 
 			 * @return {[Object]} [Measurement object]
 			 */
 			getLatestMeasurement: function(measurements){
-				measurements.sort(function(a,b){
-					return a.date - b.date;
-				});
+				measurements = sortMeasurements(measurements);
+				console.log(measurements);
 				if(measurements.length){
 					return measurements[0];
 				}else{
 					return undefined;
 				}
 			},
-			sortMeasurements: function(measurements){
-				measurements.sort(function(a,b){
-					return a.date - b.date;
-				});
-				return measurements;
-			},
+			sortMeasurements: sortMeasurements,
 			/**
 			 * [getMeasurementRatingAsText Returns the measurement rating as text]
 			 * @param {[Object]} measurement [measurement]
@@ -75,7 +76,7 @@ angular.module('badeseenApp').factory('MeasurementsData',['$q', 'ENV', '$http', 
 					return 'Keine Beanstandung';
 					case 2:
 					return 'Vom Baden wird abgeraten';
-					case 3: 
+					case 3:
 					return 'Badesee gesperrt';
 					default:
 					return 'Probe unbewertet';

@@ -1,6 +1,6 @@
 'use strict';
 angular.module('badeseenApp').controller('LakeMapController',
-	function ($scope, LakeData, leafletData, $ionicModal, LakeModal, $ionicLoading,$timeout) {
+	function ($scope, LakeData, leafletData, $ionicModal, LakeModal, $ionicLoading,$timeout,$http) {
         $scope.lakes = [];
         $scope.markers = {};
         $scope.error = false;
@@ -14,7 +14,8 @@ angular.module('badeseenApp').controller('LakeMapController',
                 lakes.forEach(function(item) {
                     var marker = {
                         lat: parseFloat(item.latitude),
-                        lng: parseFloat(item.longitude)
+                        lng: parseFloat(item.longitude),
+                        group: 'hesse'
                     };
                     markers[item._id] = marker;
                 });
@@ -48,15 +49,17 @@ angular.module('badeseenApp').controller('LakeMapController',
 
 
         $scope.center ={
-            'lat': 50.583732,
-            'lng': 8.678344,
+            'lat': 50.5264091,
+            'lng': 9.0043941,
             'zoom': 8
         };
 
         $scope.defaults = {
-            tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            // tileLayer: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            tileLayer: 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
             tileLayerOptions: {
-                attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_system\');return false;">OpenStreetMap</a>',
+                // attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_system\');return false;">OpenStreetMap</a>',
+                attribution:'© <a href="#" onClick="window.open(\'http://www.openstreetmap.org/copyright\',\'_system\');return false;">OpenStreetMap</a>, © <a href="#" onClick="window.open(\'http://cartodb.com/attributions\',\'_system\');return false;">CartoDB</a>',
                 detectRetina: true,
                 reuseTiles: true
             },
@@ -71,6 +74,20 @@ angular.module('badeseenApp').controller('LakeMapController',
         leafletData.getMap()
         .then(function(map){
             map.attributionControl.setPrefix('<a href="#" onClick="window.open(\'http://leafletjs.com\',\'_system\');return false;">Leaflet</a>');
+            // map.attributionControl.setPosition('topleft');
+            $http.get('scripts/controller/hesse_border.geo.json').success(function(data) {
+                L.geoJson(data,{ //jshint ignore:line
+                    style: {
+                        fillColor: '#0C63EE',
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        fillOpacity: 0.25
+                    },
+                    invert:true
+                }).addTo(map);
+            });
+
         });
 
         $scope.$on('leafletDirectiveMarker.click',function(event,leafletEvent){
