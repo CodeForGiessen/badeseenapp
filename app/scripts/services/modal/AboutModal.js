@@ -1,7 +1,7 @@
 'use strict';
 angular.module('badeseenApp')
 .factory('AboutModal',
-	function ($rootScope, $ionicModal, $ionicLoading, $timeout, $ionicScrollDelegate, $window) {
+	function ($rootScope, $ionicModal, $ionicLoading, $timeout, $ionicScrollDelegate, $window, $ionicPopup) {
         var scope = $rootScope.$new();
         $ionicModal.fromTemplateUrl('templates/aboutModal.html', {
            animation: 'slide-in-up',
@@ -16,7 +16,7 @@ angular.module('badeseenApp')
         {name:'Christian Heigele',task:'App-Prototyp'},
         {name:'Prof. Dr. Martin Przewloka',task:'Kommunikation mit dem HLUG und Organisation'},
         {name:'Marco Schäfer',task:'App'},
-        {name:'Vincent Elliott Wagner',task:'Service, App und Organistation'},
+        {name:'Vincent Elliott Wagner',task:'Service, App und Organisation'},
         {name:'Katharina Dort',task:'App'},
         {name:'Julian Schmitt',task:'App'},
         {name:'Florian Kolb',task:'App'}
@@ -30,26 +30,27 @@ angular.module('badeseenApp')
             }
         };
 
+				scope.sendMail =
+
         scope.mailFunc = function (){
+					if (window.cordova && cordova.plugins.email) {
 
-          if (window.cordova && cordova.plugins.email) {
-
-            cordova.plugins.email.open({
-                    to: 'helmut.weinberger@hlug.hessen.de',
-                    subject: '',
-                    body: ''
-                });
-            } else {
-                $ionicPopup.alert({
-                    title: 'Info',
-                    template: 'Keine Email-Unterstützung!',
-                    buttons: [{
-                        text: 'Schließen',
-                        type: 'button-positive'
-                    }]
-                });
-            }
-        };
+							 cordova.plugins.email.open({
+									 to: 'msfr-dev@posteo.de',
+									 subject: 'Badeseenapp',
+									 body: ''
+							 });
+					 } else {
+							 $ionicPopup.alert({
+									 title: 'Info',
+									 template: 'Keine Email-Unterstützung!',
+									 buttons: [{
+											 text: 'Schließen',
+											 type: 'button-positive'
+									 }]
+							 });
+					 }
+			 };
 
         return {
           openModal : function(){

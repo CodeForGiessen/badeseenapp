@@ -11,9 +11,10 @@
 		<div class="item item-divider">
 			<strong>Impressum</strong>
 		</div>
-		<div class="item item-body" show-more-text max-chars="250">
+		<!--<div class="item item-body" show-more-text max-chars="250">
 			<span show-more-text-content></span>
-			<span show-more-text-input class="impressum">
+			<span show-more-text-input class="impressum">-->
+			<div class="item item-body">
 				<p>Angaben gemäß § 5 TMG</p>
 				<p>Marco Schäfer, Vincent Wagner, Martin Przewloka<br>
 					Löberstraße 6a<br>
@@ -24,7 +25,8 @@
 				</p>
 				<p><strong>Kontakt:</strong> <br>
 					Telefon: 0170-2362791<br>
-					E-Mail: <a href='mailto:max@muster.de'>msfr-dev@posteo.de</a>
+				<!--E-Mail: <button class="ion-paper-airplane" ng-click="sendMail()"></button>-->
+					E-Mail: <a href='javascript:void(0);' ng-click="sendMail()">msfr-dev@posteo.de</a>
 				</p>
 				<p><strong>Haftungsausschluss und Datenschutzerklärung: </strong><br><br><strong>Haftung für Inhalte</strong>
 					<p>
@@ -67,8 +69,8 @@
 						</p>
 
 					</p>
-				</span>
-				<a show-more-text-button href="javascript:void(0);"></a>
+				<!--</span>
+				<a show-more-text-button href="javascript:void(0);"></a>-->
 			</div>
 		</div>
 		<div class="card">
@@ -105,9 +107,9 @@
 				<div class="item item-divider">
 					<strong>Lizenz und Quellcode</strong>
 				</div>
-				<div class="item item-body" show-more-text max-chars="250">
-					<span show-more-text-content></span>
-					<span show-more-text-input>
+				<div class="item item-body" >
+					<!--<span show-more-text-content></span>
+					<span show-more-text-input>-->
 						<p>
 							<strong>The MIT License (MIT)</strong>
 							<p>
@@ -129,8 +131,8 @@
 											Service: <a href="javascript:void(0);" ng-click="openLink('https://github.com/CodeForGiessen/badeseenservice')">BadeseenService</a>
 											<br> App: <a href="javascript:void(0);" ng-click="openLink('https://github.com/CodeForGiessen/badeseenapp')">BadeseenApp</a>
 										</p>
-									</span>
-									<a show-more-text-button href="javascript:void(0);"></a>
+									<!--</span>
+									<a show-more-text-button href="javascript:void(0);"></a>-->
 								</div>
 							</div>
 						</ion-content>

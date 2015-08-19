@@ -51,7 +51,8 @@
     "org.apache.cordova.inappbrowser",
     "org.apache.cordova.geolocation",
     "org.apache.cordova.splashscreen",
-    "http://git.apache.org/cordova-plugin-inappbrowser.git"
+    "http://git.apache.org/cordova-plugin-inappbrowser.git",
+    "https://github.com/katzer/cordova-plugin-email-composer.git"
   ],
   "cordovaPlatforms": [
     "android"
