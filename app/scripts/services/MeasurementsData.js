@@ -57,7 +57,6 @@ angular.module('badeseenApp').factory('MeasurementsData',['$q', 'ENV', '$http', 
 			 */
 			getLatestMeasurement: function(measurements){
 				measurements = sortMeasurements(measurements);
-				console.log(measurements);
 				if(measurements.length){
 					return measurements[0];
 				}else{

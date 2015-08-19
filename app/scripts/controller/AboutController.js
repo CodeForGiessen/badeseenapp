@@ -6,7 +6,7 @@ angular.module('badeseenApp').controller('AboutController',
         {name:'Christian Heigele',task:'App-Prototyp'},
         {name:'Prof. Dr. Martin Przewloka',task:'Kommunikation mit dem HLUG und Organisation'},
         {name:'Marco Schäfer',task:'App'},
-        {name:'Vincent Elliott Wagner',task:'Service, App und Organistation'},
+        {name:'Vincent Elliott Wagner',task:'Service, App und Organisation'},
         {name:'Katharina Dort',task:'App'},
         {name:'Julian Schmitt',task:'App'},
         {name:'Florian Kolb',task:'App'}

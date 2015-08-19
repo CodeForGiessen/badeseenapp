@@ -44,29 +44,30 @@ module.exports = function (grunt) {
           ENV: {
             name: 'development',
             // apiEndpoint: 'http://192.168.2.152:7650/api/v1',
-            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            // apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            apiEndpoint: 'http://smeeter.net:7650/api/v1',
             requestTimeout: 60000,
+            cachesMaxAge:{
+              //4 days
+              lakes: 345600000,
+              //2 hours
+              weather: 7200000,
+              //2 hours
+              messages: 7200000,
+              //1 week
+              measurements: 604800000
+            }
+            // // all caches set to 1 minute
             // cachesMaxAge:{
             //   //1 week
-            //   lakes: 604800000,
+            //   lakes: 60000,
             //   //2 hours
-            //   weather: 7200000,
+            //   weather: 60000,
             //   //2 hours
-            //   messages: 7200000,
+            //   messages: 60000,
             //   //1 week
-            //   measurements: 604800000
+            //   measurements: 60000
             // }
-            // all caches set to 1 minute
-            cachesMaxAge:{
-              //1 week
-              lakes: 60000,
-              //2 hours
-              weather: 60000,
-              //2 hours
-              messages: 60000,
-              //1 week
-              measurements: 60000
-            }
           }
         }
       },
@@ -74,29 +75,30 @@ module.exports = function (grunt) {
         constants: {
           ENV: {
             name: 'production',
-            apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
-            requestTimeout: 30000,
+            // apiEndpoint: 'http://badeseen.andinfinity.de/api/v1',
+            apiEndpoint: 'http://smeeter.net:7650/api/v1',
+            requestTimeout: 60000,
+            cachesMaxAge:{
+              //4 days
+              lakes: 345600000,
+              //2 hours
+              weather: 7200000,
+              //2 hours
+              messages: 7200000,
+              //1 week
+              measurements: 604800000
+            }
+            // all caches set to 1 minute
             // cachesMaxAge:{
             //   //1 week
-            //   lakes: 604800000,
+            //   lakes: 60000,
             //   //2 hours
-            //   weather: 7200000,
+            //   weather: 60000,
             //   //2 hours
-            //   messages: 7200000,
+            //   messages: 60000,
             //   //1 week
-            //   measurements: 604800000
+            //   measurements: 60000
             // }
-            // all caches set to 1 minute
-            cachesMaxAge:{
-              //1 week
-              lakes: 60000,
-              //2 hours
-              weather: 60000,
-              //2 hours
-              messages: 60000,
-              //1 week
-              measurements: 60000
-            }
           }
         }
       }

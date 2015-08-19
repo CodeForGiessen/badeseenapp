@@ -2,6 +2,6 @@
 
  angular.module('config', [])
 
-.constant('ENV', {name:'development',apiEndpoint:'http://badeseen.andinfinity.de/api/v1',requestTimeout:60000,cachesMaxAge:{lakes:60000,weather:60000,messages:60000,measurements:60000}})
+.constant('ENV', {name:'development',apiEndpoint:'http://smeeter.net:7650/api/v1',requestTimeout:60000,cachesMaxAge:{lakes:345600000,weather:7200000,messages:7200000,measurements:604800000}})
 
 ;

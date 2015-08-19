@@ -20,7 +20,6 @@ angular.module('badeseenApp')
 
                 var reload = function(){
                     $ionicLoading.show();
-                    console.log(lakeId);
                     $q.all([
                         LakeData.getById(lakeId),
                         WeatherData.getById(lakeId),
