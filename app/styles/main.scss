@@ -265,13 +265,17 @@
 /**
  * Rating modal
  */
-.rating-modal{
-    .euimage{
-        width: 100%;
+ .rating-modal{
+    .rating-body{
+        overflow-y:hidden;
+        .euimage{
+            width: 100%;
+        }
+        .text{
+            padding-left: 5px;
+        }
     }
-    .text{
-        padding-left: 5px;
-    }
+
 }
 
 /**
@@ -426,4 +430,5 @@
 .stack-top{
     line-height: initial !important;
 }
+
 

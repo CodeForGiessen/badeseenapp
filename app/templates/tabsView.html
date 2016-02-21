@@ -1,18 +1,13 @@
-<ion-nav-bar class="bar-positive">
-</ion-nav-bar>
 <ion-view>
-    <ion-tabs class="tabs-striped tabs-background tabs-positive">
-        <ion-tab title="Favoriten" href="#/tab/dashboard">
+    <ion-tabs class="tabs-striped tabs-background tabs-positive" >
+        <ion-tab title="Favoriten" ui-sref="tabs.dash">
             <ion-nav-view name="dash-tab"></ion-nav-view>
         </ion-tab>
-        <ion-tab title="Karte" href="#/tab/lakeMap">
+        <ion-tab title="Karte" ui-sref="tabs.lakeMap">
             <ion-nav-view name="map-tab"></ion-nav-view>
         </ion-tab>
-        <ion-tab title="Liste" href="#/tab/lakeList">
+        <ion-tab title="Liste" ui-sref="tabs.lakeList">
             <ion-nav-view name="list-tab"></ion-nav-view>
         </ion-tab>
-        <!-- <ion-tab title="About" href="#/tab/about">
-            <ion-nav-view name="about-tab"></ion-nav-view>
-        </ion-tab> -->
     </ion-tabs>
 </ion-view>

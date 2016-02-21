@@ -1,4 +1,14 @@
 <ion-view title="Liste">
+            <ion-item ng-show="locationmiss">
+                <div class="row">
+                    <div class="col gps-card" ng-click="reloadLocation()">
+                        <center>
+                        GPS nicht verfügbar<br>
+                        Antippen, um es noch einmal zu versuchen
+                        </center>
+                    </div>
+                </div>
+            </ion-item>
     <ion-nav-buttons side="right">
         <button ng-hide="error || init" class="button button-icon icon ion-ios-search" ng-click="llCtrl.toggleSearch()" ng-hide="llCtrl.searchActive" href="#"></button>
         <button ng-hide="error || init" class="button button-icon" ng-disabled="!distanceReady" ng-click="toggleSort()">{{sortText}}</button>
@@ -17,8 +27,9 @@
                     ng-click="llCtrl.toggleSearch()">Abbrechen
             </button>
         </div>
-        <ion-content class="has-header" ng-class="{'setList':llCtrl.searchActive}" ng-hide="error || init">
-        <ion-list>
+         <!-- ng-class="{'setList':llCtrl.searchActive}" -->
+        <ion-content class="has-header" ng-hide="error || init">
+        <div class="list">
             <ion-item ng-show="locationmiss">
                 <div class="row">
                     <div class="col gps-card" ng-click="reloadLocation()">
@@ -29,17 +40,11 @@
                     </div>
                 </div>
             </ion-item>
-            <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey ) " ng-href="#/lakes/{{lake._id}}">
+            <ion-item ng-repeat="lake in filteresLakes = (lakes | filter:{name: llCtrl.searchQuery} | orderBy:sortKey )" ui-sref="lake({id: lake._id})">
                 <div class="row">
                     <div class="col col-90">
                         <span class="positive" ng-show="lake.distance">
                             {{lake.distance}} km
-                        </span>
-                        <span class="positive" ng-hide="lake.distance || locationmiss">
-                            <ion-spinner class="no-dist-spin-list"></ion-spinner>
-                        </span>
-                        <span class="positive" ng-show="locationmiss && !lake.distance">
-                            GPS?
                         </span>
                         <p class="h3 dark">
                             {{lake.name}}
@@ -52,9 +57,8 @@
                             <strong>{{weatherData[lake._id].current.temp | number:1}} °C</strong>
                         </div>
                     </div>
-                    <!--<i class="badge badge-calm">{{lake.yearratings[0].rating}}</i> -->
                 </div>
-            </ion-item>
-        </ion-list>
+            <!-- </ion-item> -->
+        </div>
     </ion-content>
 </ion-view>

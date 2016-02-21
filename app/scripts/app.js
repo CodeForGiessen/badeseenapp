@@ -9,7 +9,8 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
     .state('tabs', {
         url: '/tab',
         abstract: true,
-        templateUrl: 'templates/tabsView.html'
+        templateUrl: 'templates/tabsView.html',
+
     })
     .state('tabs.dash', {
         url: '/dashboard',
@@ -38,29 +39,28 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
             }
         }
     })
-    // .state('tabs.about', {
-    //     url: '/about',
-    //     views: {
-    //         'about-tab': {
-    //             templateUrl: 'templates/about.html',
-    //             controller: 'AboutController as aCtrl'
-    //         }
-    //     }
-    // })
-    // .state('lakes', {
-    //     url: '/lakes',
-    //     abstract: true,
-    //     templateUrl: 'templates/lakemenu.html'
-    // })
+
+
     .state('lake', {
-        url: '/lakes/:id',
-        templateUrl: 'templates/lake.html',
-        controller: 'LakeController as lCtrl'
+        url: '/lake/:id',
+        views: {
+          '@': {
+            templateUrl: 'templates/lake.html',
+            controller: 'LakeController as lCtrl'
+            }
+        }
     });
     $urlRouterProvider.otherwise('/intro');
     $ionicConfigProvider.tabs.position('top');
+
+
+
     })
-    .run(function($ionicPlatform) {
+    .run(function($ionicPlatform,$rootScope) {
+        $rootScope.$on('$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams, options){
+                console.log(fromState.name + '->' + toState.name + JSON.stringify(toParams));
+            });
         $ionicPlatform.ready(function() {
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
