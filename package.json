@@ -1,9 +1,8 @@
 {
   "name": "Badeseenapp",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "private": true,
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "cordova": "~6.0.0",
     "elementtree": "0.1.6",
@@ -27,7 +26,7 @@
     "grunt-ng-constant": "^1.1.0",
     "grunt-usemin": "~3.0.0",
     "grunt-wiredep": "^2.0.0",
-    "ionic": "^1.5.0",
+    "ionic": "^1.7.14",
     "jshint-stylish": "~2.0.0",
     "karma": "^0.13.21",
     "load-grunt-tasks": "~3.2.0",
@@ -54,7 +53,8 @@
     "org.apache.cordova.geolocation",
     "org.apache.cordova.splashscreen",
     "http://git.apache.org/cordova-plugin-inappbrowser.git",
-    "https://github.com/katzer/cordova-plugin-email-composer.git"
+    "https://github.com/katzer/cordova-plugin-email-composer.git",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [
     "android"

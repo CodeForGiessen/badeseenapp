@@ -27,8 +27,7 @@
                     ng-click="llCtrl.toggleSearch()">Abbrechen
             </button>
         </div>
-         <!-- ng-class="{'setList':llCtrl.searchActive}" -->
-        <ion-content class="has-header" ng-hide="error || init">
+        <ion-content class="has-header" ng-class="{'setList':llCtrl.searchActive}" ng-hide="error || init">
         <div class="list">
             <ion-item ng-show="locationmiss">
                 <div class="row">

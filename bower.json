@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
     "ionic": "~1.2.4",
-    "ngCordova": "=0.1.17-alpha",
+    "ngCordova": "^0.1.24-alpha",
     "angular-leaflet-directive": "~0.10.0",
     "font-awesome": "~4.5.0",
     "angular-cache": "~4.5.0",

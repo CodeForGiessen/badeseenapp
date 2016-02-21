@@ -57,10 +57,6 @@ angular.module('badeseenApp', ['ionic','config', 'leaflet-directive', 'ngCordova
 
     })
     .run(function($ionicPlatform,$rootScope) {
-        $rootScope.$on('$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams, options){
-                console.log(fromState.name + '->' + toState.name + JSON.stringify(toParams));
-            });
         $ionicPlatform.ready(function() {
             if(window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
